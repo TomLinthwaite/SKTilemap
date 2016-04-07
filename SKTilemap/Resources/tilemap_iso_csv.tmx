@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="8" height="8" tilewidth="32" tileheight="32" nextobjectid="3">
+ <properties>
+  <property name="map prop" value="map prop"/>
+ </properties>
+ <tileset firstgid="1" name="tileset" tilewidth="32" tileheight="16" tilecount="2" columns="0">
+  <tileoffset x="2" y="0"/>
+  <properties>
+   <property name="tileset 1 prop" value="tileset 1 prop"/>
+  </properties>
+  <tile id="10">
+   <properties>
+    <property name="tileset 1 tile 1 prop" value="tileset 1 tile 1 prop"/>
+   </properties>
+   <image width="32" height="16" source="tileset.atlas/dirt.png"/>
+  </tile>
+  <tile id="11">
+   <properties>
+    <property name="tileset 1 tile 2 prop" value="tileset 1 tile 2 prop"/>
+   </properties>
+   <image width="32" height="16" source="tileset.atlas/grass.png"/>
+  </tile>
+ </tileset>
+ <tileset firstgid="13" name="tileset 2" tilewidth="32" tileheight="16" tilecount="2" columns="0">
+  <tile id="0">
+   <image width="32" height="16" source="tileset.atlas/sand.png"/>
+  </tile>
+  <tile id="1">
+   <image width="32" height="16" source="tileset.atlas/water.png"/>
+  </tile>
+ </tileset>
+ <tileset firstgid="15" name="sprite sheet" tilewidth="32" tileheight="32" spacing="1" margin="1" tilecount="48" columns="8">
+  <image source="tmw_desert_spacing.png" width="265" height="199"/>
+  <tile id="36">
+   <properties>
+    <property name="sprite sheet prop" value="sprite sheet prop"/>
+   </properties>
+  </tile>
+ </tileset>
+ <layer name="Tile Layer 1" width="8" height="8">
+  <properties>
+   <property name="layer prop" value="layer prop"/>
+  </properties>
+  <data encoding="base64">
+   DAAAAAwAAAAMAAAADAAAAAwAAAAMAAAADAAAAAsAAAAMAAAADAAAAAwAAAAMAAAADAAAAAwAAAALAAAACwAAAAwAAAAMAAAADAAAAAwAAAAMAAAACwAAAAsAAAAMAAAADAAAAAwAAAAMAAAADAAAAAsAAAAMAAAADAAAAAwAAAAMAAAADAAAAAwAAAALAAAADAAAAAwAAAAMAAAADAAAAAwAAAAMAAAACwAAAAwAAAAMAAAADAAAAAwAAAAMAAAADAAAAAsAAAAMAAAADAAAAAwAAAAMAAAADAAAAAwAAAALAAAACwAAAAwAAAAMAAAADAAAAAwAAAAMAAAACwAAAA==
+  </data>
+ </layer>
+ <layer name="Tile Layer 2" width="8" height="8" opacity="0.4">
+  <data encoding="base64">
+   DgAAAA4AAAALAAAAAAAAAAAAAAAAAAAAAAAAAAsAAAAOAAAADgAAAAsAAAALAAAACwAAAAsAAAALAAAACwAAAAsAAAAAAAAADQAAAA0AAAANAAAACwAAAAsAAAALAAAAAAAAAAAAAAANAAAADQAAAA0AAAANAAAAAAAAAAAAAAAAAAAACwAAAA0AAAANAAAADQAAAA0AAAANAAAAAAAAAAAAAAALAAAADQAAAAsAAAANAAAADQAAAA0AAAAAAAAACwAAAAsAAAANAAAADQAAAAAAAAAAAAAAAAAAAAAAAAALAAAACwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==
+  </data>
+ </layer>
+ <layer name="Tile Layer 3" width="8" height="8">
+  <properties>
+   <property name="sdadasd" value="sadsadasdascv rwe wer"/>
+  </properties>
+  <data encoding="base64">
+   LwAAADAAAAAxAAAAMgAAADMAAAA0AAAANQAAADYAAAA3AAAAOAAAADkAAAA6AAAAMwAAADwAAAA9AAAAPgAAADcAAAA3AAAAMwAAADMAAAAzAAAAOwAAADwAAAA9AAAAOAAAADMAAAAzAAAAMwAAADMAAAAzAAAAPgAAAD4AAAAzAAAAMwAAADMAAAAzAAAAMwAAADMAAAA+AAAAPgAAADMAAAAzAAAAMwAAADMAAAAzAAAAOwAAADwAAAA9AAAAJwAAADcAAAA4AAAAOQAAADoAAAA7AAAAPAAAAD0AAAAvAAAANwAAADgAAAA5AAAAOgAAADsAAAA8AAAAPQAAAA==
+  </data>
+ </layer>
+ <objectgroup name="Object Layer 1">
+  <properties>
+   <property name="sdff" value="w352353245"/>
+  </properties>
+  <object id="1" name="object 1" type="wew" x="64" y="96" width="32" height="32">
+   <properties>
+    <property name="obj p" value="object prop"/>
+   </properties>
+  </object>
+ </objectgroup>
+</map>
