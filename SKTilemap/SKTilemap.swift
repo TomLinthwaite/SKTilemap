@@ -8,22 +8,27 @@
 
 import SpriteKit
 
-// MARK: TMXTilemapProtocol
-protocol TMXTilemapProtocol {
-    
-    /** Properties shared by all TMX object types. */
-    var properties: [String : String] { get }
-}
-
 // MARK: SKTilemapOrientation
 enum SKTilemapOrientation : String {
     
     case Orthogonal = "orthogonal";
     case Isometric = "isometric";
+    
+    /** Change these values in code if you wish to have your tiles have a different anchor point upon layer initialization. */
+    func tileAnchorPoint() -> CGPoint {
+        
+        switch self {
+        case .Orthogonal:
+            return CGPoint(x: 0.5, y: 0.5)
+            
+        case .Isometric:
+            return CGPoint(x: 0.5, y: 0.5)
+        }
+    }
 }
 
 // MARK: SKTilemap
-class SKTilemap : SKNode, TMXTilemapProtocol {
+class SKTilemap : SKNode {
     
 //MARK: Properties
     
@@ -35,9 +40,11 @@ class SKTilemap : SKNode, TMXTilemapProtocol {
     
     /** The dimensions of the tilemap in tiles. */
     let size: CGSize
+    private var sizeHalved: CGSize { get { return CGSize(width: size.width / 2, height: size.height / 2) } }
     
     /** The size of the grid for the tilemap. Note that tilesets may have differently sized tiles. */
     let tileSize: CGSize
+    private var tileSizeHalved: CGSize { get { return CGSize(width: tileSize.width / 2, height: tileSize.height / 2) } }
     
     /** The orientation of the tilemap. See SKTilemapOrientation for valid orientations. */
     let orientation: SKTilemapOrientation
@@ -108,6 +115,30 @@ class SKTilemap : SKNode, TMXTilemapProtocol {
         return tileset
     }
     
+    /** Returns a tileset with specified name or nil if it doesn't exist. */
+    func getTileset(name name: String) -> SKTilemapTileset? {
+        
+        if let index = tilesets.indexOf( { $0.name == name } ) {
+            return tilesets[index]
+        }
+        
+        return nil
+    }
+    
+    /** Will return a SKTileData object with matching id from one of the tilesets associated with this tilemap
+        or nil if no match can be found. */
+    func getTileData(id id: Int) -> SKTileData? {
+        
+        for tileset in tilesets {
+            
+            if let tileData = tileset.getTileData(id: id) {
+                return tileData
+            }
+        }
+        
+        return nil
+    }
+    
 // MARK: Tile Layers
     
     /** Adds a tile layer to the tilemap. A zPosition can be supplied and will be applied to the layer. If no zPosition
@@ -141,7 +172,48 @@ class SKTilemap : SKNode, TMXTilemapProtocol {
         
         tileLayers.insert(tileLayer)
         addChild(tileLayer)
+        centerLayer(tileLayer)
         return tileLayer
+    }
+    
+    /** Positions a tilemap layer so that its center position is resting at the tilemaps 0,0 position. */
+    private func centerLayer(layer: SKTilemapLayer) {
+        
+        if orientation == .Orthogonal {
+            layer.position = CGPoint(x: -sizeHalved.width * tileSize.width,
+                               y: sizeHalved.height * tileSize.height)
+        }
+        
+        if orientation == .Isometric {
+            layer.position = CGPoint(x: -((sizeHalved.width - sizeHalved.height) * tileSizeHalved.width),
+                               y: ((sizeHalved.width + sizeHalved.height) * tileSizeHalved.height))
+        }
+        
+        layer.position.x += layer.offset.x
+        layer.position.y += layer.offset.y
+    }
+    
+    /** Returns a tilemap layer with specified name or nil if one does not exist. */
+    func getLayer(name name: String) -> SKTilemapLayer? {
+        
+        if let index = tileLayers.indexOf( { $0.name == name } ) {
+            return tileLayers[index]
+        }
+        
+        return nil
+    }
+    
+    /** Removes a layer from the tilemap. The layer removed is returned or nil if the layer wasn't found. */
+    func removeLayer(name name: String) -> SKTilemapLayer? {
+        
+        if let layer = getLayer(name: name) {
+            
+            layer.removeFromParent()
+            tileLayers.remove(layer)
+            return layer
+        }
+        
+        return nil
     }
     
 // MARK: Object Groups
@@ -157,5 +229,15 @@ class SKTilemap : SKNode, TMXTilemapProtocol {
         
         objectGroups.insert(objectGroup)
         return objectGroup
+    }
+    
+    /** Returns a object group with specified name or nil if it does not exist. */
+    func getObjectGroup(name name: String) -> SKTilemapObjectGroup? {
+        
+        if let index = objectGroups.indexOf( { $0.name == name } ) {
+            return objectGroups[index]
+        }
+        
+        return nil
     }
 }

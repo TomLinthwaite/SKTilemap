@@ -9,7 +9,7 @@
 import SpriteKit
 
 // MARK: SKObjectGroup
-class SKTilemapObjectGroup : TMXTilemapProtocol, Equatable, Hashable {
+class SKTilemapObjectGroup : Equatable, Hashable {
     
 // MARK: Properties
     var hashValue: Int { get { return name.hashValue } }
@@ -72,6 +72,34 @@ class SKTilemapObjectGroup : TMXTilemapProtocol, Equatable, Hashable {
         
         return nil
     }
+    
+    /** Returns an array of objects that have a matching name. */
+    func getObjects(name name: String) -> [SKTilemapObject] {
+        
+        var objects = [SKTilemapObject]()
+        
+        for object in self.objects {
+            if object.name == name {
+                objects.append(object)
+            }
+        }
+        
+        return objects
+    }
+    
+    /** Returns an array of objects that have a matching type. */
+    func getObjects(type type: String) -> [SKTilemapObject] {
+        
+        var objects = [SKTilemapObject]()
+        
+        for object in self.objects {
+            if object.type == type {
+                objects.append(object)
+            }
+        }
+        
+        return objects
+    }
 }
 
 func ==(lhs: SKTilemapObjectGroup, rhs: SKTilemapObjectGroup) -> Bool {
@@ -79,7 +107,7 @@ func ==(lhs: SKTilemapObjectGroup, rhs: SKTilemapObjectGroup) -> Bool {
 }
 
 // MARK: SKTilemapObject
-class SKTilemapObject : TMXTilemapProtocol, Equatable, Hashable {
+class SKTilemapObject : Equatable, Hashable {
     
 // MARK: Properties
     var hashValue: Int { get { return id.hashValue } }

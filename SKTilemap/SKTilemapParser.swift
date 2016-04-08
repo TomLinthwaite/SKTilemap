@@ -9,11 +9,13 @@
 import SpriteKit
 
 // MARK: SKTilemapParser
-class SKTilemapParser : NSObject, NSXMLParserDelegate, TMXTilemapProtocol {
+class SKTilemapParser : NSObject, NSXMLParserDelegate {
     
 // MARK: Properties
     private var errorMessage = ""
     private var characters = ""
+    private var encoding = ""
+    private var data: [Int] = []
     private var lastElement: AnyObject?
     private var lastID: Int?
     internal var properties: [String : String] = [:]
@@ -101,21 +103,22 @@ class SKTilemapParser : NSObject, NSXMLParserDelegate, TMXTilemapProtocol {
                 tileset.addTileData(spriteSheet: source)
             } else {
                 /* Dealing with an image tag for a tile. */
-                tileset.addTileData(id: tileset.firstGID + lastID!, source: source)
+                tileset.addTileData(id: tileset.firstGID + lastID!, imageNamed: (source as NSString).lastPathComponent)
             }
         }
         
         if elementName == "tile" {
             
-            guard
-                let id = attributeDict["id"] where (Int(id) != nil)
-                else {
-                    errorMessage = "SKTilemapParser: Failed to parse <tile>. [\(parser.lineNumber)]"
-                    parser.abortParsing()
-                    return
+            if let gid = attributeDict["gid"] where (Int(gid) != nil) && encoding == "xml" {
+                data.append(Int(gid)!)
             }
-            
-            lastID = Int(id)!
+            else if let id = attributeDict["id"] where (Int(id) != nil) {
+                lastID = Int(id)!
+            } else {
+                errorMessage = "SKTilemapParser: Failed to parse <tile>. [\(parser.lineNumber)]"
+                parser.abortParsing()
+                return
+            }
         }
         
         if elementName == "property" {
@@ -167,6 +170,22 @@ class SKTilemapParser : NSObject, NSXMLParserDelegate, TMXTilemapProtocol {
             objectGroup.addObject(object)
             lastID = object.id
         }
+        
+        if elementName == "data" {
+            
+            if let _ = attributeDict["compression"] {
+                errorMessage = "SKTilemapParser: Does not support data compression."
+                parser.abortParsing()
+                return
+            }
+            
+            if let encoding = attributeDict["encoding"] {
+                self.encoding = encoding
+            } else {
+                self.encoding = "xml"
+            }
+            
+        }
     }
     
     func parser(parser: NSXMLParser, didEndElement elementName: String, namespaceURI: String?,
@@ -202,6 +221,62 @@ class SKTilemapParser : NSObject, NSXMLParserDelegate, TMXTilemapProtocol {
             if lastID == nil {
                 properties = [:]
             }
+        }
+        
+        if elementName == "data" {
+            
+            guard let layer = lastElement as? SKTilemapLayer else {
+                parser.abortParsing()
+                return
+            }
+            
+            var initializeLayer = false
+            
+            if encoding == "xml" {
+                initializeLayer = true
+            }
+            
+            if encoding == "csv" {
+                characters = characters.stringByReplacingOccurrencesOfString("\n", withString: "")
+                characters = characters.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
+                characters = characters.stringByReplacingOccurrencesOfString(" ", withString: "")
+                let stringData = characters.componentsSeparatedByString(",")
+                
+                for stringID in stringData {
+                    
+                    if let id = Int(stringID) {
+                        data.append(id)
+                    }
+                }
+                
+                initializeLayer = true
+            }
+            
+            if encoding == "base64" {
+                
+                if let base64Data = NSData(base64EncodedString: characters, options: .IgnoreUnknownCharacters) {
+                    
+                    let count = base64Data.length / sizeof(Int32)
+                    var arr = [Int32](count: count, repeatedValue: 0)
+                    base64Data.getBytes(&arr, length: count * sizeof(Int32))
+                    
+                    for id in arr {
+                        data.append(Int(id))
+                    }
+                    
+                    initializeLayer = true
+                }
+            }
+            
+            if initializeLayer {
+                layer.initializeTilesWithData(data)
+            } else {
+                errorMessage = "SKTilemapParser: Failed to initialize data <data>. [\(parser.lineNumber)]"
+                parser.abortParsing()
+                return
+            }
+            
+            data = []
         }
         
         characters = ""

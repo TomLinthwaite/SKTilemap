@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		D84AE5591CB70DA800103BC1 /* SKTilemapTileset.swift in Sources */ = {isa = PBXBuildFile; fileRef = D84AE5581CB70DA800103BC1 /* SKTilemapTileset.swift */; };
+		D84DC5871CB83F26007EEC6D /* Camera.swift in Sources */ = {isa = PBXBuildFile; fileRef = D84DC5861CB83F26007EEC6D /* Camera.swift */; };
 		D8DF5A701CB69C480045F36E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8DF5A6F1CB69C480045F36E /* AppDelegate.swift */; };
 		D8DF5A741CB69C480045F36E /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8DF5A731CB69C480045F36E /* GameScene.swift */; };
 		D8DF5A761CB69C480045F36E /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8DF5A751CB69C480045F36E /* GameViewController.swift */; };
@@ -25,6 +26,7 @@
 
 /* Begin PBXFileReference section */
 		D84AE5581CB70DA800103BC1 /* SKTilemapTileset.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SKTilemapTileset.swift; sourceTree = "<group>"; };
+		D84DC5861CB83F26007EEC6D /* Camera.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Camera.swift; sourceTree = "<group>"; };
 		D8DF5A6C1CB69C480045F36E /* SKTilemap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SKTilemap.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D8DF5A6F1CB69C480045F36E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D8DF5A731CB69C480045F36E /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
@@ -75,6 +77,7 @@
 				D8DF5A8A1CB6ED8F0045F36E /* Resources */,
 				D8DF5A851CB6A0960045F36E /* SKTilemap */,
 				D8DF5A6F1CB69C480045F36E /* AppDelegate.swift */,
+				D84DC5861CB83F26007EEC6D /* Camera.swift */,
 				D8DF5A731CB69C480045F36E /* GameScene.swift */,
 				D8DF5A751CB69C480045F36E /* GameViewController.swift */,
 				D8DF5A771CB69C480045F36E /* Main.storyboard */,
@@ -187,6 +190,7 @@
 				D8DF5A761CB69C480045F36E /* GameViewController.swift in Sources */,
 				D8DF5A961CB6F1320045F36E /* SKTilemapLayer.swift in Sources */,
 				D84AE5591CB70DA800103BC1 /* SKTilemapTileset.swift in Sources */,
+				D84DC5871CB83F26007EEC6D /* Camera.swift in Sources */,
 				D8DF5A701CB69C480045F36E /* AppDelegate.swift in Sources */,
 				D8DF5A981CB6F13A0045F36E /* SKTilemapObjectGroup.swift in Sources */,
 				D8DF5A941CB6F0F30045F36E /* SKTileData.swift in Sources */,

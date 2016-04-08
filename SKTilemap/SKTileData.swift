@@ -9,7 +9,7 @@
 import SpriteKit
 
 // MARK: SKTileData
-class SKTileData : TMXTilemapProtocol, Equatable, Hashable {
+class SKTileData : Equatable, Hashable {
     
     // MARK: Properties
     var hashValue: Int { get { return self.id.hashValue } }
@@ -21,7 +21,7 @@ class SKTileData : TMXTilemapProtocol, Equatable, Hashable {
     let id: Int
     
     /** Weak pointer to the tileset this data belongs to. */
-    weak var tileset: SKTilemapTileset?
+    weak var tileset: SKTilemapTileset!
     
     /** The texture used to draw tiles with this data. */
     let texture: SKTexture
@@ -35,16 +35,18 @@ class SKTileData : TMXTilemapProtocol, Equatable, Hashable {
         
         self.id = id
         self.tileset = tileset
-        self.texture = texture
         source = ""
+        self.texture = texture
+        texture.filteringMode = .Nearest
     }
     
-    init(id: Int, source: String, tileset: SKTilemapTileset) {
+    init(id: Int, imageNamed source: String, tileset: SKTilemapTileset) {
         
         self.id = id
         self.tileset = tileset
         self.source = source
         texture = SKTexture(imageNamed: source)
+        texture.filteringMode = .Nearest
     }
     
 // MARK: Debug
@@ -55,4 +57,34 @@ class SKTileData : TMXTilemapProtocol, Equatable, Hashable {
 
 func ==(lhs: SKTileData, rhs: SKTileData) -> Bool {
     return (lhs.hashValue == rhs.hashValue)
+}
+
+
+// MARK: SKTile
+class SKTile : SKNode {
+    
+// MARK: Properties
+    
+    /** The tile data this tile represents. */
+    let tileData: SKTileData
+    
+    /** The sprite of the tile. */
+    let sprite: SKSpriteNode
+    
+// MARK: Initialization
+    
+    /* Initialize an SKTile using SKTileData. */
+    init(tileData: SKTileData) {
+        
+        self.tileData = tileData
+        sprite = SKSpriteNode(texture: tileData.texture)
+        
+        super.init()
+        
+        addChild(sprite)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 }

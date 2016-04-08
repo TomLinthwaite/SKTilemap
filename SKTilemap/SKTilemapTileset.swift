@@ -9,7 +9,7 @@
 import SpriteKit
 
 // MARK: SKTilemapTileset
-class SKTilemapTileset : TMXTilemapProtocol, Equatable, Hashable {
+class SKTilemapTileset : Equatable, Hashable {
     
     // MARK: Properties
     var hashValue: Int { get { return name.hashValue } }
@@ -29,11 +29,11 @@ class SKTilemapTileset : TMXTilemapProtocol, Equatable, Hashable {
     
     /** Spacing in pixels between tiles within the source image. Only used when creating tiles from a single image
      (sprite sheet). */
-    let spacing: Int
+    private let spacing: Int
     
     /** Margin in pixels around the edges of the source image. Only used when creating tiles from a single image.
      (sprite sheet) */
-    let margin: Int
+    private let margin: Int
     
     /** The size of each tile. */
     let tileSize: CGSize
@@ -127,14 +127,14 @@ class SKTilemapTileset : TMXTilemapProtocol, Equatable, Hashable {
     
     /** Add a single SKTileData object to this tileset. It's texture is loaded from a file provided from the filename.
         Will return the tile data object that was added on success or nil on failure. */
-    func addTileData(id id: Int, source imageNamed: String) -> SKTileData? {
+    func addTileData(id id: Int, imageNamed source: String) -> SKTileData? {
         
         if self.tileData.contains({ $0.hashValue == id.hashValue }) {
             print("SKTilemapTileset: Failed to add tile data. Tile data with the same id already exists.")
             return nil
         }
         
-        let tileData = SKTileData(id: id, source: source, tileset: self)
+        let tileData = SKTileData(id: id, imageNamed: source, tileset: self)
         self.tileData.insert(tileData)
         return tileData
     }
