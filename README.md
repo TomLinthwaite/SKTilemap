@@ -1,6 +1,7 @@
 # SKTilemap
 
 ## Table of Contents
++ [Wiki](https://github.com/TomLinthwaite/SKTilemap/wiki)
 + [Overview](#overview)
 + [Why](#why)
 + [Requirements](#requirements)
