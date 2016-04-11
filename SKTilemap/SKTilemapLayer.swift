@@ -131,6 +131,13 @@ class SKTilemapLayer : SKNode {
         return tiles[y][x]
     }
     
+    func tileAt(position position: CGPoint) -> SKTile? {
+        if let coord = coordAtPosition(position, round: true) {
+            return tileAt(x: Int(coord.x), y: Int(coord.y))
+        }
+        return nil
+    }
+    
     /** Set a specific position on the map to represent the given tile. Nil can also be passed to
         remove a tile at this position (although removeTile(x:y:) is the prefered method for doing this).
         Will return a tuple containing the tile that was removed and the tile that was set. They can be nil
@@ -153,7 +160,7 @@ class SKTilemapLayer : SKNode {
         if tile != nil {
             
             addChild(tile!)
-            tile!.position = tileLayerPositionAt(x: x, y: y)
+            tile!.position = tilePositionAt(x: x, y: y)
             tile!.sprite.anchorPoint = tilemap.orientation.tileAnchorPoint()
         }
         
@@ -175,7 +182,7 @@ class SKTilemapLayer : SKNode {
 // MARK: Tile Coordinates & Positioning
     
     /** Returns the position a tile should be within the layer if they have a certain map position. */
-    func tileLayerPositionAt(x x: Int, y: Int) -> CGPoint {
+    func tilePositionAt(x x: Int, y: Int) -> CGPoint {
         
         let tileAnchorPoint = tilemap.orientation.tileAnchorPoint()
         var position =  CGPointZero
@@ -199,18 +206,18 @@ class SKTilemapLayer : SKNode {
         that is not valid nil is returned.  Otherwise the tile coordinate is returned. Passing the round parameter as 
         true will return a whole number coordinate (the default), or a decimal number which can be used to determine
         where exactly within the tile the layer position is. */
-    func coordForLayerPosition(position: CGPoint, round: Bool = true) -> CGPoint? {
+    func coordAtPosition(positionInLayer: CGPoint, round: Bool = true) -> CGPoint? {
         
         var coord = CGPointZero
         
         switch tilemap.orientation {
             
         case .Orthogonal:
-            coord = CGPoint(x: position.x / tileSize.width, y: position.y / -tileSize.height)
+            coord = CGPoint(x: positionInLayer.x / tileSize.width, y: positionInLayer.y / -tileSize.height)
             
         case .Isometric:
-            coord = CGPoint(x: ((position.x / tileSizeHalved.width) + (position.y / -tileSizeHalved.height)) / 2,
-                            y: ((position.y / -tileSizeHalved.height) - (position.x / tileSizeHalved.width)) / 2)
+            coord = CGPoint(x: ((positionInLayer.x / tileSizeHalved.width) + (positionInLayer.y / -tileSizeHalved.height)) / 2,
+                            y: ((positionInLayer.y / -tileSizeHalved.height) - (positionInLayer.x / tileSizeHalved.width)) / 2)
         }
         
         if !isValidCoord(x: Int(floor(coord.x)), y: Int(floor(coord.y))) {
@@ -228,9 +235,9 @@ class SKTilemapLayer : SKNode {
      that is not valid nil is returned.  Otherwise the tile coordinate is returned. Passing the round parameter as
      true will return a whole number coordinate (the default), or a decimal number which can be used to determine
      where exactly within the tile the layer position is. */
-    func coordForTouch(touch: UITouch, round: Bool = true) -> CGPoint? {
+    func coordAtTouchPosition(touch: UITouch, round: Bool = true) -> CGPoint? {
         
         let touchPosition = touch.locationInNode(self)
-        return coordForLayerPosition(touchPosition, round: round)
+        return coordAtPosition(touchPosition, round: round)
     }
 }

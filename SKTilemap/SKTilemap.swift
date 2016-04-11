@@ -89,6 +89,11 @@ class SKTilemap : SKNode {
         fatalError("init(coder:) has not been implemented")
     }
     
+    /** Loads a tilemap from .tmx file. */
+    class func loadTMX(name name: String) -> SKTilemap? {
+        return SKTilemapParser().loadTilemap(filename: name)
+    }
+    
 // MARK: Debug
     func printDebugDescription() {
         

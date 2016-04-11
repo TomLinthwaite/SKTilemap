@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D820ADCF1CBBC72600F1FD6E /* tilemap_orthogonal.tmx in Resources */ = {isa = PBXBuildFile; fileRef = D820ADCE1CBBC72600F1FD6E /* tilemap_orthogonal.tmx */; };
+		D83155DB1CBBDE78004DA0C2 /* tilemap_isometric.tmx in Resources */ = {isa = PBXBuildFile; fileRef = D83155DA1CBBDE78004DA0C2 /* tilemap_isometric.tmx */; };
 		D84AE5591CB70DA800103BC1 /* SKTilemapTileset.swift in Sources */ = {isa = PBXBuildFile; fileRef = D84AE5581CB70DA800103BC1 /* SKTilemapTileset.swift */; };
 		D84DC5871CB83F26007EEC6D /* Camera.swift in Sources */ = {isa = PBXBuildFile; fileRef = D84DC5861CB83F26007EEC6D /* Camera.swift */; };
 		D8DF5A701CB69C480045F36E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8DF5A6F1CB69C480045F36E /* AppDelegate.swift */; };
@@ -25,6 +27,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		D820ADCE1CBBC72600F1FD6E /* tilemap_orthogonal.tmx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = tilemap_orthogonal.tmx; sourceTree = "<group>"; };
+		D83155DA1CBBDE78004DA0C2 /* tilemap_isometric.tmx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = tilemap_isometric.tmx; sourceTree = "<group>"; };
 		D84AE5581CB70DA800103BC1 /* SKTilemapTileset.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SKTilemapTileset.swift; sourceTree = "<group>"; };
 		D84DC5861CB83F26007EEC6D /* Camera.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Camera.swift; sourceTree = "<group>"; };
 		D8DF5A6C1CB69C480045F36E /* SKTilemap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SKTilemap.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -103,6 +107,8 @@
 		D8DF5A8A1CB6ED8F0045F36E /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				D83155DA1CBBDE78004DA0C2 /* tilemap_isometric.tmx */,
+				D820ADCE1CBBC72600F1FD6E /* tilemap_orthogonal.tmx */,
 				D8DF5A8B1CB6ED8F0045F36E /* tilemap_iso_csv.tmx */,
 				D8DF5A8C1CB6ED8F0045F36E /* tileset.atlas */,
 				D8DF5A8D1CB6ED8F0045F36E /* tmw_desert_spacing.png */,
@@ -170,8 +176,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				D8DF5A7E1CB69C480045F36E /* LaunchScreen.storyboard in Resources */,
+				D820ADCF1CBBC72600F1FD6E /* tilemap_orthogonal.tmx in Resources */,
 				D8DF5A8E1CB6ED8F0045F36E /* tilemap_iso_csv.tmx in Resources */,
 				D8DF5A8F1CB6ED8F0045F36E /* tileset.atlas in Resources */,
+				D83155DB1CBBDE78004DA0C2 /* tilemap_isometric.tmx in Resources */,
 				D8DF5A901CB6ED8F0045F36E /* tmw_desert_spacing.png in Resources */,
 				D8DF5A791CB69C480045F36E /* Main.storyboard in Resources */,
 			);

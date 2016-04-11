@@ -160,8 +160,8 @@ class SKTilemapParser : NSObject, NSXMLParserDelegate {
         if elementName == "object" {
             
             guard
-                let object = SKTilemapObject(tmxParserAttributes: attributeDict),
-                let objectGroup = lastElement as? SKTilemapObjectGroup
+                let objectGroup = lastElement as? SKTilemapObjectGroup,
+                let object = SKTilemapObject(objectGroup: objectGroup, tmxParserAttributes: attributeDict)
                 else {
                 parser.abortParsing()
                 return
@@ -184,7 +184,6 @@ class SKTilemapParser : NSObject, NSXMLParserDelegate {
             } else {
                 self.encoding = "xml"
             }
-            
         }
     }
     

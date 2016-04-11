@@ -31,11 +31,15 @@ class GameScene: SKScene {
     
     override func didMoveToView(view: SKView) {
         
+        /* Setup a basic Camera object to allow for panning/zooming. */
         sceneCamera = Camera(scene: self, view: view, worldNode: worldNode)
         addChild(sceneCamera)
         camera = sceneCamera
         
-        if let tilemap = SKTilemapParser().loadTilemap(filename: "tilemap_iso_csv") {
+        /* Load Tilemap from .tmx file and add it to the scene through the worldNode. */
+        if let tilemap = SKTilemap.loadTMX(name: "tilemap_orthogonal") {
+            
+            /* Print tilemap information to console, useful for debugging. */
             tilemap.printDebugDescription()
             worldNode.addChild(tilemap)
             self.tilemap = tilemap
@@ -47,24 +51,17 @@ class GameScene: SKScene {
         
         for touch in touches {
             
-            if let coord = tilemap?.getLayer(name: "Tile Layer 1")?.coordForTouch(touch) {
-                print(coord)
+            if let layer = tilemap?.getLayer(name: "ground layer") {
+                if let coord = layer.coordAtTouchPosition(touch) {
+                    print("Coord at Touch Position: \(coord)")
+                }
             }
-        }
-        
-        if tilemap?.getObjectGroup(name: "Object Layer 1")?.getObjects(name: "ob2ject 1").count > 0 {
-            print("YAY!")
-        }
-        
-        if tilemap?.getObjectGroup(name: "Objct Layer 1")?.getObjects(type: "wew").count > 0 {
-            print("YAY 2!")
         }
     }
     
     override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
         
         for touch in touches {
-            
             sceneCamera.panCamera(touch)
         }
     }
