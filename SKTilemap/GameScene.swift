@@ -44,6 +44,29 @@ class GameScene: SKScene {
             worldNode.addChild(tilemap)
             self.tilemap = tilemap
         }
+        
+        /* Create a tilemap Programatically */
+//        tilemap = SKTilemap(size: CGSize(width: 32, height: 32), tileSize: CGSize(width: 32, height: 32), orientation: .Orthogonal)
+//        worldNode.addChild(tilemap!)
+//        
+//        let layer = SKTilemapLayer(tilemap: tilemap!, name: "ground layer")
+//        tilemap!.add(tileLayer: layer)
+//        
+//        let tileset = SKTilemapTileset(name: "tileset", firstGID: 1, tileSize: tilemap!.tileSize)
+//        tileset.margin = 1
+//        tileset.spacing = 1
+//        tileset.addTileData(spriteSheet: "tmw_desert_spacing.png")
+////        tileset.addTileData(id: 1, imageNamed: "grass.png")
+////        tileset.addTileData(id: 2, imageNamed: "water")
+////        tileset.addTileData(id: 3, imageNamed: "sand")
+////        tileset.addTileData(id: 4, imageNamed: "dirt.png")
+//        tilemap!.add(tileset: tileset)
+//        
+//        for y in 0..<Int(tilemap!.size.height) {
+//            for x in 0..<Int(tilemap!.size.width) {
+//                layer.setTileAt(x: x, y: y, id: 1)
+//            }
+//        }
     }
     
     // MARK: Input

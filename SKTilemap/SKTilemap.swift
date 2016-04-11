@@ -36,7 +36,7 @@ class SKTilemap : SKNode {
     var properties: [String : String] = [:]
     
     /** The current version of the tilemap. */
-    let version: Double
+    var version: Double = 0
     
     /** The dimensions of the tilemap in tiles. */
     let size: CGSize
@@ -59,6 +59,16 @@ class SKTilemap : SKNode {
     private var objectGroups: Set<SKTilemapObjectGroup> = []
     
 // MARK: Initialization
+    
+    /** Initialize an empty tilemap object. */
+    init(size: CGSize, tileSize: CGSize, orientation: SKTilemapOrientation) {
+        
+        self.size = size
+        self.tileSize = tileSize
+        self.orientation = orientation
+        
+        super.init()
+    }
     
     /** Initialize a tilemap from tmx parser attributes. Should probably only be called by SKTilemapParser. */
     init?(filename: String, tmxParserAttributes attributes: [String : String]) {

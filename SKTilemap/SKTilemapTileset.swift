@@ -29,11 +29,11 @@ class SKTilemapTileset : Equatable, Hashable {
     
     /** Spacing in pixels between tiles within the source image. Only used when creating tiles from a single image
      (sprite sheet). */
-    private let spacing: Int
+    var spacing = 0
     
     /** Margin in pixels around the edges of the source image. Only used when creating tiles from a single image.
      (sprite sheet) */
-    private let margin: Int
+    var margin = 0
     
     /** The size of each tile. */
     let tileSize: CGSize
@@ -45,6 +45,15 @@ class SKTilemapTileset : Equatable, Hashable {
     private var tileData: Set<SKTileData> = []
     
 // MARK: Initialization
+    
+    /** Initialize an empty tileset. */
+    init(name: String, firstGID: Int, tileSize: CGSize, tileOffset: CGPoint = CGPointZero) {
+        
+        self.name = name
+        self.firstGID = firstGID
+        self.tileSize = tileSize
+        self.tileOffset = tileOffset
+    }
     
     /** Initialize using TMX Parser attributes. Should probably only be called by SKTilemapParser. */
     init?(tmxParserAttributes attributes: [String : String]) {

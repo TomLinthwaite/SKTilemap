@@ -36,6 +36,19 @@ class SKTilemapLayer : SKNode {
     
 // MARK: Initialization
     
+    /** Initialize an empty tilemap layer */
+    init(tilemap: SKTilemap, name: String, offset: CGPoint = CGPointZero) {
+        
+        self.tilemap = tilemap
+        self.offset = offset
+        
+        tiles = Array(count: Int(tilemap.size.height), repeatedValue: Array(count: Int(tilemap.size.width), repeatedValue: nil))
+        
+        super.init()
+        
+        self.name = name
+    }
+    
     /** Initialize a tile layer from tmx parser attributes. Should probably only be called by SKTilemapParser. */
     init?(tilemap: SKTilemap, tmxParserAttributes attributes: [String : String]) {
         
