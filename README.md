@@ -7,13 +7,14 @@
 + [Usage](#usage)
 + [Tutorials](#tutorials)
 + [Quick Guide](#quick-guide)
++ [TMX Support](#tmx-support)
 + [License](#license)
 
 ## Overview
-An addition to Apples Sprite Kit frame work for iOS which allows for the creation of tilemaps either programmatically or from a .tmx file (created in Tiled). SKTilemap is written purely in Swift and sets out to be a simple solution for all game programmers alike to add tilemaps to thier Sprite Kit games.
+An addition to Apples Sprite Kit frame work for iOS which allows for the creation of tilemaps either programmatically or from a .tmx file (created in [Tiled](www.mapeditor.org)). SKTilemap is written purely in Swift and sets out to be a simple solution for all game programmers alike to add tilemaps to thier Sprite Kit games.
 
 ## Why
-I decided to write this because I couldn't find a good alternative written purely in Swift. I'm also a self taught programmer and this was a good learning exercise. I've tried to document the code as well as I can so it shouldn't be to hard to edit yourself. 
+I decided to write this because I couldn't find a good alternative written purely in Swift. I'm also a self taught programmer and this was a good learning exercise. I've tried to document the code as well as I can so it shouldn't be to hard to look through it and add features or change anything you want.
 
 ## Requirements
 * Xcode 7.3
@@ -90,6 +91,28 @@ Tilesets are a collection of SKTileData objects. SKTileData objects act as a blu
     tileset.addTileData(id: 90, texture: SKTexture)
     tileset.addTileData(id: 45, imageNamed: "Grass")
     tileset.getTileData(id: 45)
+
+## TMX Support
+I haven't yet implemented all of the features you can use to create a tilemap in [Tiled](www.mapeditor.org). Here's a quick list of what **is** and **isn't** yet implemented. I hope to support all features in the future, but feel free to fork this project and add anything yourself. I've tried to make this list as comprehensive as possible but no doubt there are many things I've missed.
+
+### Supported
+* Orientation (Orthogonal, Isometric)
+* Tilesets (Separate Image, Sprite Sheet)
+* Tile Layers
+* Object Groups (Layers)
+* Encoding (Base64, CSV, XML)
+* Objects (Rectangular)
+* Properties for all types (Map, Layer, Objects etc...)
+
+### Not Supported
+* Orientation (Isometric Staggered, Hexagonal)
+* Tilesets (External)
+* Image Layers
+* Terrain Types
+* Animated Tiles
+* Compression (gzip, zlib)
+* Tile Flipping
+* Objects (Elipse, Polygon, Polyline)
 
 ## License
 
