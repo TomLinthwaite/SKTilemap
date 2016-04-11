@@ -1,23 +1,19 @@
 # SKTilemap
 
 ## Table of Contents
--
 + [Overview](#overview)
 + [Requirements](#requirements)
 + [Usage](#usage)
 + [Quick Guide](#quick-guide)
 
 ## Overview
--
 An addition to Apples Sprite Kit frame work for iOS which allows for the creation of tilemaps either programmatically or from a .tmx file (created in Tiled). SKTilemap is written purely in Swift and sets out to be a simple solution for all game programmers alike to add tilemaps to thier Sprite Kit games.
 
 ## Requirements
--
 * Xcode 7.3
 * Swift 2
 
 ## Usage
--
 Simply add the SKTilemap*.swift files to your project and you're good to go.
 
 *In the future I will combine all of the files into a single file. For now while I'm still working on the project it's just easier to keep the classes seperate.*
@@ -30,10 +26,7 @@ To load a tilemap from a .tmx file simply add the .tmx to your project (plus the
 Once the tilemap has been successfully loaded you can treat it as a normal SKNode. It's always best to load the tilemap within an **if let** or **guard let** statement because the loading *can* fail.
 
 ## Quick Guide
--
-
 ### Tilemap Layers
-
 Layers are also SKNode objects and can be added to an SKTilemap object. Each layer contains many SKTile objects (as children) that make up the visual look for that layer.
 
 **Adding, Getting and Removing Layers**
@@ -59,7 +52,6 @@ Layers are also SKNode objects and can be added to an SKTilemap object. Each lay
     layer.coordAtTouchPosition(UITouch)
     
 ### Object Groups
-
 Will probably only be used if loading from a .tmx file.
 
 **Adding and Getting Object Groups**
@@ -75,7 +67,6 @@ Will probably only be used if loading from a .tmx file.
     objectGroup.getObjects(type: "enemy")
     
 ### Tilesets
-
 Tilesets are a collection of SKTileData objects. SKTileData objects act as a blueprint when creating individual tiles. Each SKTileData object has a unique ID number known as a GID (if you're familiar with Tiled).
 
 **Adding and Getting Tilesets**
