@@ -52,12 +52,12 @@ Object Groups
 -
 Will probably only be used if loading from a .tmx file.
 
-** Adding and Getting Object Groups**
+**Adding and Getting Object Groups**
 
     tilemap.add(objectGroup: AnObjectGroup)
     tilemap.getObjectGroup(name: "Some Object Group")
     
-** Adding and Getting Objects**
+**Adding and Getting Objects**
     
     objectGroup.addObject(SomeObject)
     objectGroup.getObject(id: 5)
