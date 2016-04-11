@@ -2,13 +2,18 @@
 
 ## Table of Contents
 + [Overview](#overview)
++ [Why](#why)
 + [Requirements](#requirements)
 + [Usage](#usage)
++ [Tutorials](#tutorials)
 + [Quick Guide](#quick-guide)
 + [License](#license)
 
 ## Overview
 An addition to Apples Sprite Kit frame work for iOS which allows for the creation of tilemaps either programmatically or from a .tmx file (created in Tiled). SKTilemap is written purely in Swift and sets out to be a simple solution for all game programmers alike to add tilemaps to thier Sprite Kit games.
+
+## Why
+I decided to write this because I couldn't find a good alternative written purely in Swift. I'm also a self taught programmer and this was a good learning exercise. I've tried to document the code as well as I can so it shouldn't be to hard to edit yourself. 
 
 ## Requirements
 * Xcode 7.3
@@ -25,6 +30,9 @@ To load a tilemap from a .tmx file simply add the .tmx to your project (plus the
     if let tilemap = SKTilemap.loadTMX(name: "awsome_map_made_in_Tiled") { }
     
 Once the tilemap has been successfully loaded you can treat it as a normal SKNode. It's always best to load the tilemap within an **if let** or **guard let** statement because the loading *can* fail.
+
+## Tutorials
+Coming soon...
 
 ## Quick Guide
 ### Tilemap Layers
