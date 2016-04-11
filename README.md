@@ -1,5 +1,9 @@
 # SKTilemap
 
+Table of Contents
+-
++ [Overview](#overview)
+
 Overview
 -
 An addition to Apples Sprite Kit frame work for iOS which allows for the creation of tilemaps either programmatically or from a .tmx file (created in Tiled). SKTilemap is written purely in Swift and sets out to be a simple solution for all game programmers alike to add tilemaps to thier Sprite Kit games.
