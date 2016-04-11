@@ -36,6 +36,8 @@ Once the tilemap has been successfully loaded you can treat it as a normal SKNod
 Coming soon...
 
 ## Quick Guide
+Here's a quick overview of the API which should hopefully be self explanatory. I have tried to document everything in code as best I can if you get stuck.
+
 ### Tilemap Layers
 Layers are also SKNode objects and can be added to an SKTilemap object. Each layer contains many SKTile objects (as children) that make up the visual look for that layer.
 
@@ -46,7 +48,7 @@ Layers are also SKNode objects and can be added to an SKTilemap object. Each lay
     tilemap.add(tileLayer: someLayer, zPosition: 1000)
     tilemap.removeLayer(name: "Tile Layer 87")
     
-**Adding, Getting/Removing Tiles from a Layer**
+**Adding, Getting and Removing Tiles from a Layer**
 
     layer.tileAt(x: 3, y 3)
     layer.tileAt(position: CGPoint(x: 3,y: 3))
