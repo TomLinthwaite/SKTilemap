@@ -107,7 +107,7 @@ class SKTilemapLayer : SKNode {
             let gid = data[i]
             let x = i % Int(size.width)
             let y = i / Int(size.width)
-            setTileAt(x: x, y: y, id: gid)
+            setTileAtCoord(x, y, id: gid)
         }
         
         return true
@@ -120,8 +120,12 @@ class SKTilemapLayer : SKNode {
     
     /** Remove a particular tile at a map position. Will return the tile that was removed or nil if the tile did not exist or
      the location was invalid.  */
-    func removeTile(x x: Int, y: Int) -> SKTilemapTile? {
-        return setTileAt(x: x, y: y, tile: nil).tileRemoved
+    func removeTileAtCoord(x: Int, _ y: Int) -> SKTilemapTile? {
+        return setTileAtCoord(x, y, tile: nil).tileRemoved
+    }
+    
+    func removeTileAtCoord(coord: CGPoint) -> SKTilemapTile? {
+        return setTileAtCoord(Int(coord.x), Int(coord.y), tile: nil).tileRemoved
     }
     
     /** Removes all tiles from the layer. */
@@ -129,13 +133,13 @@ class SKTilemapLayer : SKNode {
         
         for y in 0..<Int(size.height) {
             for x in 0..<Int(size.width) {
-                removeTile(x: x, y: y)
+                removeTileAtCoord(x, y)
             }
         }
     }
     
     /** Returns a tile at a given map position or nil if no tile exists or the position was outside of the map. */
-    func tileAt(x x: Int, y: Int) -> SKTilemapTile? {
+    func tileAtCoord(x: Int, _ y: Int) -> SKTilemapTile? {
         
         if !isValidCoord(x: x, y: y) {
             return nil
@@ -144,9 +148,14 @@ class SKTilemapLayer : SKNode {
         return tiles[y][x]
     }
     
-    func tileAt(position position: CGPoint) -> SKTilemapTile? {
-        if let coord = coordAtPosition(position, round: true) {
-            return tileAt(x: Int(coord.x), y: Int(coord.y))
+    func tileAtCoord(coord: CGPoint) -> SKTilemapTile? {
+        return tileAtCoord(Int(coord.x), Int(coord.y))
+    }
+    
+    /** Returns the tile at a certain position within the layer. */
+    func tileAtPosition(positionInLayer: CGPoint) -> SKTilemapTile? {
+        if let coord = coordAtPosition(positionInLayer, round: true) {
+            return tileAtCoord(Int(coord.x), Int(coord.y))
         }
         return nil
     }
@@ -155,7 +164,7 @@ class SKTilemapLayer : SKNode {
         remove a tile at this position (although removeTile(x:y:) is the prefered method for doing this).
         Will return a tuple containing the tile that was removed and the tile that was set. They can be nil
         if neither is true. */
-    func setTileAt(x x: Int, y: Int, tile: SKTilemapTile?) -> (tileSet: SKTilemapTile?, tileRemoved: SKTilemapTile?) {
+    func setTileAtCoord(x: Int, _ y: Int, tile: SKTilemapTile?) -> (tileSet: SKTilemapTile?, tileRemoved: SKTilemapTile?) {
         
         if !isValidCoord(x: x, y: y) {
             return (nil, nil)
@@ -163,7 +172,7 @@ class SKTilemapLayer : SKNode {
         
         var tileRemoved: SKTilemapTile?
         
-        if let tile = tileAt(x: x, y: y) {
+        if let tile = tileAtCoord(x, y) {
             tile.removeFromParent()
             tileRemoved = tile
         }
@@ -173,29 +182,37 @@ class SKTilemapLayer : SKNode {
         if tile != nil {
             
             addChild(tile!)
-            tile!.position = tilePositionAt(x: x, y: y)
+            tile!.position = tilePositionAtCoord(x, y)
             tile!.sprite.anchorPoint = tilemap.orientation.tileAnchorPoint()
         }
         
         return (tile, tileRemoved)
     }
     
+    func setTileAtCoord(coord: CGPoint, tile: SKTilemapTile?) -> (tileSet: SKTilemapTile?, tileRemoved: SKTilemapTile?) {
+        return setTileAtCoord(Int(coord.x), Int(coord.y), tile: tile)
+    }
+    
     /** Set a specific position on the map to represent the given tile by ID.
         Will return a tuple containing the tile that was removed and the tile that was set. They can be nil
         if neither is true. */
-    func setTileAt(x x: Int, y: Int, id: Int) -> (tileSet: SKTilemapTile?, tileRemoved: SKTilemapTile?) {
+    func setTileAtCoord(x: Int, _ y: Int, id: Int) -> (tileSet: SKTilemapTile?, tileRemoved: SKTilemapTile?) {
         
         if let tileData = tilemap.getTileData(id: id) {
-            setTileAt(x: x, y: y, tile: SKTilemapTile(tileData: tileData))
+            setTileAtCoord(x, y, tile: SKTilemapTile(tileData: tileData))
         }
         
         return (nil, nil)
     }
     
+    func setTileAtCoord(coord: CGPoint, id: Int) -> (tileSet: SKTilemapTile?, tileRemoved: SKTilemapTile?) {
+        return setTileAtCoord(Int(coord.x), Int(coord.y), id: id)
+    }
+    
 // MARK: Tile Coordinates & Positioning
     
     /** Returns the position a tile should be within the layer if they have a certain map position. */
-    func tilePositionAt(x x: Int, y: Int) -> CGPoint {
+    func tilePositionAtCoord(x: Int, _ y: Int) -> CGPoint {
         
         let tileAnchorPoint = tilemap.orientation.tileAnchorPoint()
         var position =  CGPointZero

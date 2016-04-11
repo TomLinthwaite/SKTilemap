@@ -37,7 +37,7 @@ class GameScene: SKScene {
         camera = sceneCamera
         
         /* Load Tilemap from .tmx file and add it to the scene through the worldNode. */
-        if let tilemap = SKTilemap.loadTMX(name: "tilemap_orthogonal") {
+        if let tilemap = SKTilemap.loadTMX(name: "tilemap_isometric") {
             
             /* Print tilemap information to console, useful for debugging. */
             tilemap.printDebugDescription()
@@ -77,6 +77,10 @@ class GameScene: SKScene {
             if let layer = tilemap?.getLayer(name: "ground layer") {
                 if let coord = layer.coordAtTouchPosition(touch) {
                     print("Coord at Touch Position: \(coord)")
+                    
+                    if layer.tileAtCoord(coord)?.tileData.id == 3 {
+                        layer.removeTileAtCoord(coord)
+                    }
                 }
             }
         }
