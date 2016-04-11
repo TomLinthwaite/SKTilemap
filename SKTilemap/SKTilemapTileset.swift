@@ -42,7 +42,7 @@ class SKTilemapTileset : Equatable, Hashable {
     var tileOffset = CGPointZero
     
     /** A set containing all of the tile data for this tileset. */
-    private var tileData: Set<SKTileData> = []
+    private var tileData: Set<SKTilemapTileData> = []
     
 // MARK: Initialization
     
@@ -120,36 +120,36 @@ class SKTilemapTileset : Equatable, Hashable {
         }
     }
     
-    /** Add a single SKTileData object to this tileset with texture. Will return the tile data object that was added on
+    /** Add a single SKTilemapTileData object to this tileset with texture. Will return the tile data object that was added on
         success or nil on failure. */
-    func addTileData(id id: Int, texture: SKTexture) -> SKTileData? {
+    func addTileData(id id: Int, texture: SKTexture) -> SKTilemapTileData? {
         
         if self.tileData.contains({ $0.hashValue == id.hashValue }) {
             print("SKTilemapTileset: Failed to add tile data. Tile data with the same id already exists.")
             return nil
         }
         
-        let tileData = SKTileData(id: id, texture: texture, tileset: self)
+        let tileData = SKTilemapTileData(id: id, texture: texture, tileset: self)
         self.tileData.insert(tileData)
         return tileData
     }
     
-    /** Add a single SKTileData object to this tileset. It's texture is loaded from a file provided from the filename.
+    /** Add a single SKTilemapTileData object to this tileset. It's texture is loaded from a file provided from the filename.
         Will return the tile data object that was added on success or nil on failure. */
-    func addTileData(id id: Int, imageNamed source: String) -> SKTileData? {
+    func addTileData(id id: Int, imageNamed source: String) -> SKTilemapTileData? {
         
         if self.tileData.contains({ $0.hashValue == id.hashValue }) {
             print("SKTilemapTileset: Failed to add tile data. Tile data with the same id already exists.")
             return nil
         }
         
-        let tileData = SKTileData(id: id, imageNamed: source, tileset: self)
+        let tileData = SKTilemapTileData(id: id, imageNamed: source, tileset: self)
         self.tileData.insert(tileData)
         return tileData
     }
     
-    /** Returns a SKTileData object contained within this tileset matching the ID. Returns nil on failure. */
-    func getTileData(id id: Int) -> SKTileData? {
+    /** Returns a SKTilemapTileData object contained within this tileset matching the ID. Returns nil on failure. */
+    func getTileData(id id: Int) -> SKTilemapTileData? {
         
         if let index = tileData.indexOf( { $0.id == id } ) {
             return tileData[index]

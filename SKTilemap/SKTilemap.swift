@@ -140,9 +140,9 @@ class SKTilemap : SKNode {
         return nil
     }
     
-    /** Will return a SKTileData object with matching id from one of the tilesets associated with this tilemap
+    /** Will return a SKTilemapTileData object with matching id from one of the tilesets associated with this tilemap
         or nil if no match can be found. */
-    func getTileData(id id: Int) -> SKTileData? {
+    func getTileData(id id: Int) -> SKTilemapTileData? {
         
         for tileset in tilesets {
             

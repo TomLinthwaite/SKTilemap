@@ -9,7 +9,7 @@
 import SpriteKit
 
 // MARK: SKTileData
-class SKTileData : Equatable, Hashable {
+class SKTilemapTileData : Equatable, Hashable {
     
     // MARK: Properties
     var hashValue: Int { get { return self.id.hashValue } }
@@ -55,18 +55,18 @@ class SKTileData : Equatable, Hashable {
     }
 }
 
-func ==(lhs: SKTileData, rhs: SKTileData) -> Bool {
+func ==(lhs: SKTilemapTileData, rhs: SKTilemapTileData) -> Bool {
     return (lhs.hashValue == rhs.hashValue)
 }
 
 
 // MARK: SKTile
-class SKTile : SKNode {
+class SKTilemapTile : SKNode {
     
 // MARK: Properties
     
     /** The tile data this tile represents. */
-    let tileData: SKTileData
+    let tileData: SKTilemapTileData
     
     /** The sprite of the tile. */
     let sprite: SKSpriteNode
@@ -74,7 +74,7 @@ class SKTile : SKNode {
 // MARK: Initialization
     
     /* Initialize an SKTile using SKTileData. */
-    init(tileData: SKTileData) {
+    init(tileData: SKTilemapTileData) {
         
         self.tileData = tileData
         sprite = SKSpriteNode(texture: tileData.texture)

@@ -24,7 +24,7 @@ class SKTilemapLayer : SKNode {
     let tilemap: SKTilemap
     
     /** A 2D array representing the tile layer data. */
-    private var tiles: [[SKTile?]]
+    private var tiles: [[SKTilemapTile?]]
     
     /** The size of the layer in tiles. */
     private var size: CGSize { get { return tilemap.size } }
@@ -120,7 +120,7 @@ class SKTilemapLayer : SKNode {
     
     /** Remove a particular tile at a map position. Will return the tile that was removed or nil if the tile did not exist or
      the location was invalid.  */
-    func removeTile(x x: Int, y: Int) -> SKTile? {
+    func removeTile(x x: Int, y: Int) -> SKTilemapTile? {
         return setTileAt(x: x, y: y, tile: nil).tileRemoved
     }
     
@@ -135,7 +135,7 @@ class SKTilemapLayer : SKNode {
     }
     
     /** Returns a tile at a given map position or nil if no tile exists or the position was outside of the map. */
-    func tileAt(x x: Int, y: Int) -> SKTile? {
+    func tileAt(x x: Int, y: Int) -> SKTilemapTile? {
         
         if !isValidCoord(x: x, y: y) {
             return nil
@@ -144,7 +144,7 @@ class SKTilemapLayer : SKNode {
         return tiles[y][x]
     }
     
-    func tileAt(position position: CGPoint) -> SKTile? {
+    func tileAt(position position: CGPoint) -> SKTilemapTile? {
         if let coord = coordAtPosition(position, round: true) {
             return tileAt(x: Int(coord.x), y: Int(coord.y))
         }
@@ -155,13 +155,13 @@ class SKTilemapLayer : SKNode {
         remove a tile at this position (although removeTile(x:y:) is the prefered method for doing this).
         Will return a tuple containing the tile that was removed and the tile that was set. They can be nil
         if neither is true. */
-    func setTileAt(x x: Int, y: Int, tile: SKTile?) -> (tileSet: SKTile?, tileRemoved: SKTile?) {
+    func setTileAt(x x: Int, y: Int, tile: SKTilemapTile?) -> (tileSet: SKTilemapTile?, tileRemoved: SKTilemapTile?) {
         
         if !isValidCoord(x: x, y: y) {
             return (nil, nil)
         }
         
-        var tileRemoved: SKTile?
+        var tileRemoved: SKTilemapTile?
         
         if let tile = tileAt(x: x, y: y) {
             tile.removeFromParent()
@@ -183,10 +183,10 @@ class SKTilemapLayer : SKNode {
     /** Set a specific position on the map to represent the given tile by ID.
         Will return a tuple containing the tile that was removed and the tile that was set. They can be nil
         if neither is true. */
-    func setTileAt(x x: Int, y: Int, id: Int) -> (tileSet: SKTile?, tileRemoved: SKTile?) {
+    func setTileAt(x x: Int, y: Int, id: Int) -> (tileSet: SKTilemapTile?, tileRemoved: SKTilemapTile?) {
         
         if let tileData = tilemap.getTileData(id: id) {
-            setTileAt(x: x, y: y, tile: SKTile(tileData: tileData))
+            setTileAt(x: x, y: y, tile: SKTilemapTile(tileData: tileData))
         }
         
         return (nil, nil)
