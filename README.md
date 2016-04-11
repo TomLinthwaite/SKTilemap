@@ -51,16 +51,16 @@ Layers are also SKNode objects and can be added to an SKTilemap object. Each lay
     
 **Adding, Getting and Removing Tiles from a Layer**
 
-    layer.tileAt(x: 3, y 3)
-    layer.tileAt(position: CGPoint(x: 3,y: 3))
-    layer.setTileAt(x: 3, y: 3, tile: aTile)
-    layer.setTileAt(x: 3, y: 3, id: 90)
-    layer.removeTile(x: 3, y: 3)
+    layer.tileAtCoord(3, 3)
+    layer.tileAtPosition(CGPoint(x: 3,y: 3))
+    layer.setTileAtCoord(3, 3, tile: aTile)
+    layer.setTileAtCoord(3, 3, id: 90)
+    layer.removeTileAtCoord(3, 3)
     layer.removeAllTiles()
     
 **Tile Coordinates & Positioning**
 
-    layer.tilePositionAt(x: 3, y: 3)
+    layer.tilePositionAtCoord(x: 3, y: 3)
     layer.coordAtPosition(position: CGPoint)
     layer.coordAtTouchPosition(UITouch)
     
