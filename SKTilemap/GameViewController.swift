@@ -16,19 +16,19 @@ class GameViewController: UIViewController {
         super.viewDidLoad()
 
         let skView = self.view as! SKView
-        skView.frameInterval = 1 / 60;
+        skView.frameInterval = 1 / 60
         
         skView.showsFPS = true
         skView.showsNodeCount = true
-        skView.showsDrawCount = true;
-        skView.showsFields = false;
-        skView.showsPhysics = false;
-        skView.showsQuadCount = false;
+        skView.showsDrawCount = true
+        skView.showsFields = false
+        skView.showsPhysics = false
+        skView.showsQuadCount = false
         
-        skView.shouldCullNonVisibleNodes = true;
+        skView.shouldCullNonVisibleNodes = true
         skView.ignoresSiblingOrder = true
         
-        let scene = GameScene(size: skView.bounds.size);
+        let scene = GameScene(size: skView.bounds.size)
         scene.scaleMode = .AspectFill
         skView.presentScene(scene)
     }
