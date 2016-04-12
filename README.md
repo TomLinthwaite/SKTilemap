@@ -6,7 +6,6 @@
 + [Why](#why)
 + [Requirements](#requirements)
 + [Usage](#usage)
-+ [Tutorials](#tutorials)
 + [Quick Guide](#quick-guide)
 + [TMX Support](#tmx-support)
 + [License](#license)
@@ -32,9 +31,6 @@ To load a tilemap from a .tmx file simply add the .tmx to your project (plus the
     if let tilemap = SKTilemap.loadTMX(name: "awsome_map_made_in_Tiled") { }
     
 Once the tilemap has been successfully loaded you can treat it as a normal SKNode. It's always best to load the tilemap within an **if let** or **guard let** statement because the loading *can* fail.
-
-## Tutorials
-Coming soon...
 
 ## Quick Guide
 Here's a quick overview of the API which should hopefully be self explanatory. I have tried to document everything in code as best I can if you get stuck.
