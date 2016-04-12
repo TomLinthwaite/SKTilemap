@@ -12,7 +12,7 @@
 + [Other](#other)
 
 ## Overview
-An addition to Apples Sprite Kit frame work for iOS which allows for the creation of tilemaps either programmatically or from a .tmx file (created in [Tiled](www.mapeditor.org)). SKTilemap is written purely in Swift and sets out to be a simple solution for all game programmers alike to add tilemaps to thier Sprite Kit games.
+An addition to Apples Sprite Kit frame work for iOS which allows for the creation of tilemaps either programmatically or from a .tmx file (created in [Tiled](www.mapeditor.org)). SKTilemap is written purely in Swift and sets out to be a simple solution for all game programmers alike to add tilemaps to their Sprite Kit games.
 
 ## Why
 I decided to write this because I couldn't find a good alternative written purely in Swift. I'm also a self taught programmer and this was a good learning exercise. I've tried to document the code as well as I can so it shouldn't be to hard to look through it and add features or change anything you want.
