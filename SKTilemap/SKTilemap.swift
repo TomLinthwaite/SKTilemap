@@ -173,7 +173,8 @@ class SKTilemap : SKNode {
             var highestZPosition: CGFloat?
             
             for layer in tileLayers {
-                if zPosition == nil {
+                
+                if highestZPosition == nil {
                     highestZPosition = layer.zPosition
                 }
                 else if layer.zPosition > highestZPosition {
@@ -181,8 +182,8 @@ class SKTilemap : SKNode {
                 }
             }
             
-            if highestZPosition == nil { highestZPosition = 0 }
-            tileLayer.zPosition = highestZPosition!
+            if highestZPosition == nil { highestZPosition = -1 }
+            tileLayer.zPosition = highestZPosition! + 1
         }
         
         tileLayers.insert(tileLayer)
@@ -196,16 +197,19 @@ class SKTilemap : SKNode {
         
         if orientation == .Orthogonal {
             layer.position = CGPoint(x: -sizeHalved.width * tileSize.width,
-                               y: sizeHalved.height * tileSize.height)
+                                     y: sizeHalved.height * tileSize.height)
         }
         
         if orientation == .Isometric {
             layer.position = CGPoint(x: -((sizeHalved.width - sizeHalved.height) * tileSizeHalved.width),
-                               y: ((sizeHalved.width + sizeHalved.height) * tileSizeHalved.height))
+                                     y: ((sizeHalved.width + sizeHalved.height) * tileSizeHalved.height))
         }
         
-        layer.position.x += layer.offset.x
-        layer.position.y += layer.offset.y
+        /* Apply the layers offset */
+        layer.position.x += (layer.offset.x + layer.offset.x * orientation.tileAnchorPoint().x)
+        layer.position.y -= (layer.offset.y - layer.offset.y * orientation.tileAnchorPoint().y)
+        
+        print("n: \(layer.name), o: \((layer.offset.y * orientation.tileAnchorPoint().y))")
     }
     
     /** Returns a tilemap layer with specified name or nil if one does not exist. */

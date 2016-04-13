@@ -78,7 +78,7 @@ class SKTilemapLayer : SKNode {
         }
         
         if let visible = attributes["visible"] where (Int(visible)) != nil {
-            hidden = (Int(visible)! == 0 ? false : true)
+            hidden = (Int(visible)! == 0 ? true : false)
         }
     }
     
@@ -179,11 +179,11 @@ class SKTilemapLayer : SKNode {
         
         tiles[y][x] = tile
         
-        if tile != nil {
+        if let t = tile {
             
-            addChild(tile!)
-            tile!.position = tilePositionAtCoord(x, y)
-            tile!.sprite.anchorPoint = tilemap.orientation.tileAnchorPoint()
+            addChild(t)
+            t.position = tilePositionAtCoord(x, y, offset: t.tileData.tileset.tileOffset)
+            t.sprite.anchorPoint = tilemap.orientation.tileAnchorPoint()
         }
         
         return (tile, tileRemoved)
@@ -212,10 +212,10 @@ class SKTilemapLayer : SKNode {
 // MARK: Tile Coordinates & Positioning
     
     /** Returns the position a tile should be within the layer if they have a certain map position. */
-    func tilePositionAtCoord(x: Int, _ y: Int) -> CGPoint {
+    func tilePositionAtCoord(x: Int, _ y: Int, offset: CGPoint = CGPointZero) -> CGPoint {
         
         let tileAnchorPoint = tilemap.orientation.tileAnchorPoint()
-        var position =  CGPointZero
+        var position = CGPointZero
         
         switch tilemap.orientation {
             
@@ -229,25 +229,38 @@ class SKTilemapLayer : SKNode {
             
         }
         
+        /* Re-position tile based on the tileset offset. */
+        position.x = position.x + (offset.x - tileAnchorPoint.x * offset.x)
+        position.y = position.y - (offset.y - tileAnchorPoint.y * offset.y)
+        
+        
         return position
     }
     
-    /** Returns the coordinate from a specific position within the layer. If the position gets converted to a coordinate
-        that is not valid nil is returned.  Otherwise the tile coordinate is returned. Passing the round parameter as 
-        true will return a whole number coordinate (the default), or a decimal number which can be used to determine
-        where exactly within the tile the layer position is. */
-    func coordAtPosition(positionInLayer: CGPoint, round: Bool = true) -> CGPoint? {
+    /** Returns the coordinate from a specific position within the layer. 
+        If the position gets converted to a coordinate that is not valid nil is returned.  Otherwise the tile coordinate
+        is returned.
+        A custom offset point can be passed to this function which is useful if the tileset being used has an offset.
+        Passing the round parameter as true will return a whole number coordinate (the default), or a decimal number
+        which can be used to determine where exactly within the tile the layer position is. */
+    func coordAtPosition(positionInLayer: CGPoint, offset: CGPoint = CGPointZero, round: Bool = true) -> CGPoint? {
         
         var coord = CGPointZero
+        
+        let tileAnchorPoint = tilemap.orientation.tileAnchorPoint()
+        let position = CGPoint(x: positionInLayer.x - (self.offset.x * tileAnchorPoint.x) + (offset.x - tileAnchorPoint.x * offset.x),
+                               y: positionInLayer.y + (self.offset.y * tileAnchorPoint.y) - (offset.y - tileAnchorPoint.y * offset.y))
+
         
         switch tilemap.orientation {
             
         case .Orthogonal:
-            coord = CGPoint(x: positionInLayer.x / tileSize.width, y: positionInLayer.y / -tileSize.height)
+            coord = CGPoint(x: position.x / tileSize.width,
+                            y: position.y / -tileSize.height)
             
         case .Isometric:
-            coord = CGPoint(x: ((positionInLayer.x / tileSizeHalved.width) + (positionInLayer.y / -tileSizeHalved.height)) / 2,
-                            y: ((positionInLayer.y / -tileSizeHalved.height) - (positionInLayer.x / tileSizeHalved.width)) / 2)
+            coord = CGPoint(x: ((position.x / tileSizeHalved.width) + (position.y / -tileSizeHalved.height)) / 2,
+                            y: ((position.y / -tileSizeHalved.height) - (position.x / tileSizeHalved.width)) / 2)
         }
         
         if !isValidCoord(x: Int(floor(coord.x)), y: Int(floor(coord.y))) {
@@ -261,13 +274,13 @@ class SKTilemapLayer : SKNode {
         return coord
     }
     
-    /** Returns the coordinate of a tile using a touch position. If the position gets converted to a coordinate
-     that is not valid nil is returned.  Otherwise the tile coordinate is returned. Passing the round parameter as
-     true will return a whole number coordinate (the default), or a decimal number which can be used to determine
-     where exactly within the tile the layer position is. */
-    func coordAtTouchPosition(touch: UITouch, round: Bool = true) -> CGPoint? {
-        
-        let touchPosition = touch.locationInNode(self)
-        return coordAtPosition(touchPosition, round: round)
+    /** Returns the coordinate of a tile using a touch position. 
+        If the position gets converted to a coordinate that is not valid nil is returned.  Otherwise the tile 
+        coordinate is returned. 
+        A custom offset point can be passed to this function which is useful if the tileset being used has an offset.
+        Passing the round parameter as true will return a whole number coordinate (the default), or a decimal number 
+        which can be used to determine where exactly within the tile the layer position is. */
+    func coordAtTouchPosition(touch: UITouch, offset: CGPoint = CGPointZero, round: Bool = true) -> CGPoint? {
+        return coordAtPosition(touch.locationInNode(self), offset: offset, round: round)
     }
 }
