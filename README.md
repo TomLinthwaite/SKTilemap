@@ -34,7 +34,7 @@ To load a tilemap from a .tmx file simply add the .tmx to your project (plus the
 Once the tilemap has been successfully loaded you can treat it as a normal SKNode. It's always best to load the tilemap within an **if let** or **guard let** statement because the loading *can* fail.
 
 ## Quick Guide
-Here's a quick overview of the API which should hopefully be self explanatory. I have tried to document everything in code as best I can if you get stuck.
+Here's a quick overview of the API which should hopefully be self explanatory. I have tried to document everything in code as best I can if you get stuck. *This is not all of the API, please see the wiki.*
 
 ### Tilemap Layers
 Layers are also SKNode objects and can be added to an SKTilemap object. Each layer contains many SKTile objects (as children) that make up the visual look for that layer.
@@ -103,13 +103,13 @@ I haven't yet implemented all of the features you can use to create a tilemap in
 * Encoding (Base64, CSV, XML)
 * Objects (Rectangular)
 * Properties for all types (Map, Layer, Objects etc...)
+* Animated Tiles
 
 ### Not Supported
 * Orientation (Isometric Staggered, Hexagonal)
 * Tilesets (External)
 * Image Layers
 * Terrain Types
-* Animated Tiles
 * Compression (gzip, zlib)
 * Tile Flipping
 * Objects (Elipse, Polygon, Polyline)
