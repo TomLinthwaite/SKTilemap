@@ -37,15 +37,13 @@ class GameScene: SKScene {
         camera = sceneCamera
         
         /* Load Tilemap from .tmx file and add it to the scene through the worldNode. */
-        if let tilemap = SKTilemap.loadTMX(name: "tilemap_isometric_offset") {
+        if let tilemap = SKTilemap.loadTMX(name: "tilemap_isometric") {
             
             /* Print tilemap information to console, useful for debugging. */
             //tilemap.printDebugDescription()
             worldNode.addChild(tilemap)
             self.tilemap = tilemap
         }
-        
-        //tilemap?.getLayer(name: "ground layer")?.showGroundLevelLine()
         
         /* Create a tilemap Programatically */
 //        tilemap = SKTilemap(size: CGSize(width: 32, height: 32), tileSize: CGSize(width: 32, height: 32), orientation: .Orthogonal)
@@ -76,16 +74,11 @@ class GameScene: SKScene {
         
         for touch in touches {
             
-            if let layer = tilemap?.getLayer(name: "over ground layer") {
+            if let layer = tilemap?.getLayer(name: "ground layer") {
                 
-                if let coord = layer.coordAtTouchPosition(touch, offset: CGPoint(x: 0, y: 32)) {
+                if let tile = layer.tileAtTouchPosition(touch) {
                     
-                    print("Coord at Touch Position: \(coord)")
-                    
-                    if let tile = layer.tileAtCoord(coord) {
-                        
-                        tile.sprite.alpha = 0.5
-                    }
+                    tile.sprite.alpha = 0.5
                 }
             }
         }

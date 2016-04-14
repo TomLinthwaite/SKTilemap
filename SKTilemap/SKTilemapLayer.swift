@@ -107,7 +107,8 @@ class SKTilemapLayer : SKNode {
             let gid = data[i]
             let x = i % Int(size.width)
             let y = i / Int(size.width)
-            setTileAtCoord(x, y, id: gid)
+            let tile = setTileAtCoord(x, y, id: gid).tileSet
+            tile?.playAnimation(tilemap)
         }
         
         return true
@@ -138,7 +139,7 @@ class SKTilemapLayer : SKNode {
         }
     }
     
-    /** Returns a tile at a given map position or nil if no tile exists or the position was outside of the map. */
+    /** Returns a tile at a given map coord or nil if no tile exists or the position was outside of the map. */
     func tileAtCoord(x: Int, _ y: Int) -> SKTilemapTile? {
         
         if !isValidCoord(x: x, y: y) {
@@ -148,6 +149,7 @@ class SKTilemapLayer : SKNode {
         return tiles[y][x]
     }
     
+    /** Returns a tile at a given map coord or nil if no tile exists or the position was outside of the map. */
     func tileAtCoord(coord: CGPoint) -> SKTilemapTile? {
         return tileAtCoord(Int(coord.x), Int(coord.y))
     }
@@ -157,6 +159,16 @@ class SKTilemapLayer : SKNode {
         if let coord = coordAtPosition(positionInLayer, round: true) {
             return tileAtCoord(Int(coord.x), Int(coord.y))
         }
+        return nil
+    }
+    
+    /* Returns a tile at a given touch position. A custom offset can also be used. */
+    func tileAtTouchPosition(touch: UITouch, offset: CGPoint = CGPointZero) -> SKTilemapTile? {
+        
+        if let coord = coordAtTouchPosition(touch, offset: offset, round: true) {
+            return tileAtCoord(coord)
+        }
+        
         return nil
     }
     
@@ -179,11 +191,11 @@ class SKTilemapLayer : SKNode {
         
         tiles[y][x] = tile
         
-        if let t = tile {
+        if let setTile = tile {
             
-            addChild(t)
-            t.position = tilePositionAtCoord(x, y, offset: t.tileData.tileset.tileOffset)
-            t.sprite.anchorPoint = tilemap.orientation.tileAnchorPoint()
+            addChild(setTile)
+            setTile.position = tilePositionAtCoord(x, y, offset: setTile.tileData.tileset.tileOffset)
+            setTile.sprite.anchorPoint = tilemap.orientation.tileAnchorPoint()
         }
         
         return (tile, tileRemoved)
@@ -199,7 +211,7 @@ class SKTilemapLayer : SKNode {
     func setTileAtCoord(x: Int, _ y: Int, id: Int) -> (tileSet: SKTilemapTile?, tileRemoved: SKTilemapTile?) {
         
         if let tileData = tilemap.getTileData(id: id) {
-            setTileAtCoord(x, y, tile: SKTilemapTile(tileData: tileData))
+            return setTileAtCoord(x, y, tile: SKTilemapTile(tileData: tileData))
         }
         
         return (nil, nil)
@@ -232,7 +244,6 @@ class SKTilemapLayer : SKNode {
         /* Re-position tile based on the tileset offset. */
         position.x = position.x + (offset.x - tileAnchorPoint.x * offset.x)
         position.y = position.y - (offset.y - tileAnchorPoint.y * offset.y)
-        
         
         return position
     }

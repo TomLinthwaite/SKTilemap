@@ -30,6 +30,9 @@ class SKTilemapTileData : Equatable, Hashable {
      the texture for this data. */
     let source: String
     
+    /** The tile IDs and durations used for animating this tile. */
+    var animationFrames: [(id: Int, duration: CGFloat)] = []
+    
 // MARK: Initialization
     init(id: Int, texture: SKTexture, tileset: SKTilemapTileset) {
         
@@ -53,38 +56,32 @@ class SKTilemapTileData : Equatable, Hashable {
     func printDebugDescription() {
         print("TileData: \(id), Source: \(source), Properties: \(properties)")
     }
+    
+// MARK: Animation
+    
+    /** Returns the animation for this tileData if it has one. The animation is created from the animationFrames property. */
+    func getAnimation(tilemap: SKTilemap) -> SKAction? {
+        
+        if animationFrames.isEmpty {
+            return nil
+        }
+        
+        var frames: [SKAction] = []
+        
+        for frameData in animationFrames {
+            
+            if let texture = tilemap.getTileData(id: frameData.id)?.texture {
+                
+                let textureAction = SKAction.setTexture(texture)
+                let delayAction = SKAction.waitForDuration(NSTimeInterval(frameData.duration / 1000))
+                frames.append(SKAction.group([textureAction, delayAction]))
+            }
+        }
+        
+        return SKAction.sequence(frames)
+    }
 }
 
 func ==(lhs: SKTilemapTileData, rhs: SKTilemapTileData) -> Bool {
     return (lhs.hashValue == rhs.hashValue)
-}
-
-
-// MARK: SKTile
-class SKTilemapTile : SKNode {
-    
-// MARK: Properties
-    
-    /** The tile data this tile represents. */
-    let tileData: SKTilemapTileData
-    
-    /** The sprite of the tile. */
-    let sprite: SKSpriteNode
-    
-// MARK: Initialization
-    
-    /* Initialize an SKTile using SKTileData. */
-    init(tileData: SKTilemapTileData) {
-        
-        self.tileData = tileData
-        sprite = SKSpriteNode(texture: tileData.texture)
-        
-        super.init()
-        
-        addChild(sprite)
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
 }

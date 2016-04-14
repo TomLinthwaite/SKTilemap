@@ -208,8 +208,11 @@ class SKTilemap : SKNode {
         /* Apply the layers offset */
         layer.position.x += (layer.offset.x + layer.offset.x * orientation.tileAnchorPoint().x)
         layer.position.y -= (layer.offset.y - layer.offset.y * orientation.tileAnchorPoint().y)
-        
-        print("n: \(layer.name), o: \((layer.offset.y * orientation.tileAnchorPoint().y))")
+    }
+    
+    /* Get all layers in a set. */
+    func getLayers() -> Set<SKTilemapLayer> {
+        return tileLayers
     }
     
     /** Returns a tilemap layer with specified name or nil if one does not exist. */

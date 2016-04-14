@@ -93,9 +93,9 @@ class SKTilemapParser : NSObject, NSXMLParserDelegate {
                 let source = attributeDict["source"],
                 let tileset = lastElement as? SKTilemapTileset
                 else {
-                errorMessage = "SKTilemapParser: Failed to parse <image>. [\(parser.lineNumber)]"
-                parser.abortParsing()
-                return
+                    errorMessage = "SKTilemapParser: Failed to parse <image>. [\(parser.lineNumber)]"
+                    parser.abortParsing()
+                    return
             }
             
             if lastID == nil {
@@ -119,6 +119,22 @@ class SKTilemapParser : NSObject, NSXMLParserDelegate {
                 parser.abortParsing()
                 return
             }
+        }
+        
+        if elementName == "frame" {
+            
+            guard
+                let id = attributeDict["tileid"] where (Int(id) != nil),
+                let duration = attributeDict["duration"] where (Int(duration) != nil),
+                let tileset = (lastElement as? SKTilemapTileset) where (lastID != nil),
+                let tileData = tileset.getTileData(id: lastID! + tileset.firstGID)
+                else {
+                    errorMessage = "SKTilemapParser: Failed to parse <frame>. [\(parser.lineNumber)]"
+                    parser.abortParsing()
+                    return
+            }
+            
+            tileData.animationFrames.append((id: Int(id)! + tileset.firstGID, duration: CGFloat(Int(duration)!)))
         }
         
         if elementName == "property" {
