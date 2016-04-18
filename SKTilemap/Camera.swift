@@ -3,7 +3,7 @@ import SpriteKit
 
 class Camera : SKCameraNode {
     
-    // MARK: Properties
+// MARK: Properties
     let worldNode: SKNode
     var bounds: CGRect
     private var pinchGestureRecognizer: UIPinchGestureRecognizer!
@@ -12,8 +12,8 @@ class Camera : SKCameraNode {
     
     var allowZoom: Bool
     var enabled: Bool
-    
-    // MARK: Initialization
+
+// MARK: Initialization
     init(scene: SKScene, view: SKView, worldNode: SKNode) {
         
         self.worldNode = worldNode
@@ -34,7 +34,7 @@ class Camera : SKCameraNode {
         fatalError("init(coder:) has not been implemented")
     }
     
-    // MARK: Input
+// MARK: Input
     
     /// Should be called from within a touches moved method. Will move the camera based on the direction of a touch.
     func panCamera(touch: UITouch) {
@@ -92,12 +92,15 @@ class Camera : SKCameraNode {
     /// Applies a scale to the worldNode. Ensures that the scale stays within its range and that the worldNode is clamped within its bounds.
     func applyZoomScale(scale: CGFloat) {
         
+        var zoomScale = scale
+        
         if zoomScale < zoomRange.min {
             zoomScale = zoomRange.min
         } else if zoomScale > zoomRange.max {
             zoomScale = zoomRange.max
         }
         
+        self.zoomScale = zoomScale
         worldNode.setScale(zoomScale)
         clampWorldNode()
     }

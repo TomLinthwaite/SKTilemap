@@ -238,6 +238,13 @@ class SKTilemap : SKNode {
         return nil
     }
     
+    func clipTilesOutOfBounds(bounds: CGRect) {
+        
+        for layer in tileLayers {
+            layer.clipTilesOutOfBounds(bounds)
+        }
+    }
+    
 // MARK: Object Groups
     
     /** Adds an object group to the tilemap. Returns nil on failure. (An object group with the same name already exists.

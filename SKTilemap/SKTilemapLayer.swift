@@ -109,6 +109,7 @@ class SKTilemapLayer : SKNode {
             let y = i / Int(size.width)
             let tile = setTileAtCoord(x, y, id: gid).tileSet
             tile?.playAnimation(tilemap)
+            //tile?.hidden = true
         }
         
         return true
@@ -254,7 +255,7 @@ class SKTilemapLayer : SKNode {
         A custom offset point can be passed to this function which is useful if the tileset being used has an offset.
         Passing the round parameter as true will return a whole number coordinate (the default), or a decimal number
         which can be used to determine where exactly within the tile the layer position is. */
-    func coordAtPosition(positionInLayer: CGPoint, offset: CGPoint = CGPointZero, round: Bool = true) -> CGPoint? {
+    func coordAtPosition(positionInLayer: CGPoint, offset: CGPoint = CGPointZero, round: Bool = true, mustBeValid: Bool = true) -> CGPoint? {
         
         var coord = CGPointZero
         
@@ -274,7 +275,7 @@ class SKTilemapLayer : SKNode {
                             y: ((position.y / -tileSizeHalved.height) - (position.x / tileSizeHalved.width)) / 2)
         }
         
-        if !isValidCoord(x: Int(floor(coord.x)), y: Int(floor(coord.y))) {
+        if mustBeValid && !isValidCoord(x: Int(floor(coord.x)), y: Int(floor(coord.y))) {
             return nil
         }
         
@@ -293,5 +294,46 @@ class SKTilemapLayer : SKNode {
         which can be used to determine where exactly within the tile the layer position is. */
     func coordAtTouchPosition(touch: UITouch, offset: CGPoint = CGPointZero, round: Bool = true) -> CGPoint? {
         return coordAtPosition(touch.locationInNode(self), offset: offset, round: round)
+    }
+    
+    /** Returns the coord of a tile at a given screen (view) position. */
+    func coordAtScreenPosition(position: CGPoint, offset: CGPoint = CGPointZero, round: Bool = true, mustBeValid: Bool = true) -> CGPoint? {
+        
+        guard let scene = self.scene, let view = scene.view else {
+            print("SKTilemapLayer: Error, Not connected to scene/view.")
+            return nil
+        }
+        
+        let scenePosition = view.convertPoint(position, toScene: scene)
+        let layerPosition = convertPoint(scenePosition, fromNode: scene)
+        return coordAtPosition(layerPosition, offset: offset, round: round, mustBeValid: mustBeValid)
+    }
+    
+    func clipTilesOutOfBounds(bounds: CGRect, safeZone: Int = 2) {
+        
+        let topLeftCoord = coordAtScreenPosition(bounds.origin, mustBeValid: false)!
+        let bottomRightCoord = coordAtScreenPosition(CGPoint(x: bounds.maxX, y: bounds.maxY), mustBeValid: false)!
+        
+        let tl = tilePositionAtCoord(Int(topLeftCoord.x) - safeZone * 2, Int(topLeftCoord.y) - safeZone)
+        let br = tilePositionAtCoord(Int(bottomRightCoord.x) + safeZone * 2, Int(bottomRightCoord.y) + safeZone)
+        
+        for y in 0..<Int(tilemap.size.height) {
+            for x in 0..<Int(tilemap.size.width) {
+                
+                if let tile = tileAtCoord(x, y) {
+                    
+                    if tile.position.x < tl.x || tile.position.x > br.x || tile.position.y > tl.y || tile.position.y < br.y {
+                        
+                        tile.hidden = true
+                        
+                    } else {
+                        
+                        tile.hidden = false
+                    }
+                }
+                
+                
+            }
+        }
     }
 }
