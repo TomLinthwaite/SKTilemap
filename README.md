@@ -29,7 +29,11 @@ Simply add the SKTilemap*.swift files to your project and you're good to go.
 ### Loading a Tilemap from a .tmx
 To load a tilemap from a .tmx file simply add the .tmx to your project (plus the associated images for your tiles) and use:
     
-    if let tilemap = SKTilemap.loadTMX(name: "awsome_map_made_in_Tiled") { }
+    if let tilemap = SKTilemap.loadTMX(name: "awsome_map_made_in_Tiled") { 
+        scene.addChild(tilemap)
+        
+        tilemap.enableTileClipping = true // Improve your performance!
+    }
     
 Once the tilemap has been successfully loaded you can treat it as a normal SKNode. It's always best to load the tilemap within an **if let** or **guard let** statement because the loading *can* fail.
 
