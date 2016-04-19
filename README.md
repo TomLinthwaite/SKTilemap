@@ -104,6 +104,7 @@ I haven't yet implemented all of the features you can use to create a tilemap in
 * Objects (Rectangular)
 * Properties for all types (Map, Layer, Objects etc...)
 * Animated Tiles
+* Tile Clipping (Useful for large maps!)
 
 ### Not Supported
 * Orientation (Isometric Staggered, Hexagonal)
