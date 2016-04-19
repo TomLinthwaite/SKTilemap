@@ -90,7 +90,7 @@ class SKTilemap : SKNode {
                     }
                     
                     useTileClipping = true
-                    clipTilesOutOfBounds()
+                    clipTilesOutOfBounds(tileBufferSize: 1)
                 }
             } else {
                 
@@ -295,7 +295,7 @@ class SKTilemap : SKNode {
         For example in a scenes TouchesMoved function if scrolling the tilemap with a touch or mouse. */
     func clipTilesOutOfBounds(scale scale: CGFloat = 1.0, tileBufferSize: CGFloat = 2) {
         
-        if !enableTileClipping { return }
+        if !useTileClipping { return }
         
         for layer in tileLayers {
             layer.clipTilesOutOfBounds(displayBounds, scale: scale, tileBufferSize: tileBufferSize)

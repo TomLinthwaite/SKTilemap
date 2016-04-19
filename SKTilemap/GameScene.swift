@@ -44,8 +44,17 @@ class GameScene: SKScene {
             worldNode.addChild(tilemap)
             self.tilemap = tilemap
             
+            /* Set the bounds for the tilemap. The bounds for the tilemap are different to those of the camera.
+               These bounds origin is from the top left corner. But we only need to specify the distance from that corner. */
+            tilemap.displayBounds = CGRect(x: 64, y: 64, width: view.bounds.width - 128, height: view.bounds.height - 128)
+            
+            /* Note that if we did not set the above tilemap bounds, the tilemap itself will use the view bounds (view.bounds)
+             as default. You only need to set these bounds if you are planning on not using the whole of the screen for
+             to display your tilemap. You can change these bounds at any time, you are not required to set them before
+             enabling tile clipping. */
+            
             /* Set this to enable tile clipping outside the size of the view. */
-            self.tilemap?.enableTileClipping = true
+            tilemap.enableTileClipping = true
         }
         
         /* Set custom camera bounds to test tile clipping. */
@@ -63,15 +72,6 @@ class GameScene: SKScene {
         
         /* NOTE: Adding the shape as a child of the camera. This stops it moving/scaling when the camera does! */
         sceneCamera.addChild(boundsShape)
-        
-        /* Finally set the bounds for the tilemap. The bounds for the tilemap are different to those of the camera.
-           These bounds origin is from the top left corner. But we only need to specify the distance from that corner. */
-        tilemap?.displayBounds = CGRect(x: 64, y: 64, width: view.bounds.width - 128, height: view.bounds.height - 128)
-        
-        /* Note that if we did not set the above tilemap bounds, the tilemap itself will use the view bounds (view.bounds)
-           as default. You only need to set these bounds if you are planning on not using the whole of the screen for
-           to display your tilemap. */
-        
         /* There is one more step to ensure tileClipping works... Scroll down to the touches moved method. */
         
         
@@ -135,7 +135,7 @@ class GameScene: SKScene {
             /* Will only work if tilemap.enableTileClipping = true 
                Increase the tileBufferSize to draw more tiles outside of the bounds. This can stop tiles that are part
                way in/out of the bounds to get fully displayed. Not giving a tileBufferSize will default it to 2. */
-            tilemap?.clipTilesOutOfBounds(sceneCamera.getZoomScale(), tileBufferSize: 0)
+            tilemap?.clipTilesOutOfBounds(scale: sceneCamera.getZoomScale(), tileBufferSize: 1)
             
             /* You must call this function every time the camera moves/zooms. At the moment this is the easiest way to
                do it. But ideally the tilemap itself should know when it needs to update. Right now there is no way
