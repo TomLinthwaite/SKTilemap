@@ -34,6 +34,9 @@ class SKTilemapLayer : SKNode {
     private var tileSize: CGSize { get { return tilemap.tileSize } }
     private var tileSizeHalved: CGSize { get { return CGSize(width: tileSize.width / 2, height: tileSize.height / 2) } }
     
+    /** Used when clipping tiles outside of a set bounds. See: 'func clipTilesOutOfBounds()'*/
+    private var previouslyShownTiles: [SKTilemapTile] = []
+    
 // MARK: Initialization
     
     /** Initialize an empty tilemap layer */
@@ -109,7 +112,6 @@ class SKTilemapLayer : SKNode {
             let y = i / Int(size.width)
             let tile = setTileAtCoord(x, y, id: gid).tileSet
             tile?.playAnimation(tilemap)
-            //tile?.hidden = true
         }
         
         return true
@@ -167,6 +169,16 @@ class SKTilemapLayer : SKNode {
     func tileAtTouchPosition(touch: UITouch, offset: CGPoint = CGPointZero) -> SKTilemapTile? {
         
         if let coord = coordAtTouchPosition(touch, offset: offset, round: true) {
+            return tileAtCoord(coord)
+        }
+        
+        return nil
+    }
+    
+    /* Returns a tile at a given screen position. A custom offet can be used. */
+    func tileAtScreenPosition(position: CGPoint, offset: CGPoint = CGPointZero) -> SKTilemapTile? {
+        
+        if let coord = coordAtScreenPosition(position, offset: offset, round: true, mustBeValid: true) {
             return tileAtCoord(coord)
         }
         
@@ -309,30 +321,48 @@ class SKTilemapLayer : SKNode {
         return coordAtPosition(layerPosition, offset: offset, round: round, mustBeValid: mustBeValid)
     }
     
-    func clipTilesOutOfBounds(bounds: CGRect, safeZone: Int = 2) {
+    func clipTilesOutOfBounds(bounds: CGRect? = nil, scale: CGFloat = 1.0, tileBufferSize: CGFloat = 2) {
         
-        let topLeftCoord = coordAtScreenPosition(bounds.origin, mustBeValid: false)!
-        let bottomRightCoord = coordAtScreenPosition(CGPoint(x: bounds.maxX, y: bounds.maxY), mustBeValid: false)!
+        /* The bounds passed in should assume an origin in the bottom left corner. If no bounds are passed in the size
+           of the view is used. */
+        var viewBounds: CGRect
         
-        let tl = tilePositionAtCoord(Int(topLeftCoord.x) - safeZone * 2, Int(topLeftCoord.y) - safeZone)
-        let br = tilePositionAtCoord(Int(bottomRightCoord.x) + safeZone * 2, Int(bottomRightCoord.y) + safeZone)
+        if bounds == nil {
+            
+            if scene != nil && scene?.view != nil {
+                viewBounds = scene!.view!.bounds
+                print(viewBounds)
+            } else {
+                print("SKTilemapLayer: Failed to clip tiles out of bounds. There is no view. Has the tilemap been added to the scene?")
+                return
+            }
+            
+        } else {
+            
+            viewBounds = bounds!
+        }
         
-        for y in 0..<Int(tilemap.size.height) {
-            for x in 0..<Int(tilemap.size.width) {
+        let fromY = Int(viewBounds.origin.y - (tileSize.height * tileBufferSize))
+        let toY = Int(viewBounds.origin.y + viewBounds.height + (tileSize.height * tileBufferSize))
+        let yStep = Int(tileSizeHalved.height * scale)
+        
+        let fromX = Int(viewBounds.origin.x - (tileSize.width * tileBufferSize))
+        let toX = Int(viewBounds.origin.x + viewBounds.width + (tileSize.width * tileBufferSize))
+        let xStep = Int(tileSizeHalved.width * scale)
+        
+        for tile in previouslyShownTiles {
+            tile.hidden = true
+        }
+        
+        previouslyShownTiles.removeAll()
+        
+        for y in fromY.stride(to: toY, by: yStep) {
+            for x in fromX.stride(to: toX, by: xStep) {
                 
-                if let tile = tileAtCoord(x, y) {
-                    
-                    if tile.position.x < tl.x || tile.position.x > br.x || tile.position.y > tl.y || tile.position.y < br.y {
-                        
-                        tile.hidden = true
-                        
-                    } else {
-                        
-                        tile.hidden = false
-                    }
+                if let tile = tileAtScreenPosition(CGPoint(x: x, y: y)) {
+                    tile.hidden = false
+                    previouslyShownTiles.append(tile)
                 }
-                
-                
             }
         }
     }

@@ -58,6 +58,57 @@ class SKTilemap : SKNode {
     /** The object groups this tilemap contains */
     private var objectGroups: Set<SKTilemapObjectGroup> = []
     
+    /** The display bounds this tilemap should be contrained to. Tiles positioned outside this rectangle will not be shown.
+        This should speed up performance for large tilemaps. If this property is not set the SKView bounds will be used
+        instead. */
+    var displayBounds: CGRect?
+    
+    
+    private var useTileClipping = false
+    
+    var enableTileClipping: Bool {
+        get { return useTileClipping }
+        set {
+            
+            if newValue == true {
+                
+                if displayBounds == nil && scene == nil && scene?.view == nil {
+                    print("SKTiledMap: Failed to enable tile clipping. No bounds set.")
+                    useTileClipping = false
+                    return
+                }
+                else if (scene != nil && scene?.view != nil) || displayBounds != nil {
+                    
+                    for y in 0..<Int(size.height) {
+                        for x in 0..<Int(size.width) {
+                            for layer in tileLayers {
+                                if let tile = layer.tileAtCoord(x, y) {
+                                    tile.hidden = true
+                                }
+                            }
+                        }
+                    }
+                    
+                    useTileClipping = true
+                    clipTilesOutOfBounds()
+                }
+            } else {
+                
+                for y in 0..<Int(size.height) {
+                    for x in 0..<Int(size.width) {
+                        for layer in tileLayers {
+                            if let tile = layer.tileAtCoord(x, y) {
+                                tile.hidden = false
+                            }
+                        }
+                    }
+                }
+                
+                useTileClipping = false
+            }
+        }
+    }
+    
 // MARK: Initialization
     
     /** Initialize an empty tilemap object. */
@@ -238,10 +289,16 @@ class SKTilemap : SKNode {
         return nil
     }
     
-    func clipTilesOutOfBounds(bounds: CGRect) {
+    /** Will "clip" tiles outside of the tilemaps 'displayBounds' property if set or the SKView bounds (if it's a child
+        of a view... which it should be). 
+        You must call this function when ever you reposition the tilemap so it can update the visible tiles. 
+        For example in a scenes TouchesMoved function if scrolling the tilemap with a touch or mouse. */
+    func clipTilesOutOfBounds(scale: CGFloat = 1.0, tileBufferSize: CGFloat = 2) {
+        
+        if !enableTileClipping { return }
         
         for layer in tileLayers {
-            layer.clipTilesOutOfBounds(bounds)
+            layer.clipTilesOutOfBounds(displayBounds, scale: scale, tileBufferSize: tileBufferSize)
         }
     }
     

@@ -116,4 +116,8 @@ class Camera : SKCameraNode {
         let yScale = bounds.height / frame.height
         return max(xScale, yScale)
     }
+    
+    func getZoomScale() -> CGFloat {
+        return zoomScale
+    }
 }
