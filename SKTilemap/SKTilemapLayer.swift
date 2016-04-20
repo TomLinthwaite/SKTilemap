@@ -37,6 +37,8 @@ class SKTilemapLayer : SKNode {
     /** Used when clipping tiles outside of a set bounds. See: 'func clipTilesOutOfBounds()'*/
     private var previouslyShownTiles: [SKTilemapTile] = []
     
+    private var hiddenNode = SKNode()
+    
 // MARK: Initialization
     
     /** Initialize an empty tilemap layer */
@@ -321,6 +323,11 @@ class SKTilemapLayer : SKNode {
         return coordAtPosition(layerPosition, offset: offset, round: round, mustBeValid: mustBeValid)
     }
     
+    /** Will hide tiles outside of the set bounds rectangle. If no bounds is set the view bounds is used. 
+        Increase the tileBufferSize to draw more tiles outside of the bounds. This can stop tiles that are part
+        way in/out of the bounds to get fully displayed. Not giving a tileBufferSize will default it to 2.
+        Scale is used for when you're expecting the layer to be scaled to anything other than 1.0. If you use a camera
+        with a zoom for example, you would want to pass the zoom level (or scale of the camera) in here. */
     func clipTilesOutOfBounds(bounds: CGRect? = nil, scale: CGFloat = 1.0, tileBufferSize: CGFloat = 2) {
         
         /* The bounds passed in should assume an origin in the bottom left corner. If no bounds are passed in the size
@@ -331,7 +338,6 @@ class SKTilemapLayer : SKNode {
             
             if scene != nil && scene?.view != nil {
                 viewBounds = scene!.view!.bounds
-                print(viewBounds)
             } else {
                 print("SKTilemapLayer: Failed to clip tiles out of bounds. There is no view. Has the tilemap been added to the scene?")
                 return
@@ -342,19 +348,20 @@ class SKTilemapLayer : SKNode {
             viewBounds = bounds!
         }
         
-        let fromY = Int(viewBounds.origin.y - (tileSize.height * tileBufferSize))
-        let toY = Int(viewBounds.origin.y + viewBounds.height + (tileSize.height * tileBufferSize))
-        let yStep = Int(tileSizeHalved.height * scale)
-        
         let fromX = Int(viewBounds.origin.x - (tileSize.width * tileBufferSize))
-        let toX = Int(viewBounds.origin.x + viewBounds.width + (tileSize.width * tileBufferSize))
-        let xStep = Int(tileSizeHalved.width * scale)
+        let fromY = Int(viewBounds.origin.y - (tileSize.height * tileBufferSize))
         
-        for tile in previouslyShownTiles {
-            tile.hidden = true
+        if let tile = tileAtScreenPosition(CGPoint(x: fromX, y: fromY)) where !previouslyShownTiles.isEmpty {
+            if tile == previouslyShownTiles[0] { return }
         }
         
-        previouslyShownTiles.removeAll()
+        let toX = Int(viewBounds.origin.x + viewBounds.width + (tileSize.width * tileBufferSize))
+        let toY = Int(viewBounds.origin.y + viewBounds.height + (tileSize.height * tileBufferSize))
+        let yStep = Int(tileSizeHalved.height * scale)
+        let xStep = Int(tileSizeHalved.width * scale)
+        
+        previouslyShownTiles.forEach( { $0.hidden = true } )
+        previouslyShownTiles = []
         
         for y in fromY.stride(to: toY, by: yStep) {
             for x in fromX.stride(to: toX, by: xStep) {

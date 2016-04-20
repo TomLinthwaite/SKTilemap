@@ -63,6 +63,21 @@ class SKTilemap : SKNode {
         the SKView bounds will be used instead as default. */
     var displayBounds: CGRect?
     
+    /** Stored property for the layer alignment. */
+    private var layerAlignment = CGPoint(x: 0.5, y: 0.5)
+    
+
+    /** Used to set how the layers are aligned within the map much like an anchorPoint on a sprite node.
+    + 0 - The layers left/bottom most edge will rest at 0 in the scene
+    + 0.5 - The center of the layer will rest at 0 in the scene
+    + 1 - The layers right/top most edge will rest at 0 in the scene */
+    var alignment: CGPoint {
+        get { return layerAlignment }
+        set {
+            self.layerAlignment = newValue
+            for layer in tileLayers { self.alignLayer(layer) }
+        }
+    }
     
     private var useTileClipping = false
     
@@ -239,22 +254,32 @@ class SKTilemap : SKNode {
         
         tileLayers.insert(tileLayer)
         addChild(tileLayer)
-        centerLayer(tileLayer)
+        alignLayer(tileLayer)
         return tileLayer
     }
     
     /** Positions a tilemap layer so that its center position is resting at the tilemaps 0,0 position. */
-    private func centerLayer(layer: SKTilemapLayer) {
+    private func alignLayer(layer: SKTilemapLayer) {
+
+        var position = CGPointZero
         
         if orientation == .Orthogonal {
-            layer.position = CGPoint(x: -sizeHalved.width * tileSize.width,
-                                     y: sizeHalved.height * tileSize.height)
+            let sizeInPoints = CGSize(width: size.width * tileSize.width, height: size.height * tileSize.height)
+            position.x = -sizeInPoints.width * alignment.x
+            position.y = sizeInPoints.height - alignment.y * sizeInPoints.height
         }
         
         if orientation == .Isometric {
-            layer.position = CGPoint(x: -((sizeHalved.width - sizeHalved.height) * tileSizeHalved.width),
-                                     y: ((sizeHalved.width + sizeHalved.height) * tileSizeHalved.height))
+            
+            let sizeInPoints = CGSize(width: (size.width + size.height) * tileSize.width, height: (size.width + size.height) * tileSize.height)
+            position.x = ((sizeHalved.width - sizeHalved.height) * tileSize.width) - alignment.x * (sizeInPoints.width / 2)
+            position.y = ((sizeHalved.width + sizeHalved.height) * tileSize.height) - alignment.y * (sizeInPoints.height / 2)
+            
+            print(position.x)
+        
         }
+        
+        layer.position = position
         
         /* Apply the layers offset */
         layer.position.x += (layer.offset.x + layer.offset.x * orientation.tileAnchorPoint().x)

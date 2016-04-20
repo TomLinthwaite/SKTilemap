@@ -55,6 +55,15 @@ class GameScene: SKScene {
             
             /* Set this to enable tile clipping outside the size of the view. */
             tilemap.enableTileClipping = true
+            
+            /* Set a custom alignment for the tilemap.
+                0 - The layers left/bottom most edge will rest at 0 in the scene
+                0.5 - The center of the layer will rest at 0 in the scene
+                1 - The layers right/top most edge will rest at 0 in the scene
+             
+                It is not required to set this. The default is 0.5,0.5.
+             */
+            tilemap.alignment = CGPoint(x: 0.5, y: 0.5)
         }
         
         /* Set custom camera bounds to test tile clipping. */
@@ -113,11 +122,8 @@ class GameScene: SKScene {
 
                     tile.sprite.alpha = 0.5
                 }
-                */
-                
-                if let coord = layer.coordAtTouchPosition(touch) {
-                    print("Tile Coord: \(coord)")
-                }
+                 */
+                print("Coord Location: \(layer.coordAtTouchPosition(touch))")
             }
             
             print("Scene Location: \(touch.locationInNode(self))")
