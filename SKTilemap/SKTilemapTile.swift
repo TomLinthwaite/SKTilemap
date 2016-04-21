@@ -9,15 +9,12 @@
 import SpriteKit
 
 // MARK: SKTile
-class SKTilemapTile : SKNode {
+class SKTilemapTile : SKSpriteNode {
     
 // MARK: Properties
     
     /** The tile data this tile represents. */
-    let tileData: SKTilemapTileData
-    
-    /** The sprite of the tile. */
-    let sprite: SKSpriteNode
+    var tileData: SKTilemapTileData
     
 // MARK: Initialization
     
@@ -25,11 +22,8 @@ class SKTilemapTile : SKNode {
     init(tileData: SKTilemapTileData) {
         
         self.tileData = tileData
-        sprite = SKSpriteNode(texture: tileData.texture)
         
-        super.init()
-        
-        addChild(sprite)
+        super.init(texture: tileData.texture, color: SKColor.clearColor(), size: tileData.texture.size())
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -44,15 +38,15 @@ class SKTilemapTile : SKNode {
         if let animation = tileData.getAnimation(tilemap) {
             
             if loopForever {
-                sprite.runAction(SKAction.repeatActionForever(animation), withKey: "tile animation")
+                runAction(SKAction.repeatActionForever(animation), withKey: "tile animation")
             } else {
-                sprite.runAction(animation, withKey: "tile animation")
+                runAction(animation, withKey: "tile animation")
             }
         }
     }
     
     /** Stops the tile animating. */
     func stopAnimation() {
-        sprite.removeActionForKey("tile animation")
+        removeActionForKey("tile animation")
     }
 }

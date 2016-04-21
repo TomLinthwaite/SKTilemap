@@ -210,7 +210,7 @@ class SKTilemapLayer : SKNode {
             
             addChild(setTile)
             setTile.position = tilePositionAtCoord(x, y, offset: setTile.tileData.tileset.tileOffset)
-            setTile.sprite.anchorPoint = tilemap.orientation.tileAnchorPoint()
+            setTile.anchorPoint = tilemap.orientation.tileAnchorPoint()
         }
         
         return (tile, tileRemoved)
