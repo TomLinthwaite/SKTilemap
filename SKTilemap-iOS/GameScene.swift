@@ -111,6 +111,8 @@ class GameScene: SKScene {
     }
     
     // MARK: Input
+    
+    #if os(iOS)
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
         
         for touch in touches {
@@ -150,4 +152,28 @@ class GameScene: SKScene {
         }
 
     }
+    #endif
+    
+    #if os(OSX)
+    override func mouseDown(theEvent: NSEvent) {
+        
+        if let layer = tilemap?.getLayer(name: "ground layer") {
+            print("Coord: \(layer.coordAtMousePosition(theEvent))")
+            
+            if let tile = layer.tileAtMousePosition(theEvent) {
+                tile.alpha = 0.5
+            }
+        }
+    }
+    
+    override func mouseUp(theEvent: NSEvent) {
+        sceneCamera.finishedInput()
+    }
+    
+    override func mouseDragged(theEvent: NSEvent) {
+        
+        sceneCamera.panCamera(theEvent)
+        tilemap?.clipTilesOutOfBounds()
+    }
+    #endif
 }

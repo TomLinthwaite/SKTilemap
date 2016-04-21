@@ -73,6 +73,16 @@ class SKTilemapObjectGroup : Equatable, Hashable {
         return nil
     }
     
+    /** Returns an object at coord x and y, or nil on failure. */
+    func getObjectAtCoord(x: Int, _ y: Int) -> SKTilemapObject? {
+        
+        if let index = objects.indexOf( { Int($0.coord.x) == x && Int($0.coord.y) == y } ) {
+            return objects[index]
+        }
+        
+        return nil
+    }
+    
     /** Returns an array of objects that have a matching name. */
     func getObjects(name name: String) -> [SKTilemapObject] {
         

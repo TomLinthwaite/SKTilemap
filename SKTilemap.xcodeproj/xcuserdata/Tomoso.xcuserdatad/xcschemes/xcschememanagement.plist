@@ -4,7 +4,12 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
-		<key>SKTilemap.xcscheme</key>
+		<key>SKTilemap-OSX.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>1</integer>
+		</dict>
+		<key>SKTilemap-iOS.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
 			<integer>0</integer>
@@ -12,7 +17,12 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>D8DF5A6B1CB69C480045F36E</key>
+		<key>D8BA4D831CC935F700E1D612</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>D8BA4DC81CC9374C00E1D612</key>
 		<dict>
 			<key>primary</key>
 			<true/>

@@ -167,6 +167,7 @@ class SKTilemapLayer : SKNode {
         return nil
     }
     
+    #if os(iOS)
     /* Returns a tile at a given touch position. A custom offset can also be used. */
     func tileAtTouchPosition(touch: UITouch, offset: CGPoint = CGPointZero) -> SKTilemapTile? {
         
@@ -176,6 +177,18 @@ class SKTilemapLayer : SKNode {
         
         return nil
     }
+    #endif
+    
+    #if os(OSX)
+    func tileAtMousePosition(event: NSEvent, offset: CGPoint = CGPointZero) -> SKTilemapTile? {
+        
+        if let coord = coordAtMousePosition(event, offset: offset, round: true) {
+            return tileAtCoord(coord)
+        }
+        
+        return nil
+    }
+    #endif
     
     /* Returns a tile at a given screen position. A custom offet can be used. */
     func tileAtScreenPosition(position: CGPoint, offset: CGPoint = CGPointZero) -> SKTilemapTile? {
@@ -300,6 +313,7 @@ class SKTilemapLayer : SKNode {
         return coord
     }
     
+    #if os(iOS)
     /** Returns the coordinate of a tile using a touch position. 
         If the position gets converted to a coordinate that is not valid nil is returned.  Otherwise the tile 
         coordinate is returned. 
@@ -309,6 +323,19 @@ class SKTilemapLayer : SKNode {
     func coordAtTouchPosition(touch: UITouch, offset: CGPoint = CGPointZero, round: Bool = true) -> CGPoint? {
         return coordAtPosition(touch.locationInNode(self), offset: offset, round: round)
     }
+    #endif
+    
+    #if os(OSX)
+    /** Returns the coordinate of a tile using a mouse position.
+        If the position gets converted to a coordinate that is not valid nil is returned.  Otherwise the tile
+        coordinate is returned.
+        A custom offset point can be passed to this function which is useful if the tileset being used has an offset.
+        Passing the round parameter as true will return a whole number coordinate (the default), or a decimal number
+        which can be used to determine where exactly within the tile the layer position is. */
+    func coordAtMousePosition(event: NSEvent, offset: CGPoint = CGPointZero, round: Bool = true) -> CGPoint? {
+        return coordAtPosition(event.locationInNode(self), offset: offset, round: round)
+    }
+    #endif
     
     /** Returns the coord of a tile at a given screen (view) position. */
     func coordAtScreenPosition(position: CGPoint, offset: CGPoint = CGPointZero, round: Bool = true, mustBeValid: Bool = true) -> CGPoint? {

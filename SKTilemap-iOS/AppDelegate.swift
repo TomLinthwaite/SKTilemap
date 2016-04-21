@@ -1,8 +1,8 @@
 //
 //  AppDelegate.swift
-//  SKTilemap
+//  SKTilemap-iOS
 //
-//  Created by Thomas Linthwaite on 07/04/2016.
+//  Created by Thomas Linthwaite on 21/04/2016.
 //  Copyright © 2016 Tom Linthwaite. All rights reserved.
 //
 

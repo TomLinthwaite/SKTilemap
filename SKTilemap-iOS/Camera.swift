@@ -6,9 +6,12 @@ class Camera : SKCameraNode {
 // MARK: Properties
     let worldNode: SKNode
     var bounds: CGRect
-    private var pinchGestureRecognizer: UIPinchGestureRecognizer!
     private var zoomScale: CGFloat
     var zoomRange: (min: CGFloat, max: CGFloat)
+    
+    #if os(iOS)
+    private var pinchGestureRecognizer: UIPinchGestureRecognizer!
+    #endif
     
     var allowZoom: Bool
     var enabled: Bool
@@ -25,8 +28,10 @@ class Camera : SKCameraNode {
         
         super.init()
         
+        #if os(iOS)
         pinchGestureRecognizer = UIPinchGestureRecognizer(target: self, action: #selector(self.scaleCamera(_:)))
         view.addGestureRecognizer(pinchGestureRecognizer)
+        #endif
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -36,6 +41,7 @@ class Camera : SKCameraNode {
     
 // MARK: Input
     
+    #if os(iOS)
     /// Should be called from within a touches moved method. Will move the camera based on the direction of a touch.
     func panCamera(touch: UITouch) {
         
@@ -59,6 +65,30 @@ class Camera : SKCameraNode {
             recognizer.scale = 1
         }
     }
+    #endif
+    
+    #if os(OSX)
+    private var previousLocation: CGPoint!
+    
+    func panCamera(event: NSEvent) {
+        
+        if previousLocation == nil {
+            previousLocation = event.locationInNode(self)
+            return
+        }
+        
+        let location = event.locationInNode(self)
+        let difference = CGPoint(x: location.x - previousLocation.x, y: location.y - previousLocation.y)
+        position = CGPoint(x: position.x - difference.x, y: position.y - difference.y)
+        clampWorldNode()
+        
+        previousLocation = location
+    }
+    
+    func finishedInput() {
+        previousLocation = nil
+    }
+    #endif
     
     private func clampWorldNode() {
         

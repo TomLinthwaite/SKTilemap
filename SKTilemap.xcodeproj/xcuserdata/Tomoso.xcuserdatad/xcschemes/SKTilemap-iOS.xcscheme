@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "D8DF5A6B1CB69C480045F36E"
-               BuildableName = "SKTilemap.app"
-               BlueprintName = "SKTilemap"
+               BlueprintIdentifier = "D8BA4D831CC935F700E1D612"
+               BuildableName = "SKTilemap-iOS.app"
+               BlueprintName = "SKTilemap-iOS"
                ReferencedContainer = "container:SKTilemap.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -32,9 +32,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "D8DF5A6B1CB69C480045F36E"
-            BuildableName = "SKTilemap.app"
-            BlueprintName = "SKTilemap"
+            BlueprintIdentifier = "D8BA4D831CC935F700E1D612"
+            BuildableName = "SKTilemap-iOS.app"
+            BlueprintName = "SKTilemap-iOS"
             ReferencedContainer = "container:SKTilemap.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -55,9 +55,9 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "D8DF5A6B1CB69C480045F36E"
-            BuildableName = "SKTilemap.app"
-            BlueprintName = "SKTilemap"
+            BlueprintIdentifier = "D8BA4D831CC935F700E1D612"
+            BuildableName = "SKTilemap-iOS.app"
+            BlueprintName = "SKTilemap-iOS"
             ReferencedContainer = "container:SKTilemap.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -74,9 +74,9 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "D8DF5A6B1CB69C480045F36E"
-            BuildableName = "SKTilemap.app"
-            BlueprintName = "SKTilemap"
+            BlueprintIdentifier = "D8BA4D831CC935F700E1D612"
+            BuildableName = "SKTilemap-iOS.app"
+            BlueprintName = "SKTilemap-iOS"
             ReferencedContainer = "container:SKTilemap.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
