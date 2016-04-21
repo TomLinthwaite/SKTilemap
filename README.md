@@ -4,6 +4,7 @@
 + [Wiki](https://github.com/TomLinthwaite/SKTilemap/wiki)
 + [Overview](#overview)
 + [Why](#why)
++ [Supports](#supports)
 + [Requirements](#requirements)
 + [Usage](#usage)
 + [Quick Guide](#quick-guide)
@@ -17,9 +18,13 @@ An addition to Apples Sprite Kit frame work for iOS which allows for the creatio
 ## Why
 I decided to write this because I couldn't find a good alternative written purely in Swift. I'm also a self taught programmer and this was a good learning exercise. I've tried to document the code as well as I can so it shouldn't be to hard to look through it and add features or change anything you want.
 
+## Supports
+* OSX
+* iOS
+
 ## Requirements
 * Xcode 7.3
-* Swift 2
+* Swift 2.2
 
 ## Usage
 Simply add the SKTilemap*.swift files to your project and you're good to go.
@@ -63,7 +68,16 @@ Layers are also SKNode objects and can be added to an SKTilemap object. Each lay
 
     layer.tilePositionAtCoord(x: 3, y: 3)
     layer.coordAtPosition(position: CGPoint)
+    
+**iOS Only**
+
     layer.coordAtTouchPosition(UITouch)
+    layer.tileAtTouchPosition(UITouch)
+    
+**OSX Only**
+
+    layer.coordAtMousePosition(NSEvent)
+    layer.tileAtMousePosition(NSEvent)
     
 ### Object Groups
 Will probably only be used if loading from a .tmx file.
@@ -77,6 +91,7 @@ Will probably only be used if loading from a .tmx file.
     
     objectGroup.addObject(SomeObject)
     objectGroup.getObject(id: 5)
+    objectGroup.getObjectAtCoord(32, 54)
     objectGroup.getObjects(name: "Gold Coin")
     objectGroup.getObjects(type: "enemy")
     
