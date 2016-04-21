@@ -22,23 +22,9 @@
 		D8BA4DB11CC9366100E1D612 /* SKTilemapTile.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8BA4DA91CC9366100E1D612 /* SKTilemapTile.swift */; };
 		D8BA4DB21CC9366100E1D612 /* SKTilemapTileData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8BA4DAA1CC9366100E1D612 /* SKTilemapTileData.swift */; };
 		D8BA4DB31CC9366100E1D612 /* SKTilemapTileset.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8BA4DAB1CC9366100E1D612 /* SKTilemapTileset.swift */; };
-		D8BA4DBD1CC936DD00E1D612 /* tmw_desert_spacing.png in Resources */ = {isa = PBXBuildFile; fileRef = D8BA4DB61CC936DD00E1D612 /* tmw_desert_spacing.png */; };
-		D8BA4DBE1CC936DD00E1D612 /* tilemap_isometric_offset.tmx in Resources */ = {isa = PBXBuildFile; fileRef = D8BA4DB71CC936DD00E1D612 /* tilemap_isometric_offset.tmx */; };
-		D8BA4DBF1CC936DD00E1D612 /* tilemap_culling_test.tmx in Resources */ = {isa = PBXBuildFile; fileRef = D8BA4DB81CC936DD00E1D612 /* tilemap_culling_test.tmx */; };
-		D8BA4DC01CC936DD00E1D612 /* tilemap_isometric.tmx in Resources */ = {isa = PBXBuildFile; fileRef = D8BA4DB91CC936DD00E1D612 /* tilemap_isometric.tmx */; };
-		D8BA4DC11CC936DD00E1D612 /* tilemap_orthogonal.tmx in Resources */ = {isa = PBXBuildFile; fileRef = D8BA4DBA1CC936DD00E1D612 /* tilemap_orthogonal.tmx */; };
-		D8BA4DC21CC936DD00E1D612 /* tilemap_iso_csv.tmx in Resources */ = {isa = PBXBuildFile; fileRef = D8BA4DBB1CC936DD00E1D612 /* tilemap_iso_csv.tmx */; };
-		D8BA4DC31CC936DD00E1D612 /* tileset.atlas in Resources */ = {isa = PBXBuildFile; fileRef = D8BA4DBC1CC936DD00E1D612 /* tileset.atlas */; };
 		D8BA4DCC1CC9374C00E1D612 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8BA4DCB1CC9374C00E1D612 /* AppDelegate.swift */; };
 		D8BA4DD21CC9374C00E1D612 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D8BA4DD11CC9374C00E1D612 /* Assets.xcassets */; };
 		D8BA4DD51CC9374C00E1D612 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = D8BA4DD31CC9374C00E1D612 /* MainMenu.xib */; };
-		D8BA4DDC1CC9379600E1D612 /* tmw_desert_spacing.png in Resources */ = {isa = PBXBuildFile; fileRef = D8BA4DB61CC936DD00E1D612 /* tmw_desert_spacing.png */; };
-		D8BA4DDD1CC9379600E1D612 /* tilemap_isometric_offset.tmx in Resources */ = {isa = PBXBuildFile; fileRef = D8BA4DB71CC936DD00E1D612 /* tilemap_isometric_offset.tmx */; };
-		D8BA4DDE1CC9379600E1D612 /* tilemap_culling_test.tmx in Resources */ = {isa = PBXBuildFile; fileRef = D8BA4DB81CC936DD00E1D612 /* tilemap_culling_test.tmx */; };
-		D8BA4DDF1CC9379600E1D612 /* tilemap_isometric.tmx in Resources */ = {isa = PBXBuildFile; fileRef = D8BA4DB91CC936DD00E1D612 /* tilemap_isometric.tmx */; };
-		D8BA4DE01CC9379600E1D612 /* tilemap_orthogonal.tmx in Resources */ = {isa = PBXBuildFile; fileRef = D8BA4DBA1CC936DD00E1D612 /* tilemap_orthogonal.tmx */; };
-		D8BA4DE11CC9379600E1D612 /* tilemap_iso_csv.tmx in Resources */ = {isa = PBXBuildFile; fileRef = D8BA4DBB1CC936DD00E1D612 /* tilemap_iso_csv.tmx */; };
-		D8BA4DE21CC9379800E1D612 /* tileset.atlas in Resources */ = {isa = PBXBuildFile; fileRef = D8BA4DBC1CC936DD00E1D612 /* tileset.atlas */; };
 		D8BA4DE31CC9379D00E1D612 /* SKTilemap.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8BA4DA41CC9366100E1D612 /* SKTilemap.swift */; };
 		D8BA4DE41CC9379D00E1D612 /* SKTilemapLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8BA4DA51CC9366100E1D612 /* SKTilemapLayer.swift */; };
 		D8BA4DE51CC9379D00E1D612 /* SKTilemapObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8BA4DA61CC9366100E1D612 /* SKTilemapObject.swift */; };
@@ -49,6 +35,20 @@
 		D8BA4DEA1CC9379D00E1D612 /* SKTilemapTileset.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8BA4DAB1CC9366100E1D612 /* SKTilemapTileset.swift */; };
 		D8BA4DEB1CC937CC00E1D612 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8BA4D9F1CC9364200E1D612 /* GameScene.swift */; };
 		D8BA4DEC1CC9392300E1D612 /* Camera.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8BA4D9E1CC9364200E1D612 /* Camera.swift */; };
+		D8BA4DF51CC93F8A00E1D612 /* tilemap_culling_test.tmx in Resources */ = {isa = PBXBuildFile; fileRef = D8BA4DEE1CC93F8A00E1D612 /* tilemap_culling_test.tmx */; };
+		D8BA4DF61CC93F8A00E1D612 /* tilemap_culling_test.tmx in Resources */ = {isa = PBXBuildFile; fileRef = D8BA4DEE1CC93F8A00E1D612 /* tilemap_culling_test.tmx */; };
+		D8BA4DF71CC93F8A00E1D612 /* tilemap_iso_csv.tmx in Resources */ = {isa = PBXBuildFile; fileRef = D8BA4DEF1CC93F8A00E1D612 /* tilemap_iso_csv.tmx */; };
+		D8BA4DF81CC93F8A00E1D612 /* tilemap_iso_csv.tmx in Resources */ = {isa = PBXBuildFile; fileRef = D8BA4DEF1CC93F8A00E1D612 /* tilemap_iso_csv.tmx */; };
+		D8BA4DF91CC93F8A00E1D612 /* tilemap_isometric.tmx in Resources */ = {isa = PBXBuildFile; fileRef = D8BA4DF01CC93F8A00E1D612 /* tilemap_isometric.tmx */; };
+		D8BA4DFA1CC93F8A00E1D612 /* tilemap_isometric.tmx in Resources */ = {isa = PBXBuildFile; fileRef = D8BA4DF01CC93F8A00E1D612 /* tilemap_isometric.tmx */; };
+		D8BA4DFB1CC93F8A00E1D612 /* tilemap_isometric_offset.tmx in Resources */ = {isa = PBXBuildFile; fileRef = D8BA4DF11CC93F8A00E1D612 /* tilemap_isometric_offset.tmx */; };
+		D8BA4DFC1CC93F8A00E1D612 /* tilemap_isometric_offset.tmx in Resources */ = {isa = PBXBuildFile; fileRef = D8BA4DF11CC93F8A00E1D612 /* tilemap_isometric_offset.tmx */; };
+		D8BA4DFD1CC93F8A00E1D612 /* tilemap_orthogonal.tmx in Resources */ = {isa = PBXBuildFile; fileRef = D8BA4DF21CC93F8A00E1D612 /* tilemap_orthogonal.tmx */; };
+		D8BA4DFE1CC93F8A00E1D612 /* tilemap_orthogonal.tmx in Resources */ = {isa = PBXBuildFile; fileRef = D8BA4DF21CC93F8A00E1D612 /* tilemap_orthogonal.tmx */; };
+		D8BA4DFF1CC93F8A00E1D612 /* tileset.atlas in Resources */ = {isa = PBXBuildFile; fileRef = D8BA4DF31CC93F8A00E1D612 /* tileset.atlas */; };
+		D8BA4E001CC93F8A00E1D612 /* tileset.atlas in Resources */ = {isa = PBXBuildFile; fileRef = D8BA4DF31CC93F8A00E1D612 /* tileset.atlas */; };
+		D8BA4E011CC93F8A00E1D612 /* tmw_desert_spacing.png in Resources */ = {isa = PBXBuildFile; fileRef = D8BA4DF41CC93F8A00E1D612 /* tmw_desert_spacing.png */; };
+		D8BA4E021CC93F8A00E1D612 /* tmw_desert_spacing.png in Resources */ = {isa = PBXBuildFile; fileRef = D8BA4DF41CC93F8A00E1D612 /* tmw_desert_spacing.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -69,18 +69,18 @@
 		D8BA4DA91CC9366100E1D612 /* SKTilemapTile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SKTilemapTile.swift; sourceTree = "<group>"; };
 		D8BA4DAA1CC9366100E1D612 /* SKTilemapTileData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SKTilemapTileData.swift; sourceTree = "<group>"; };
 		D8BA4DAB1CC9366100E1D612 /* SKTilemapTileset.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SKTilemapTileset.swift; sourceTree = "<group>"; };
-		D8BA4DB61CC936DD00E1D612 /* tmw_desert_spacing.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tmw_desert_spacing.png; sourceTree = "<group>"; };
-		D8BA4DB71CC936DD00E1D612 /* tilemap_isometric_offset.tmx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = tilemap_isometric_offset.tmx; sourceTree = "<group>"; };
-		D8BA4DB81CC936DD00E1D612 /* tilemap_culling_test.tmx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = tilemap_culling_test.tmx; sourceTree = "<group>"; };
-		D8BA4DB91CC936DD00E1D612 /* tilemap_isometric.tmx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = tilemap_isometric.tmx; sourceTree = "<group>"; };
-		D8BA4DBA1CC936DD00E1D612 /* tilemap_orthogonal.tmx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = tilemap_orthogonal.tmx; sourceTree = "<group>"; };
-		D8BA4DBB1CC936DD00E1D612 /* tilemap_iso_csv.tmx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = tilemap_iso_csv.tmx; sourceTree = "<group>"; };
-		D8BA4DBC1CC936DD00E1D612 /* tileset.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = tileset.atlas; sourceTree = "<group>"; };
 		D8BA4DC91CC9374C00E1D612 /* SKTilemap-OSX.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SKTilemap-OSX.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D8BA4DCB1CC9374C00E1D612 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D8BA4DD11CC9374C00E1D612 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D8BA4DD41CC9374C00E1D612 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		D8BA4DD61CC9374C00E1D612 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D8BA4DEE1CC93F8A00E1D612 /* tilemap_culling_test.tmx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = tilemap_culling_test.tmx; sourceTree = "<group>"; };
+		D8BA4DEF1CC93F8A00E1D612 /* tilemap_iso_csv.tmx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = tilemap_iso_csv.tmx; sourceTree = "<group>"; };
+		D8BA4DF01CC93F8A00E1D612 /* tilemap_isometric.tmx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = tilemap_isometric.tmx; sourceTree = "<group>"; };
+		D8BA4DF11CC93F8A00E1D612 /* tilemap_isometric_offset.tmx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = tilemap_isometric_offset.tmx; sourceTree = "<group>"; };
+		D8BA4DF21CC93F8A00E1D612 /* tilemap_orthogonal.tmx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = tilemap_orthogonal.tmx; sourceTree = "<group>"; };
+		D8BA4DF31CC93F8A00E1D612 /* tileset.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = tileset.atlas; sourceTree = "<group>"; };
+		D8BA4DF41CC93F8A00E1D612 /* tmw_desert_spacing.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tmw_desert_spacing.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -150,24 +150,10 @@
 		D8BA4DB41CC936C200E1D612 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
-				D8BA4DB51CC936D300E1D612 /* Resources */,
+				D8BA4DED1CC93F8A00E1D612 /* Resources */,
 				D8BA4DA31CC9365200E1D612 /* SKTilemap */,
 			);
 			name = Shared;
-			sourceTree = "<group>";
-		};
-		D8BA4DB51CC936D300E1D612 /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-				D8BA4DB61CC936DD00E1D612 /* tmw_desert_spacing.png */,
-				D8BA4DB71CC936DD00E1D612 /* tilemap_isometric_offset.tmx */,
-				D8BA4DB81CC936DD00E1D612 /* tilemap_culling_test.tmx */,
-				D8BA4DB91CC936DD00E1D612 /* tilemap_isometric.tmx */,
-				D8BA4DBA1CC936DD00E1D612 /* tilemap_orthogonal.tmx */,
-				D8BA4DBB1CC936DD00E1D612 /* tilemap_iso_csv.tmx */,
-				D8BA4DBC1CC936DD00E1D612 /* tileset.atlas */,
-			);
-			name = Resources;
 			sourceTree = "<group>";
 		};
 		D8BA4DC41CC9372500E1D612 /* Supporting Files */ = {
@@ -198,6 +184,20 @@
 				D8BA4DD61CC9374C00E1D612 /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		D8BA4DED1CC93F8A00E1D612 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				D8BA4DEE1CC93F8A00E1D612 /* tilemap_culling_test.tmx */,
+				D8BA4DEF1CC93F8A00E1D612 /* tilemap_iso_csv.tmx */,
+				D8BA4DF01CC93F8A00E1D612 /* tilemap_isometric.tmx */,
+				D8BA4DF11CC93F8A00E1D612 /* tilemap_isometric_offset.tmx */,
+				D8BA4DF21CC93F8A00E1D612 /* tilemap_orthogonal.tmx */,
+				D8BA4DF31CC93F8A00E1D612 /* tileset.atlas */,
+				D8BA4DF41CC93F8A00E1D612 /* tmw_desert_spacing.png */,
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -281,15 +281,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				D8BA4D961CC935F700E1D612 /* LaunchScreen.storyboard in Resources */,
-				D8BA4DC21CC936DD00E1D612 /* tilemap_iso_csv.tmx in Resources */,
-				D8BA4DC31CC936DD00E1D612 /* tileset.atlas in Resources */,
-				D8BA4DBF1CC936DD00E1D612 /* tilemap_culling_test.tmx in Resources */,
+				D8BA4DFB1CC93F8A00E1D612 /* tilemap_isometric_offset.tmx in Resources */,
+				D8BA4DFF1CC93F8A00E1D612 /* tileset.atlas in Resources */,
+				D8BA4E011CC93F8A00E1D612 /* tmw_desert_spacing.png in Resources */,
 				D8BA4D931CC935F700E1D612 /* Assets.xcassets in Resources */,
-				D8BA4DBE1CC936DD00E1D612 /* tilemap_isometric_offset.tmx in Resources */,
-				D8BA4DC01CC936DD00E1D612 /* tilemap_isometric.tmx in Resources */,
-				D8BA4DC11CC936DD00E1D612 /* tilemap_orthogonal.tmx in Resources */,
+				D8BA4DF91CC93F8A00E1D612 /* tilemap_isometric.tmx in Resources */,
+				D8BA4DF71CC93F8A00E1D612 /* tilemap_iso_csv.tmx in Resources */,
+				D8BA4DFD1CC93F8A00E1D612 /* tilemap_orthogonal.tmx in Resources */,
 				D8BA4D911CC935F700E1D612 /* Main.storyboard in Resources */,
-				D8BA4DBD1CC936DD00E1D612 /* tmw_desert_spacing.png in Resources */,
+				D8BA4DF51CC93F8A00E1D612 /* tilemap_culling_test.tmx in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -297,15 +297,15 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D8BA4DDC1CC9379600E1D612 /* tmw_desert_spacing.png in Resources */,
-				D8BA4DE01CC9379600E1D612 /* tilemap_orthogonal.tmx in Resources */,
-				D8BA4DE21CC9379800E1D612 /* tileset.atlas in Resources */,
 				D8BA4DD21CC9374C00E1D612 /* Assets.xcassets in Resources */,
-				D8BA4DE11CC9379600E1D612 /* tilemap_iso_csv.tmx in Resources */,
-				D8BA4DDF1CC9379600E1D612 /* tilemap_isometric.tmx in Resources */,
-				D8BA4DDE1CC9379600E1D612 /* tilemap_culling_test.tmx in Resources */,
+				D8BA4DFE1CC93F8A00E1D612 /* tilemap_orthogonal.tmx in Resources */,
+				D8BA4E001CC93F8A00E1D612 /* tileset.atlas in Resources */,
+				D8BA4DFA1CC93F8A00E1D612 /* tilemap_isometric.tmx in Resources */,
+				D8BA4DF61CC93F8A00E1D612 /* tilemap_culling_test.tmx in Resources */,
+				D8BA4DFC1CC93F8A00E1D612 /* tilemap_isometric_offset.tmx in Resources */,
+				D8BA4E021CC93F8A00E1D612 /* tmw_desert_spacing.png in Resources */,
 				D8BA4DD51CC9374C00E1D612 /* MainMenu.xib in Resources */,
-				D8BA4DDD1CC9379600E1D612 /* tilemap_isometric_offset.tmx in Resources */,
+				D8BA4DF81CC93F8A00E1D612 /* tilemap_iso_csv.tmx in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -535,6 +535,7 @@
 				D8BA4D9C1CC935F700E1D612 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		D8BA4DD71CC9374C00E1D612 /* Build configuration list for PBXNativeTarget "SKTilemap-OSX" */ = {
 			isa = XCConfigurationList;
@@ -543,6 +544,7 @@
 				D8BA4DD91CC9374C00E1D612 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
