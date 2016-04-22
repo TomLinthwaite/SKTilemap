@@ -23,6 +23,9 @@ class SKTilemapObject : Equatable, Hashable {
     /** The position of this object as taken from the .tmx file */
     let position: CGPoint
     
+    /** The invertedPosition of this object, useful in the Sprite Kit system coordinate (Y Axis is Bottom - Up) */
+    let invertedPosition: CGPoint
+    
     /** The coordinate the position of this object is at on the map */
     var coord: CGPoint {
         get {
@@ -66,6 +69,7 @@ class SKTilemapObject : Equatable, Hashable {
         
         self.id = Int(id)!
         self.position = CGPoint(x: Int(x)!, y: Int(y)!)
+        self.invertedPosition = CGPoint(x: Int(x)!, y: Int((objectGroup.tilemap.size.height-1) * objectGroup.tilemap.tileSize.height) - Int(y)!)
         
         if let width = attributes["width"] where (Int(width)) != nil,
             let height = attributes["height"] where (Int(height) != nil) {
