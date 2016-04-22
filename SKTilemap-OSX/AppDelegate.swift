@@ -18,6 +18,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     func applicationDidFinishLaunching(aNotification: NSNotification) {
         
+        window.setContentSize(NSSize(width: 1024, height: 768))
+        
         skView.frameInterval = 1 / 60
         
         skView.showsFPS = true

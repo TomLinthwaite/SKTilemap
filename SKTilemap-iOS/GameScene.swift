@@ -129,21 +129,21 @@ class GameScene: SKScene {
     #if os(OSX)
     override func mouseDown(theEvent: NSEvent) {
         
-        print("Mouse Location: \(theEvent.locationInNode(self))")
-        if let layer = tilemap?.getLayer(name: "ground layer") {
-            
-            print("Coord: \(layer.coordAtMousePosition(theEvent))")
-            if let coord = layer.coordAtMousePosition(theEvent) {
-                
-                if let tile = layer.tileAtCoord(coord) {
-                    
-                    print("Tile Position: \(tile.position)")
-                    if let object = tilemap?.getObjectGroup(name: "object group")?.getObjectAtCoord(coord) {
-                        print("Object Position: \(object.position)")
-                    }
-                }
-            }
-        }
+//        print("Mouse Location: \(theEvent.locationInNode(self))")
+//        if let layer = tilemap?.getLayer(name: "ground layer") {
+//            
+//            print("Coord: \(layer.coordAtMousePosition(theEvent))")
+//            if let coord = layer.coordAtMousePosition(theEvent) {
+//                
+//                if let tile = layer.tileAtCoord(coord) {
+//                    
+//                    print("Tile Position: \(tile.position)")
+//                    if let object = tilemap?.getObjectGroup(name: "object group")?.getObjectAtCoord(coord) {
+//                        print("Object Position: \(object.position)")
+//                    }
+//                }
+//            }
+//        }
     }
     
     override func mouseUp(theEvent: NSEvent) {
@@ -154,6 +154,7 @@ class GameScene: SKScene {
         
         sceneCamera.updatePosition(theEvent)
         tilemap?.clipTilesOutOfBounds()
+        
     }
     
     override func didChangeSize(oldSize: CGSize) {

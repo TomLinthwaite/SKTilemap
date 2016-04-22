@@ -354,6 +354,8 @@ class SKTilemapLayer : SKNode {
         return coordAtPosition(layerPosition, offset: offset, round: round, mustBeValid: mustBeValid)
     }
     
+    var reachedThreshold = false
+    
     /** Will hide tiles outside of the set bounds rectangle. If no bounds is set the view bounds is used. 
         Increase the tileBufferSize to draw more tiles outside of the bounds. This can stop tiles that are part
         way in/out of the bounds to get fully displayed. Not giving a tileBufferSize will default it to 2.

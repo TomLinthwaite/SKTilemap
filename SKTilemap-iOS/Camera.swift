@@ -64,7 +64,7 @@ class Camera : SKCameraNode {
         let location = touch.locationInNode(scene!)
         let previousLocation = touch.previousLocationInNode(scene!)
         let difference = CGPoint(x: location.x - previousLocation.x, y: location.y - previousLocation.y)
-        position = CGPoint(x: position.x - difference.x, y: position.y - difference.y)
+        position = CGPoint(x: Int(position.x - difference.x), y: Int(position.y - difference.y))
         clampWorldNode()
     
     }
@@ -97,11 +97,9 @@ class Camera : SKCameraNode {
         
         let location = event.locationInNode(self)
         let difference = CGPoint(x: location.x - previousLocation.x, y: location.y - previousLocation.y)
-        position = CGPoint(x: position.x - difference.x, y: position.y - difference.y)
+        position = CGPoint(x: Int(position.x - difference.x), y: Int(position.y - difference.y))
         clampWorldNode()
         previousLocation = location
-        
-        print(position)
     }
     
     /** Call this on mouseUp so the camera can reset the previous position. Without this the update position function
