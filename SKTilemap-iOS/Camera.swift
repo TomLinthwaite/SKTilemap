@@ -104,17 +104,6 @@ class Camera : SKCameraNode {
         print(position)
     }
     
-    func updateScale(event: NSEvent) {
-        
-        print(event.scrollingDeltaY)
-//        if event.state == .Changed && enabled && allowZoom {
-//            
-//            zoomScale *= recognizer.scale
-//            applyZoomScale(zoomScale)
-//            recognizer.scale = 1
-//        }
-    }
-    
     /** Call this on mouseUp so the camera can reset the previous position. Without this the update position function
         will assume the mouse was in the last place as before an cause undesired "jump" effect. */
     func finishedInput() {

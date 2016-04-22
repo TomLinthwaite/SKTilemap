@@ -38,7 +38,7 @@ class GameScene: SKScene {
         camera = sceneCamera
         
         /* Load Tilemap from .tmx file and add it to the scene through the worldNode. */
-        if let tilemap = SKTilemap.loadTMX(name: "tilemap_orthogonal") {
+        if let tilemap = SKTilemap.loadTMX(name: "tilemap_culling_test") {
             
             /* Print tilemap information to console, useful for debugging. */
             //tilemap.printDebugDescription()
@@ -154,11 +154,6 @@ class GameScene: SKScene {
         
         sceneCamera.updatePosition(theEvent)
         tilemap?.clipTilesOutOfBounds()
-    }
-    
-    override func scrollWheel(theEvent: NSEvent) {
-        
-        sceneCamera.updateScale(theEvent)
     }
     
     override func didChangeSize(oldSize: CGSize) {
