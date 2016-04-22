@@ -127,7 +127,7 @@ class SKTilemap : SKNode {
 // MARK: Initialization
     
     /** Initialize an empty tilemap object. */
-    init(size: CGSize, tileSize: CGSize, orientation: SKTilemapOrientation) {
+    init(name: String, size: CGSize, tileSize: CGSize, orientation: SKTilemapOrientation) {
         
         self.size = size
         self.tileSize = tileSize
