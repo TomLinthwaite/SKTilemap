@@ -109,20 +109,15 @@ class SKTilemapLayer : SKNode {
         //removeAllTiles()
         
         for i in 0..<data.count {
+            
             let gid = data[i]
+            
+            if gid == 0 { continue }
+            
             let x = i % Int(size.width)
             let y = i / Int(size.width)
-            
-            if let tileData = tilemap.getTileData(id: gid) {
-                let tile = SKTilemapTile(tileData: tileData)
-                addChild(tile)
-                tile.position = tilePositionAtCoord(x, y, offset: tileData.tileset.tileOffset)
-                tile.anchorPoint = tilemap.orientation.tileAnchorPoint()
-                tiles[y][x] = tile
-            }
-            
-//            let tile = setTileAtCoord(x, y, id: gid).tileSet
-//            tile?.playAnimation(tilemap)
+            let tile = setTileAtCoord(x, y, id: gid).tileSet
+            tile?.playAnimation(tilemap)
         }
         
         return true

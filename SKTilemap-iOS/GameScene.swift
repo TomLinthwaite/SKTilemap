@@ -156,6 +156,11 @@ class GameScene: SKScene {
         tilemap?.clipTilesOutOfBounds()
     }
     
+    override func scrollWheel(theEvent: NSEvent) {
+        
+        sceneCamera.updateScale(theEvent)
+    }
+    
     override func didChangeSize(oldSize: CGSize) {
         
         if let scene = self.scene, let view = scene.view {

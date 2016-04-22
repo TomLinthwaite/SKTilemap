@@ -17,7 +17,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     @IBOutlet weak var skView: SKView!
     
     func applicationDidFinishLaunching(aNotification: NSNotification) {
-
+        
         skView.frameInterval = 1 / 60
         
         skView.showsFPS = true

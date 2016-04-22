@@ -24,10 +24,6 @@ class Camera : SKCameraNode {
     /** Enable/Disable the camera. */
     var enabled: Bool
     
-    #if os(iOS)
-    private var pinchGestureRecognizer: UIPinchGestureRecognizer!
-    #endif
-    
 // MARK: Initialization
     
     /** Initialize a basic camera. */
@@ -55,6 +51,10 @@ class Camera : SKCameraNode {
     
 // MARK: Input - iOS
     #if os(iOS)
+    
+    /** Used for zooming/scaling the camera. */
+    private var pinchGestureRecognizer: UIPinchGestureRecognizer!
+    
     /** Should be called from within a touches moved method. Will move the camera based on the direction of a touch.
      Any delegates of the camera will be informed that the camera moved. */
     func updatePosition(touch: UITouch) {
@@ -100,6 +100,19 @@ class Camera : SKCameraNode {
         position = CGPoint(x: position.x - difference.x, y: position.y - difference.y)
         clampWorldNode()
         previousLocation = location
+        
+        print(position)
+    }
+    
+    func updateScale(event: NSEvent) {
+        
+        print(event.scrollingDeltaY)
+//        if event.state == .Changed && enabled && allowZoom {
+//            
+//            zoomScale *= recognizer.scale
+//            applyZoomScale(zoomScale)
+//            recognizer.scale = 1
+//        }
     }
     
     /** Call this on mouseUp so the camera can reset the previous position. Without this the update position function
