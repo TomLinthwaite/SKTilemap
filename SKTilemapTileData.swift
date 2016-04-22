@@ -49,7 +49,7 @@ class SKTilemapTileData : Equatable, Hashable {
         self.tileset = tileset
         self.source = source
         texture = SKTexture(imageNamed: source)
-        //texture.filteringMode = .Nearest
+        texture.filteringMode = .Nearest
     }
     
 // MARK: Debug

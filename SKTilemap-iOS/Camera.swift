@@ -1,6 +1,7 @@
 
 import SpriteKit
 
+// MARK: Camera
 class Camera : SKCameraNode {
     
 // MARK: Properties

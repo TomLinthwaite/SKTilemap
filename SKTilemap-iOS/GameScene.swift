@@ -8,6 +8,7 @@
 
 import SpriteKit
 
+// MARK: GameScene
 class GameScene: SKScene {
     
 // MARK: Properties
@@ -37,16 +38,16 @@ class GameScene: SKScene {
         camera = sceneCamera
         
         /* Load Tilemap from .tmx file and add it to the scene through the worldNode. */
-        if let tilemap = SKTilemap.loadTMX(name: "tilemap_culling_test") {
+        if let tilemap = SKTilemap.loadTMX(name: "tilemap_orthogonal") {
             
             /* Print tilemap information to console, useful for debugging. */
             //tilemap.printDebugDescription()
-            worldNode.addChild(tilemap)
+            self.worldNode.addChild(tilemap)
             self.tilemap = tilemap
             
             /* Set the bounds for the tilemap. The bounds for the tilemap are different to those of the camera.
                These bounds origin is from the top left corner. But we only need to specify the distance from that corner. */
-            tilemap.displayBounds = CGRect(x: 64, y: 64, width: view.bounds.width - 128, height: view.bounds.height - 128)
+            // tilemap.displayBounds = CGRect(x: 64, y: 64, width: view.bounds.width - 128, height: view.bounds.height - 128)
             
             /* Note that if we did not set the above tilemap bounds, the tilemap itself will use the view bounds (view.bounds)
              as default. You only need to set these bounds if you are planning on not using the whole of the screen for
@@ -67,20 +68,20 @@ class GameScene: SKScene {
         }
         
         /* Set custom camera bounds to test tile clipping. */
-        sceneCamera.bounds = CGRect(x: -(view.bounds.width / 2) + 64,
-                                    y: -(view.bounds.height / 2) + 64,
-                                    width: view.bounds.width - 128,
-                                    height: view.bounds.height - 128)
+//        sceneCamera.bounds = CGRect(x: -(view.bounds.width / 2) + 64,
+//                                    y: -(view.bounds.height / 2) + 64,
+//                                    width: view.bounds.width - 128,
+//                                    height: view.bounds.height - 128)
         
         /* Create a temporary shape to test the bounds so its easy to see where they are. */
-        let boundsShape = SKShapeNode(rect: sceneCamera.bounds)
-        boundsShape.antialiased = false
-        boundsShape.lineWidth = 1
-        boundsShape.strokeColor = SKColor.blueColor()
-        boundsShape.zPosition = 1000
+//        let boundsShape = SKShapeNode(rect: sceneCamera.bounds)
+//        boundsShape.antialiased = false
+//        boundsShape.lineWidth = 1
+//        boundsShape.strokeColor = SKColor.blueColor()
+//        boundsShape.zPosition = 1000
         
         /* NOTE: Adding the shape as a child of the camera. This stops it moving/scaling when the camera does! */
-        sceneCamera.addChild(boundsShape)
+//        sceneCamera.addChild(boundsShape)
         /* There is one more step to ensure tileClipping works... Scroll down to the touches moved method. */
         
         
@@ -110,29 +111,26 @@ class GameScene: SKScene {
         */
     }
     
-    // MARK: Input
+// MARK: Input
     
     #if os(iOS)
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
         
         for touch in touches {
             
+            print("Touch Location: \(touch.locationInNode(self))")
             if let layer = tilemap?.getLayer(name: "ground layer") {
                 
-                /*
-                if let tile = layer.tileAtTouchPosition(touch) {
-
-                    tile.sprite.alpha = 0.5
+                print("Coord: \(layer.coordAtTouchPosition(touch))")
+                if let coord = layer.coordAtTouchPosition(touch) {
+                    
+                    if let object = tilemap?.getObjectGroup(name: "object group")?.getObjectAtCoord(coord) {
+                        print("Object Position: \(object.position)")
+                    }
                 }
-                 */
-                print("Coord Location: \(layer.coordAtTouchPosition(touch))")
             }
-            
-            print("Scene Location: \(touch.locationInNode(self))")
         }
     }
-    
-    var previousTilesInView: [CGPoint] = []
     
     override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
         
@@ -157,11 +155,19 @@ class GameScene: SKScene {
     #if os(OSX)
     override func mouseDown(theEvent: NSEvent) {
         
+        print("Mouse Location: \(theEvent.locationInNode(self))")
         if let layer = tilemap?.getLayer(name: "ground layer") {
-            print("Coord: \(layer.coordAtMousePosition(theEvent))")
             
-            if let tile = layer.tileAtMousePosition(theEvent) {
-                tile.alpha = 0.5
+            print("Coord: \(layer.coordAtMousePosition(theEvent))")
+            if let coord = layer.coordAtMousePosition(theEvent) {
+                
+                if let tile = layer.tileAtCoord(coord) {
+                    
+                    print("Tile Position: \(tile.position)")
+                    if let object = tilemap?.getObjectGroup(name: "object group")?.getObjectAtCoord(coord) {
+                        print("Object Position: \(object.position)")
+                    }
+                }
             }
         }
     }
@@ -174,6 +180,22 @@ class GameScene: SKScene {
         
         sceneCamera.panCamera(theEvent)
         tilemap?.clipTilesOutOfBounds()
+    }
+    
+    override func didChangeSize(oldSize: CGSize) {
+        
+        if let scene = self.scene, let view = scene.view {
+            
+            /* Update the bounds for the tilemap and camera if the window size changes. */
+            tilemap?.displayBounds = CGRect(x: 0, y: 0, width: view.bounds.width, height: view.bounds.height)
+            
+            sceneCamera.bounds = CGRect(x: -(view.bounds.width / 2),
+                                        y: -(view.bounds.height / 2),
+                                        width: view.bounds.width,
+                                        height: view.bounds.height)
+            
+            tilemap?.clipTilesOutOfBounds()
+        }
     }
     #endif
 }

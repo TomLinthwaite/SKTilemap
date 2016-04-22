@@ -20,22 +20,23 @@ class SKTilemapObject : Equatable, Hashable {
     /** A unique ID for this object. */
     let id: Int
     
-    /** The position of this object as taken from the .tmx file */
+    /** The actual position of this object on the tilemap (Converted from tiledPosition to match Sprite Kits coordinate 
+        system (Y Axis is Bottom - Up)) */
     let position: CGPoint
     
-    /** The invertedPosition of this object, useful in the Sprite Kit system coordinate (Y Axis is Bottom - Up) */
-    let invertedPosition: CGPoint
+    /** The position of this object as taken from the .tmx file */
+    let rawPosition: CGPoint
     
     /** The coordinate the position of this object is at on the map */
     var coord: CGPoint {
         get {
             switch objectGroup.tilemap.orientation {
             case .Orthogonal:
-                return CGPoint(x: position.x / objectGroup.tilemap.tileSize.width,
-                               y: position.y / objectGroup.tilemap.tileSize.height)
+                return CGPoint(x: rawPosition.x / objectGroup.tilemap.tileSize.width,
+                               y: rawPosition.y / objectGroup.tilemap.tileSize.height)
             case .Isometric:
-                return CGPoint(x: position.x / (objectGroup.tilemap.tileSize.width / 2),
-                               y: position.y / objectGroup.tilemap.tileSize.height)
+                return CGPoint(x: rawPosition.x / (objectGroup.tilemap.tileSize.width / 2),
+                               y: rawPosition.y / objectGroup.tilemap.tileSize.height)
             }
         }
     }
@@ -68,8 +69,8 @@ class SKTilemapObject : Equatable, Hashable {
         }
         
         self.id = Int(id)!
-        self.position = CGPoint(x: Int(x)!, y: Int(y)!)
-        self.invertedPosition = CGPoint(x: Int(x)!, y: Int((objectGroup.tilemap.size.height-1) * objectGroup.tilemap.tileSize.height) - Int(y)!)
+        self.rawPosition = CGPoint(x: Int(x)!, y: Int(y)!)
+        self.position = CGPoint(x: Int(x)!, y: Int((objectGroup.tilemap.size.height - 1) * objectGroup.tilemap.tileSize.height) - Int(y)!)
         
         if let width = attributes["width"] where (Int(width)) != nil,
             let height = attributes["height"] where (Int(height) != nil) {
