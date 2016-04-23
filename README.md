@@ -1,6 +1,7 @@
 # SKTilemap
 
 ## Table of Contents
++ [Change Log](https://github.com/TomLinthwaite/SKTilemap/blob/master/CHANGELOG.md)
 + [Wiki](https://github.com/TomLinthwaite/SKTilemap/wiki)
 + [Overview](#overview)
 + [Why](#why)
