@@ -20,6 +20,9 @@ class SKTilemapTileData : Equatable, Hashable {
     /** The tile datas ID. */
     let id: Int
     
+    /** Returns the Tile ID you would see in Tiled. */
+    var rawID: Int { get { return self.id - self.tileset.firstGID } }
+    
     /** Weak pointer to the tileset this data belongs to. */
     weak var tileset: SKTilemapTileset!
     

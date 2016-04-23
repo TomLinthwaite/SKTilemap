@@ -4,3 +4,5 @@
 
 + Created change log...
 + **New Function** - *SKTilemapObjectGroup* - `func allObjects() -> [SKTilemapObject]`
+    + Returns an array containing all objects belonging to a group.
++ **New Property** - *SKTilemapTileData* - `var rawID: Int`
