@@ -88,6 +88,11 @@ class SKTilemapObjectGroup : Equatable, Hashable {
         return getObjectAtCoord(Int(coord.x), Int(coord.y))
     }
     
+    /** Returns an array of all objects in the group. */
+    func allObjects() -> [SKTilemapObject] {
+        return Array(objects)
+    }
+    
     /** Returns an array of objects that have a matching name. */
     func getObjects(name name: String) -> [SKTilemapObject] {
         

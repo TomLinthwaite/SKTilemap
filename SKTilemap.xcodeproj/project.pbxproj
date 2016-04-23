@@ -52,6 +52,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		D8051D351CCBCA1100465AC6 /* LICENSE.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE.txt; sourceTree = "<group>"; };
+		D8051D361CCBCA1100465AC6 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		D8051D371CCBCA4100465AC6 /* CHANGELOG.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = CHANGELOG.md; sourceTree = "<group>"; };
 		D8BA4D841CC935F700E1D612 /* SKTilemap-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SKTilemap-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D8BA4D871CC935F700E1D612 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D8BA4D901CC935F700E1D612 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -104,6 +107,9 @@
 		D8BA4D7B1CC935F700E1D612 = {
 			isa = PBXGroup;
 			children = (
+				D8051D351CCBCA1100465AC6 /* LICENSE.txt */,
+				D8051D361CCBCA1100465AC6 /* README.md */,
+				D8051D371CCBCA4100465AC6 /* CHANGELOG.md */,
 				D8BA4DB41CC936C200E1D612 /* Shared */,
 				D8BA4D9F1CC9364200E1D612 /* GameScene.swift */,
 				D8BA4D9E1CC9364200E1D612 /* Camera.swift */,
