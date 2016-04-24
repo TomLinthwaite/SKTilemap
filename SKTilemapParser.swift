@@ -30,6 +30,7 @@ class SKTilemapParser : NSObject, NSXMLParserDelegate {
         guard
             let path = NSBundle.mainBundle().pathForResource(filename, ofType: ".tmx"),
             let data = NSData(contentsOfFile: path) else {
+                print("SKTilemapParser: Failed to load tilemap '\(filename)'.")
                 return nil
         }
         

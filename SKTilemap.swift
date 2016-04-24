@@ -81,6 +81,7 @@ class SKTilemap : SKNode {
     
     private var useTileClipping = false
     
+    /** Enables tile clipping on this tilemap. */
     var enableTileClipping: Bool {
         get { return useTileClipping }
         set {
@@ -104,6 +105,7 @@ class SKTilemap : SKNode {
                         }
                     }
                     
+                    print("SKTilemap: Tile clipping enabled.")
                     useTileClipping = true
                     clipTilesOutOfBounds(tileBufferSize: 1)
                 }
@@ -119,10 +121,18 @@ class SKTilemap : SKNode {
                     }
                 }
                 
+                print("SKTilemap: Tile clipping disabled.")
                 useTileClipping = false
             }
         }
     }
+    
+    /** When tile clipping is enabled this property will disable it when the scale passed in goes below this threshold.
+        This is important because the tile clipping can cause serious slow down when a lot of tiles are drawn on screen.
+        Experiment with this value to see what's best for your map.
+        This is only needed if you plan on scaling the tilemap.*/
+    var minTileClippingScale: CGFloat = 0.6
+    private var disableTileClipping = false
     
 // MARK: Initialization
     
@@ -167,13 +177,22 @@ class SKTilemap : SKNode {
     
     /** Loads a tilemap from .tmx file. */
     class func loadTMX(name name: String) -> SKTilemap? {
-        return SKTilemapParser().loadTilemap(filename: name)
+        let time = NSDate()
+        
+        if let tilemap = SKTilemapParser().loadTilemap(filename: name) {
+            tilemap.printDebugDescription()
+            print("\nSKTilemap: Loaded tilemap '\(name)' in \(NSDate().timeIntervalSinceDate(time)) seconds.")
+            return tilemap
+        }
+        
+        print("SKTilemap: Failed to load tilemap '\(name)'.")
+        return nil
     }
     
 // MARK: Debug
     func printDebugDescription() {
         
-        print("\nTilemap: \(name) (\(version)), Size: \(size), TileSize: \(tileSize), Orientation: \(orientation)")
+        print("\nTilemap: \(name!) (\(version)), Size: \(size), TileSize: \(tileSize), Orientation: \(orientation)")
         print("Properties: \(properties)")
         
         for tileset in tilesets { tileset.printDebugDescription() }
@@ -320,7 +339,19 @@ class SKTilemap : SKNode {
         For example in a scenes TouchesMoved function if scrolling the tilemap with a touch or mouse. */
     func clipTilesOutOfBounds(scale scale: CGFloat = 1.0, tileBufferSize: CGFloat = 2) {
         
-        if !useTileClipping { return }
+        if !useTileClipping && disableTileClipping == false { return }
+        
+        if scale < minTileClippingScale && disableTileClipping == false {
+            disableTileClipping = true
+            enableTileClipping = false
+        }
+        
+        if scale >= minTileClippingScale && disableTileClipping == true {
+            disableTileClipping = false
+            enableTileClipping = true
+        }
+        
+        if disableTileClipping { return }
         
         for layer in tileLayers {
             layer.clipTilesOutOfBounds(displayBounds, scale: scale, tileBufferSize: tileBufferSize)

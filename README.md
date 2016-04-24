@@ -52,6 +52,7 @@ Layers are also SKNode objects and can be added to an SKTilemap object. Each lay
 **Adding, Getting and Removing Layers**
 
     tilemap.getLayer(name: "Tile Layer 1")
+    tilemap.getLayers()
     tilemap.add(tileLayer: someLayer)
     tilemap.add(tileLayer: someLayer, zPosition: 1000)
     tilemap.removeLayer(name: "Tile Layer 87")
@@ -92,6 +93,7 @@ Will probably only be used if loading from a .tmx file.
     
     objectGroup.addObject(SomeObject)
     objectGroup.getObject(id: 5)
+    objectGroup.getObjects()
     objectGroup.getObjectAtCoord(32, 54)
     objectGroup.getObjects(name: "Gold Coin")
     objectGroup.getObjects(type: "enemy")

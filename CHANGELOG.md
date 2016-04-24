@@ -2,6 +2,8 @@
 
 ###Latest - 24th April 2016
 
++ **New Property** - ** - `var minTileClippingScale: CGFloat`
+    + When tile clipping is enabled this property will disable it when the scale passed in goes below this threshold. This is important because the tile clipping can cause serious slow down when a lot of tiles are drawn on screen. Experiment with this value to see what's best for your map. This is only needed if you plan on scaling the tilemap. 
 + **Removed Property** - *SKTilemapObject* - `let position: CGPoint`
 + **New Function** - *SKTilemapObject* - `func positionOnLayer(layer: SKTilemapLayer) -> CGPoint`
     + Position of an object didn't make sense. I tried a few ways to get it working nicely and as expected every time but the truth of the matter is, with the difference in y axis, anchor points and offsets of all of the tile layers/object layers and tiles a set position just didn't feel right and would require to much information from the rest of the map which I didn't want an Object to know about. 

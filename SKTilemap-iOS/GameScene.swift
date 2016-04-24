@@ -41,7 +41,6 @@ class GameScene: SKScene {
         if let tilemap = SKTilemap.loadTMX(name: "tilemap_orthogonal") {
             
             /* Print tilemap information to console, useful for debugging. */
-            //tilemap.printDebugDescription()
             self.worldNode.addChild(tilemap)
             self.tilemap = tilemap
             
@@ -93,14 +92,15 @@ class GameScene: SKScene {
         
         for touch in touches {
             
-            print("Touch Location: \(touch.locationInNode(self))")
+            //print("Touch Location: \(touch.locationInNode(self))")
             if let layer = tilemap?.getLayer(name: "ground layer") {
                 
-                print("Coord: \(layer.coordAtTouchPosition(touch))")
+                //print("Coord: \(layer.coordAtTouchPosition(touch))")
                 if let coord = layer.coordAtTouchPosition(touch) {
                     
+                    print("Tile Position: \(layer.tileAtCoord(coord)?.position)")
                     if let object = tilemap?.getObjectGroup(name: "object group")?.getObjectAtCoord(coord) {
-                        print("Object Position: \(object.coord)")
+                        //print("Object Position: \(object.coord)")
                         
                         let spr = SKSpriteNode(imageNamed: "grass")
                         spr.position = worldNode.convertPoint(object.positionOnLayer(layer), fromNode: layer)
@@ -121,7 +121,7 @@ class GameScene: SKScene {
             /* Will only work if tilemap.enableTileClipping = true 
                Increase the tileBufferSize to draw more tiles outside of the bounds. This can stop tiles that are part
                way in/out of the bounds to get fully displayed. Not giving a tileBufferSize will default it to 2. */
-            tilemap?.clipTilesOutOfBounds(scale: sceneCamera.getZoomScale(), tileBufferSize: 1)
+            tilemap?.clipTilesOutOfBounds(scale: sceneCamera.getZoomScale(), tileBufferSize: 0)
             /* You must call this function every time the camera moves/zooms. At the moment this is the easiest way to
                do it. But ideally the tilemap itself should know when it needs to update. Right now there is no way
                for the tilemap to know when the camera is being zoomed. Its something I may look in to, but the camera
