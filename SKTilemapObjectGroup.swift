@@ -17,6 +17,9 @@ class SKTilemapObjectGroup : Equatable, Hashable {
     /** Properties shared by all TMX object types. */
     var properties: [String : String] = [:]
     
+    /** The offset of this object group from the tilemaps position. */
+    let offset: CGPoint
+    
     /** The name of this object group. This should be unique per tilemap. */
     let name: String
     
@@ -38,6 +41,13 @@ class SKTilemapObjectGroup : Equatable, Hashable {
         
         self.name = name
         self.tilemap = tilemap
+        
+        if let offsetX = attributes["offsetx"] where (Int(offsetX)) != nil,
+            let offsetY = attributes["offsety"] where (Int(offsetY) != nil) {
+            offset = CGPoint(x: Int(offsetX)!, y: Int(offsetY)!)
+        } else {
+            offset = CGPointZero
+        }
     }
     
 // MARK: Debug
@@ -73,6 +83,11 @@ class SKTilemapObjectGroup : Equatable, Hashable {
         return nil
     }
     
+    /** Returns an array of all objects in the group. */
+    func getObjects() -> [SKTilemapObject] {
+        return Array(objects)
+    }
+    
     /** Returns an object at coord x and y, or nil on failure. */
     func getObjectAtCoord(x: Int, _ y: Int) -> SKTilemapObject? {
         
@@ -86,11 +101,6 @@ class SKTilemapObjectGroup : Equatable, Hashable {
     /** Returns an object at coord x and y, or nil on failure. */
     func getObjectAtCoord(coord: CGPoint) -> SKTilemapObject? {
         return getObjectAtCoord(Int(coord.x), Int(coord.y))
-    }
-    
-    /** Returns an array of all objects in the group. */
-    func allObjects() -> [SKTilemapObject] {
-        return Array(objects)
     }
     
     /** Returns an array of objects that have a matching name. */

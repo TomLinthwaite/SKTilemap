@@ -20,10 +20,6 @@ class SKTilemapObject : Equatable, Hashable {
     /** A unique ID for this object. */
     let id: Int
     
-    /** The actual position of this object on the tilemap (Converted from tiledPosition to match Sprite Kits coordinate 
-        system (Y Axis is Bottom - Up)) */
-    let position: CGPoint
-    
     /** The position of this object as taken from the .tmx file */
     let rawPosition: CGPoint
     
@@ -70,7 +66,6 @@ class SKTilemapObject : Equatable, Hashable {
         
         self.id = Int(id)!
         self.rawPosition = CGPoint(x: Int(x)!, y: Int(y)!)
-        self.position = CGPoint(x: Int(x)!, y: Int((objectGroup.tilemap.size.height - 1) * objectGroup.tilemap.tileSize.height) - Int(y)!)
         
         if let width = attributes["width"] where (Int(width)) != nil,
             let height = attributes["height"] where (Int(height) != nil) {
@@ -87,8 +82,12 @@ class SKTilemapObject : Equatable, Hashable {
     
 // MARK: Debug
     func printDebugDescription() {
-        print("\nSKTilemapObject: \(id), Name: \(name), Type: \(type), Position: \(position), Size: \(size)")
+        print("\nSKTilemapObject: \(id), Name: \(name), Type: \(type), Raw Position: \(rawPosition), Size: \(size)")
         print("Properties: \(properties)")
+    }
+    
+    func positionOnLayer(layer: SKTilemapLayer) -> CGPoint {
+        return layer.tilePositionAtCoord(Int(coord.x), Int(coord.y), offset: objectGroup.offset)
     }
 }
 

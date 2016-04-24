@@ -38,7 +38,7 @@ class GameScene: SKScene {
         camera = sceneCamera
         
         /* Load Tilemap from .tmx file and add it to the scene through the worldNode. */
-        if let tilemap = SKTilemap.loadTMX(name: "tilemap_culling_test") {
+        if let tilemap = SKTilemap.loadTMX(name: "tilemap_orthogonal") {
             
             /* Print tilemap information to console, useful for debugging. */
             //tilemap.printDebugDescription()
@@ -100,7 +100,12 @@ class GameScene: SKScene {
                 if let coord = layer.coordAtTouchPosition(touch) {
                     
                     if let object = tilemap?.getObjectGroup(name: "object group")?.getObjectAtCoord(coord) {
-                        print("Object Position: \(object.position)")
+                        print("Object Position: \(object.coord)")
+                        
+                        let spr = SKSpriteNode(imageNamed: "grass")
+                        spr.position = worldNode.convertPoint(object.positionOnLayer(layer), fromNode: layer)
+                        spr.zPosition = 100
+                        worldNode.addChild(spr)
                     }
                 }
             }
@@ -129,21 +134,21 @@ class GameScene: SKScene {
     #if os(OSX)
     override func mouseDown(theEvent: NSEvent) {
         
-//        print("Mouse Location: \(theEvent.locationInNode(self))")
-//        if let layer = tilemap?.getLayer(name: "ground layer") {
-//            
-//            print("Coord: \(layer.coordAtMousePosition(theEvent))")
-//            if let coord = layer.coordAtMousePosition(theEvent) {
-//                
-//                if let tile = layer.tileAtCoord(coord) {
-//                    
-//                    print("Tile Position: \(tile.position)")
-//                    if let object = tilemap?.getObjectGroup(name: "object group")?.getObjectAtCoord(coord) {
-//                        print("Object Position: \(object.position)")
-//                    }
-//                }
-//            }
-//        }
+        print("Mouse Location: \(theEvent.locationInNode(self))")
+        if let layer = tilemap?.getLayer(name: "ground layer") {
+            
+            print("Coord: \(layer.coordAtMousePosition(theEvent))")
+            if let coord = layer.coordAtMousePosition(theEvent) {
+                
+                if let tile = layer.tileAtCoord(coord) {
+                    
+                    print("Tile Position: \(tile.position)")
+                    if let object = tilemap?.getObjectGroup(name: "object group")?.getObjectAtCoord(coord) {
+                        print("Object Position: \(object.position)")
+                    }
+                }
+            }
+        }
     }
     
     override func mouseUp(theEvent: NSEvent) {

@@ -37,8 +37,6 @@ class SKTilemapLayer : SKNode {
     /** Used when clipping tiles outside of a set bounds. See: 'func clipTilesOutOfBounds()'*/
     private var previouslyShownTiles: [SKTilemapTile] = []
     
-    private var hiddenNode = SKNode()
-    
 // MARK: Initialization
     
     /** Initialize an empty tilemap layer */
@@ -353,8 +351,6 @@ class SKTilemapLayer : SKNode {
         let layerPosition = convertPoint(scenePosition, fromNode: scene)
         return coordAtPosition(layerPosition, offset: offset, round: round, mustBeValid: mustBeValid)
     }
-    
-    var reachedThreshold = false
     
     /** Will hide tiles outside of the set bounds rectangle. If no bounds is set the view bounds is used. 
         Increase the tileBufferSize to draw more tiles outside of the bounds. This can stop tiles that are part

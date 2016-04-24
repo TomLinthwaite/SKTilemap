@@ -195,12 +195,12 @@
 		D8BA4DED1CC93F8A00E1D612 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				D8BA4DF31CC93F8A00E1D612 /* tileset.atlas */,
 				D8BA4DEE1CC93F8A00E1D612 /* tilemap_culling_test.tmx */,
 				D8BA4DEF1CC93F8A00E1D612 /* tilemap_iso_csv.tmx */,
 				D8BA4DF01CC93F8A00E1D612 /* tilemap_isometric.tmx */,
 				D8BA4DF11CC93F8A00E1D612 /* tilemap_isometric_offset.tmx */,
 				D8BA4DF21CC93F8A00E1D612 /* tilemap_orthogonal.tmx */,
-				D8BA4DF31CC93F8A00E1D612 /* tileset.atlas */,
 				D8BA4DF41CC93F8A00E1D612 /* tmw_desert_spacing.png */,
 			);
 			path = Resources;
