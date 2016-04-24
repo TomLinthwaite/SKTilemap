@@ -11,7 +11,7 @@
 + **Renamed Function** - *SKTilemapObjectGroup* - `func allObjects() -> [SKTilemapObject]` to `func getObjects() -> [SKTilemapObject]`
     + Not sure why I called it allObjects yesterday... Didn't fit with the naming convention for framework.
 
-#23rd April 2016
+**23rd April 2016**
 
 + Created change log...
 + **New Function** - *SKTilemapObjectGroup* - `func allObjects() -> [SKTilemapObject]`
