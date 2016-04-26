@@ -1,10 +1,37 @@
-//
-//  SKTilemapObject.swift
-//  SKTilemap
-//
-//  Created by Thomas Linthwaite on 14/04/2016.
-//  Copyright © 2016 Tom Linthwaite. All rights reserved.
-//
+/*
+ SKTilemap
+ SKTilemapObject.swift
+ 
+ Created by Thomas Linthwaite on 07/04/2016.
+ GitHub: https://github.com/TomLinthwaite/SKTilemap
+ Wiki: https://github.com/TomLinthwaite/SKTilemap/wiki
+ YouTube: https://www.youtube.com/channel/UCAlJgYx9-Ub_dKD48wz6vMw
+ Twitter: https://twitter.com/Mr_Tomoso
+ 
+ -----------------------------------------------------------------------------------------------------------------------
+ MIT License
+ 
+ Copyright (c) 2016 Tom Linthwaite
+ 
+ Permission is hereby granted, free of charge, to any person obtaining a copy
+ of this software and associated documentation files (the "Software"), to deal
+ in the Software without restriction, including without limitation the rights
+ to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ copies of the Software, and to permit persons to whom the Software is
+ furnished to do so, subject to the following conditions:
+ 
+ The above copyright notice and this permission notice shall be included in all
+ copies or substantial portions of the Software.
+ 
+ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ SOFTWARE.
+ -----------------------------------------------------------------------------------------------------------------------
+ */
 
 import SpriteKit
 
@@ -86,8 +113,20 @@ class SKTilemapObject : Equatable, Hashable {
         print("Properties: \(properties)")
     }
     
+    /* Returns the position of this object on a certain tilemap layer. This position will share the same position as 
+        the tile at this position. */
     func positionOnLayer(layer: SKTilemapLayer) -> CGPoint {
         return layer.tilePositionAtCoord(Int(coord.x), Int(coord.y), offset: objectGroup.offset)
+    }
+    
+    /* Returns the position of this object on a certain tilemap layer. This position will share the same position as
+     the tile at this position. Can return nil if a layer cannot be found with that name. */
+    func positionOnLayerNamed(name: String) -> CGPoint? {
+        if let layer = objectGroup.tilemap.getLayer(name: name) {
+            return positionOnLayer(layer)
+        }
+        
+        return nil
     }
 }
 

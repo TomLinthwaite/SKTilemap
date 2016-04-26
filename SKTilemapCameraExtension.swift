@@ -1,6 +1,6 @@
 /*
  SKTilemap
- AppDelegate.swift
+ SKTilemapCameraExtension.swift
  
  Created by Thomas Linthwaite on 07/04/2016.
  GitHub: https://github.com/TomLinthwaite/SKTilemap
@@ -33,38 +33,23 @@
  -----------------------------------------------------------------------------------------------------------------------
  */
 
-
-import Cocoa
 import SpriteKit
 
-@NSApplicationMain
-class AppDelegate: NSObject, NSApplicationDelegate {
+extension SKTilemap : SKTilemapCameraDelegate {
     
-    @IBOutlet weak var window: NSWindow!
-    @IBOutlet weak var skView: SKView!
-    
-    func applicationDidFinishLaunching(aNotification: NSNotification) {
+    func didUpdateZoomScale(position position: CGPoint, scale: CGFloat, bounds: CGRect) {
         
-        window.setContentSize(NSSize(width: 1024, height: 768))
-        
-        skView.frameInterval = 1 / 60
-        
-        skView.showsFPS = true
-        skView.showsNodeCount = true
-        skView.showsDrawCount = true
-        skView.showsFields = false
-        skView.showsPhysics = false
-        skView.showsQuadCount = false
-        
-        skView.shouldCullNonVisibleNodes = true
-        skView.ignoresSiblingOrder = true
-        
-        let scene = GameScene(size: skView.bounds.size)
-        scene.scaleMode = .ResizeFill
-        skView.presentScene(scene)
+        clipTilesOutOfBounds(scale: scale)
     }
     
-    func applicationShouldTerminateAfterLastWindowClosed(sender: NSApplication) -> Bool {
-        return true
+    func didUpdatePosition(position position: CGPoint, scale: CGFloat, bounds: CGRect) {
+        
+        clipTilesOutOfBounds(scale: scale)
+    }
+    
+    func didUpdateBounds(position position: CGPoint, scale: CGFloat, bounds: CGRect) {
+        
+        displayBounds = bounds
+        clipTilesOutOfBounds(scale: scale)
     }
 }

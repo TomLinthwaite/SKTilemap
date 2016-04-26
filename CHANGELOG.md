@@ -1,6 +1,15 @@
 #SKTilemap Change Log
 
-###Latest - 24th April 2016
+###Latest - 26th April 2016
+
++ **New Class** - *SKTilemapCamera* - `class SKTilemapCamera : SKCameraNode`
+    + After a lot of deliberating I've decided to bring the camera class in to the project. It's still not required by SKTilemap and is very much just an additional extra.
++ **New Extension** - *SKTilemapCameraExtension* - `extension SKTilemap : SKTilemapCameraDelegate`
+    + Because I didn't want the SKTilemap class itself to know about the camera I decided to create an extension that will respond to camera events. This gives the tilemap a chance to react when the camera moves/zooms or changes its bounds. As I said before you can totally remove this file and the camera and the tilemap will still work as expected.
++ **Misc.** - *Example Code Update*
+    + I've re-written the GameScene class to show how to use most of the features within SKTilemap as well as setup the new camera.
+
+**24th April 2016**
 
 + **New Property** - *SKTilemap* - `var minTileClippingScale: CGFloat`
     + When tile clipping is enabled this property will disable it when the scale passed in goes below this threshold. This is important because the tile clipping can cause serious slow down when a lot of tiles are drawn on screen. Experiment with this value to see what's best for your map. This is only needed if you plan on scaling the tilemap. 

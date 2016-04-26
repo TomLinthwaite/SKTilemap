@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-up" width="32" height="32" tilewidth="32" tileheight="32" nextobjectid="3">
+ <tileset firstgid="1" name="tmw_desert_spacing" tilewidth="32" tileheight="32" spacing="1" margin="1" tilecount="48" columns="8">
+  <image source="tmw_desert_spacing.png" width="265" height="199"/>
+  <tile id="0">
+   <properties>
+    <property name="description" value="brick path"/>
+   </properties>
+  </tile>
+  <tile id="1">
+   <properties>
+    <property name="description" value="brick path"/>
+   </properties>
+  </tile>
+  <tile id="2">
+   <properties>
+    <property name="description" value="brick path"/>
+   </properties>
+  </tile>
+  <tile id="3">
+   <properties>
+    <property name="description" value="dirt"/>
+   </properties>
+  </tile>
+  <tile id="4">
+   <properties>
+    <property name="description" value="dirt"/>
+   </properties>
+  </tile>
+  <tile id="5">
+   <properties>
+    <property name="description" value="dirt"/>
+   </properties>
+  </tile>
+  <tile id="6">
+   <properties>
+    <property name="description" value="dirt"/>
+   </properties>
+  </tile>
+  <tile id="7">
+   <properties>
+    <property name="description" value="dirt"/>
+   </properties>
+  </tile>
+  <tile id="8">
+   <properties>
+    <property name="description" value="brick path"/>
+   </properties>
+  </tile>
+  <tile id="9">
+   <properties>
+    <property name="description" value="brick path"/>
+   </properties>
+  </tile>
+  <tile id="10">
+   <properties>
+    <property name="description" value="brick path"/>
+   </properties>
+  </tile>
+  <tile id="11">
+   <properties>
+    <property name="description" value="dirt"/>
+   </properties>
+  </tile>
+  <tile id="12">
+   <properties>
+    <property name="description" value="dirt"/>
+   </properties>
+  </tile>
+  <tile id="13">
+   <properties>
+    <property name="description" value="dirt"/>
+   </properties>
+  </tile>
+  <tile id="14">
+   <properties>
+    <property name="description" value="dirt"/>
+   </properties>
+  </tile>
+  <tile id="15">
+   <properties>
+    <property name="description" value="dirt"/>
+   </properties>
+  </tile>
+  <tile id="16">
+   <properties>
+    <property name="description" value="brick path"/>
+   </properties>
+  </tile>
+  <tile id="17">
+   <properties>
+    <property name="description" value="brick path"/>
+   </properties>
+  </tile>
+  <tile id="18">
+   <properties>
+    <property name="description" value="brick path"/>
+   </properties>
+  </tile>
+  <tile id="19">
+   <properties>
+    <property name="description" value="brick path"/>
+   </properties>
+  </tile>
+  <tile id="20">
+   <properties>
+    <property name="description" value="brick path"/>
+   </properties>
+  </tile>
+  <tile id="21">
+   <properties>
+    <property name="description" value="dirt"/>
+   </properties>
+  </tile>
+  <tile id="22">
+   <properties>
+    <property name="description" value="dirt"/>
+   </properties>
+  </tile>
+  <tile id="23">
+   <properties>
+    <property name="description" value="dirt"/>
+   </properties>
+  </tile>
+  <tile id="24">
+   <properties>
+    <property name="description" value="stone path"/>
+   </properties>
+  </tile>
+  <tile id="25">
+   <properties>
+    <property name="description" value="stone path"/>
+   </properties>
+  </tile>
+  <tile id="26">
+   <properties>
+    <property name="description" value="stone path"/>
+   </properties>
+  </tile>
+  <tile id="27">
+   <properties>
+    <property name="description" value="brick path"/>
+   </properties>
+  </tile>
+  <tile id="28">
+   <properties>
+    <property name="description" value="brick path"/>
+   </properties>
+  </tile>
+  <tile id="29">
+   <properties>
+    <property name="description" value="sand"/>
+   </properties>
+  </tile>
+  <tile id="30">
+   <properties>
+    <property name="description" value="foliage"/>
+   </properties>
+  </tile>
+  <tile id="31">
+   <properties>
+    <property name="description" value="rock"/>
+   </properties>
+  </tile>
+  <tile id="32">
+   <properties>
+    <property name="description" value="stone path"/>
+   </properties>
+  </tile>
+  <tile id="33">
+   <properties>
+    <property name="description" value="stone path"/>
+   </properties>
+  </tile>
+  <tile id="34">
+   <properties>
+    <property name="description" value="stone path"/>
+   </properties>
+  </tile>
+  <tile id="35">
+   <properties>
+    <property name="description" value="stone path"/>
+   </properties>
+  </tile>
+  <tile id="36">
+   <properties>
+    <property name="description" value="stone path"/>
+   </properties>
+  </tile>
+  <tile id="37">
+   <properties>
+    <property name="description" value="foliage"/>
+   </properties>
+  </tile>
+  <tile id="38">
+   <properties>
+    <property name="description" value="foliage"/>
+   </properties>
+  </tile>
+  <tile id="39">
+   <properties>
+    <property name="description" value="foliage"/>
+   </properties>
+  </tile>
+  <tile id="40">
+   <properties>
+    <property name="description" value="stone path"/>
+   </properties>
+  </tile>
+  <tile id="41">
+   <properties>
+    <property name="description" value="stone path"/>
+   </properties>
+  </tile>
+  <tile id="42">
+   <properties>
+    <property name="description" value="stone path"/>
+   </properties>
+  </tile>
+  <tile id="43">
+   <properties>
+    <property name="description" value="stone path"/>
+   </properties>
+  </tile>
+  <tile id="44">
+   <properties>
+    <property name="description" value="stone path"/>
+   </properties>
+  </tile>
+  <tile id="45">
+   <properties>
+    <property name="description" value="sign"/>
+   </properties>
+  </tile>
+  <tile id="46">
+   <properties>
+    <property name="description" value="foliage"/>
+   </properties>
+  </tile>
+  <tile id="47">
+   <properties>
+    <property name="description" value="foliage"/>
+   </properties>
+  </tile>
+ </tileset>
+ <layer name="tile layer" width="32" height="32">
+  <data encoding="base64">
+   HgAAAB4AAAAeAAAAHgAAAB4AAAAeAAAAHgAAAB4AAAAeAAAAHgAAAB4AAAAeAAAAHgAAAB4AAAAeAAAAHgAAAB4AAAAeAAAAHgAAAB4AAAAeAAAAHgAAAB4AAAAeAAAAHgAAAB4AAAAeAAAAHgAAAB4AAAAeAAAAHgAAAB4AAAAeAAAAHgAAAB4AAAAeAAAAHgAAAB4AAAAeAAAAHwAAAB4AAAAeAAAAHgAAAB4AAAAeAAAAHgAAAB4AAAAeAAAAHgAAAB4AAAAeAAAAHgAAAB4AAAAeAAAAHgAAAB4AAAAeAAAAHgAAAB4AAAAeAAAAHgAAAB4AAAAeAAAAHgAAAB4AAAAeAAAAHgAAAB4AAAAeAAAAHgAAAB4AAAAeAAAAHgAAAB4AAAAeAAAAHgAAAB4AAAAeAAAAHgAAAB4AAAAeAAAAHgAAAB4AAAAeAAAAHgAAAB4AAAAeAAAAHgAAAB4AAAAmAAAAHgAAAB4AAAAeAAAAHgAAAB4AAAAeAAAAHgAAAB4AAAAeAAAAHwAAAB4AAAAeAAAAHgAAAB4AAAAeAAAAHgAAAB4AAAAeAAAAHgAAAB4AAAAeAAAAHgAAAB4AAAAeAAAAHgAAAB4AAAAeAAAAHgAAAB4AAAAeAAAAHgAAAB4AAAAeAAAAHgAAAB4AAAAeAAAAHgAAAB4AAAAeAAAAHgAAAB4AAAAeAAAAHgAAAB4AAAAvAAAALwAAAB4AAAAeAAAAHgAAACYAAAAeAAAAHgAAAB4AAAAfAAAAHgAAAB4AAAAeAAAAHgAAAB4AAAAgAAAAHgAAAB4AAAAeAAAAHgAAAB4AAAAeAAAAHgAAAB4AAAAeAAAAHgAAAB4AAAAeAAAAHgAAAB4AAAAeAAAALwAAAC8AAAAeAAAAHgAAAB4AAAAeAAAAHgAAAB4AAAAeAAAAHgAAAB4AAAAeAAAAHgAAAB4AAAAeAAAAHgAAAB4AAAAeAAAAHgAAAB4AAAAeAAAAHgAAAB4AAAAeAAAAHgAAAB4AAAAeAAAAGgAAABoAAAAaAAAAGgAAABoAAAAaAAAAGgAAABoAAAAaAAAAGgAAABoAAAAaAAAAGgAAABoAAAAaAAAAGgAAABoAAAAaAAAAGgAAABoAAAAaAAAAGgAAABoAAAAbAAAAHgAAAB4AAAAeAAAAIAAAAB4AAAAeAAAAHgAAAB4AAAAiAAAAIgAAACIAAAAiAAAAIgAAACIAAAAiAAAAIgAAACIAAAAiAAAAIgAAACIAAAAiAAAAIgAAACIAAAAiAAAAIgAAACIAAAAiAAAAIgAAACIAAAAiAAAAIgAAACMAAAAeAAAAMAAAAB4AAAAeAAAAHgAAAB4AAAAeAAAAHgAAACoAAAAqAAAAKgAAACoAAAAqAAAAKgAAACoAAAAqAAAAKgAAACoAAAAqAAAAKgAAACoAAAAqAAAAKgAAACoAAAAqAAAAKgAAACoAAAAqAAAAKgAAACUAAAAiAAAAIwAAAB4AAAAeAAAAHgAAAB4AAAAeAAAAHgAAAB4AAAAeAAAAHgAAAB4AAAAeAAAAHgAAAB4AAAAfAAAAHwAAAB8AAAAfAAAAHgAAAB4AAAAeAAAAHgAAAB4AAAAeAAAAHgAAAB4AAAAeAAAAHgAAAC8AAAAeAAAAIQAAACIAAAAjAAAAHgAAAB4AAAAeAAAAHgAAAB4AAAAfAAAAHgAAAB4AAAAeAAAAHgAAAB4AAAAeAAAAHgAAAB4AAAAeAAAAHgAAAB4AAAAeAAAAHgAAAB4AAAAeAAAAHgAAAB4AAAAfAAAAHgAAAB4AAAAeAAAAHgAAAB4AAAAhAAAAIgAAACMAAAAeAAAAHgAAAB4AAAAeAAAAHgAAAB4AAAAeAAAAHgAAAB4AAAAeAAAAHgAAAB4AAAAeAAAAHgAAAB4AAAAeAAAAHgAAAB4AAAAeAAAAHgAAAB4AAAAeAAAAHgAAAB4AAAAeAAAAHwAAAB4AAAAeAAAAHgAAACEAAAAiAAAAIwAAAB4AAAAeAAAAJgAAAB4AAAAeAAAAHgAAAB8AAAAeAAAAHgAAAB4AAAAeAAAAHgAAAB4AAAAmAAAAHgAAAB4AAAAGAAAABwAAAAcAAAAHAAAABwAAAAgAAAAeAAAAHgAAAB4AAAAfAAAAHgAAAB4AAAAeAAAAIQAAACIAAAAjAAAAHgAAAB4AAAAeAAAAHgAAAB4AAAAeAAAAHgAAAB4AAAAeAAAAHgAAAC8AAAAeAAAAHgAAAB4AAAAGAAAABwAAAA0AAAAPAAAADwAAAA8AAAAPAAAADAAAAAgAAAAeAAAAHgAAAB4AAAAeAAAAHwAAAB4AAAAhAAAAIgAAACwAAAAaAAAAGgAAABoAAAAaAAAAGgAAABoAAAAaAAAAGgAAAB4AAAAeAAAAHgAAAB4AAAAeAAAABgAAAA0AAAAPAAAADwAAAA8AAAAPAAAADwAAAA8AAAAPAAAADAAAAAgAAAAeAAAAHgAAAB4AAAAeAAAAHgAAACEAAAAiAAAAIgAAACIAAAAiAAAAIgAAACIAAAAiAAAAIgAAACIAAAAiAAAAHgAAAB4AAAAeAAAABgAAAAcAAAANAAAADwAAAA8AAAAPAAAADwAAAA8AAAAPAAAADwAAAA8AAAAPAAAAEAAAAB4AAAAeAAAAHgAAAB4AAAAeAAAAKQAAACoAAAAqAAAAKgAAACoAAAAqAAAAKgAAACoAAAAqAAAAKgAAACoAAAAeAAAAHgAAAAYAAAANAAAADwAAAA8AAAAPAAAADwAAAA8AAAAEAAAABQAAAA8AAAAPAAAADwAAAA8AAAAQAAAAHgAAAB4AAAAeAAAAHgAAAB4AAAAeAAAAHgAAAB4AAAAeAAAAHgAAAB4AAAAeAAAAHgAAAB4AAAAeAAAAHgAAAB4AAAAeAAAADgAAAA8AAAAPAAAADwAAAA8AAAAPAAAADwAAAAwAAAANAAAADwAAAA8AAAAPAAAABAAAABgAAAAeAAAAIAAAAB4AAAAeAAAAHgAAAB4AAAAeAAAAHgAAAB4AAAAeAAAAHgAAAB4AAAAeAAAAHgAAAB4AAAAeAAAAHgAAAB4AAAAOAAAADwAAAA8AAAAPAAAADwAAAA8AAAAPAAAADwAAAA8AAAAPAAAADwAAAA8AAAAQAAAAHgAAACAAAAAgAAAAJgAAAB4AAAAeAAAAMAAAAB4AAAAeAAAAHgAAAB4AAAAeAAAAHgAAAB4AAAAeAAAAHgAAAB4AAAAeAAAAHgAAAA4AAAAPAAAADwAAAA8AAAAPAAAADwAAAA8AAAAPAAAADwAAAA8AAAAPAAAADwAAABAAAAAeAAAAHgAAACcAAAAeAAAAHgAAACAAAAAgAAAAHgAAAB4AAAABAAAAAgAAAAIAAAACAAAAAwAAAB4AAAAeAAAAHgAAAB4AAAAeAAAADgAAAA8AAAAPAAAABAAAABcAAAAXAAAAFwAAAAUAAAAPAAAADwAAAA8AAAAPAAAADAAAAAgAAAAeAAAAHgAAAB4AAAAeAAAAIAAAACAAAAAeAAAAHgAAAAkAAAAKAAAACgAAAAoAAAALAAAAHgAAAB4AAAAeAAAAHgAAAB4AAAAOAAAADwAAAA8AAAAMAAAABwAAAAcAAAAHAAAADQAAAA8AAAAPAAAADwAAAA8AAAAPAAAADAAAAAgAAAAeAAAAHgAAAB4AAAAeAAAAHgAAAB4AAAAeAAAACQAAAAoAAAAKAAAACgAAAAsAAAAeAAAAHgAAADAAAAAeAAAAHgAAAA4AAAAPAAAADwAAAA8AAAAPAAAADwAAAA8AAAAPAAAADwAAAA8AAAAPAAAADwAAAA8AAAAPAAAAEAAAAB4AAAAeAAAAHgAAADAAAAAeAAAAMAAAAB4AAAAJAAAACgAAAAoAAAAKAAAACwAAAB4AAAAeAAAAHgAAAB4AAAAeAAAAFgAAAAUAAAAPAAAADwAAAA8AAAAPAAAADwAAAA8AAAAPAAAADwAAAA8AAAAPAAAADwAAAA8AAAAQAAAAHgAAAB4AAAAeAAAAHgAAAB4AAAAeAAAAHgAAAAkAAAAKAAAACgAAAAoAAAALAAAAMAAAAB4AAAAeAAAAHgAAAB4AAAAeAAAAFgAAABcAAAAXAAAAFwAAABcAAAAXAAAABQAAAA8AAAAPAAAADwAAAA8AAAAPAAAADwAAABAAAAAeAAAAHgAAAB4AAAAeAAAAHgAAAB4AAAAeAAAACQAAAAoAAAAKAAAACgAAAAsAAAAeAAAAHgAAAB4AAAAvAAAAHgAAAB4AAAAeAAAAHgAAAB4AAAAeAAAAHgAAAB4AAAAWAAAABQAAAA8AAAAPAAAADwAAAA8AAAAPAAAAEAAAAB4AAAAeAAAAHgAAACgAAAAeAAAAHgAAAB4AAAAJAAAACgAAAAoAAAAKAAAACwAAAB4AAAAoAAAAHgAAAB4AAAAeAAAAHgAAACcAAAAeAAAAHgAAAB4AAAAeAAAAHgAAAB4AAAAWAAAABQAAAA8AAAAPAAAADwAAAAQAAAAYAAAAHgAAACgAAAAoAAAAKAAAAB4AAAAeAAAAKAAAAAkAAAAKAAAACgAAAAoAAAALAAAAHgAAACgAAAAeAAAAHgAAAB4AAAAvAAAAHgAAACcAAAAnAAAAHgAAAB4AAAAeAAAAHgAAAB4AAAAWAAAAFwAAABcAAAAXAAAAGAAAAB4AAAAeAAAAHgAAAB4AAAAeAAAAHgAAACgAAAAoAAAACQAAAAoAAAAKAAAACgAAAAsAAAAoAAAAKAAAAB4AAAAeAAAAHgAAAB4AAAAnAAAAJwAAAC8AAAAvAAAALwAAAB4AAAAvAAAAHgAAAB4AAAAeAAAAHgAAAB4AAAAeAAAAHgAAAB4AAAAeAAAAHgAAAB4AAAAoAAAAKAAAACgAAAAJAAAACgAAAAoAAAAKAAAACwAAACgAAAAoAAAAHgAAAB4AAAAeAAAALwAAAC8AAAAvAAAALwAAAB4AAAAeAAAAHgAAAB4AAAAeAAAAHgAAAB4AAAAeAAAAHgAAAB4AAAAeAAAAKAAAAB4AAAAeAAAAKAAAACgAAAAeAAAAKAAAAAkAAAAKAAAACgAAAAoAAAALAAAAHgAAACgAAAAoAAAAHgAAAB4AAAAeAAAAHgAAAB4AAAAeAAAAHgAAAB4AAAAeAAAAHgAAAB4AAAAeAAAAHgAAAB4AAAAeAAAAHgAAAB4AAAAeAAAAHgAAACgAAAAeAAAAHgAAACgAAAAoAAAACQAAAAoAAAAKAAAACgAAAAsAAAAeAAAAHgAAAB4AAAAeAAAAHgAAAB4AAAAeAAAAHgAAAB4AAAAeAAAAHgAAAB4AAAAeAAAAHgAAAB4AAAAeAAAAHgAAAB4AAAAeAAAAHgAAACgAAAAoAAAAKAAAACgAAAAoAAAAKAAAAB4AAAAJAAAACgAAAAoAAAAKAAAACwAAAB4AAAAeAAAAHgAAAA==
+  </data>
+ </layer>
+ <objectgroup name="object group">
+  <object id="1" type="sign" x="768" y="384" width="32" height="32">
+   <properties>
+    <property name="message" value="Read Me!"/>
+   </properties>
+  </object>
+  <object id="2" type="sign" x="32" y="160" width="32" height="32">
+   <properties>
+    <property name="message" value="Onwards to the end of the world!"/>
+   </properties>
+  </object>
+ </objectgroup>
+</map>

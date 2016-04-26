@@ -1,10 +1,37 @@
-//
-//  GameScene.swift
-//  SKTilemap
-//
-//  Created by Thomas Linthwaite on 07/04/2016.
-//  Copyright (c) 2016 Tom Linthwaite. All rights reserved.
-//
+/*
+ SKTilemap
+ GameScene.swift
+ 
+ Created by Thomas Linthwaite on 07/04/2016.
+    GitHub: https://github.com/TomLinthwaite/SKTilemap
+    Wiki: https://github.com/TomLinthwaite/SKTilemap/wiki
+    YouTube: https://www.youtube.com/channel/UCAlJgYx9-Ub_dKD48wz6vMw
+    Twitter: https://twitter.com/Mr_Tomoso
+ 
+ -----------------------------------------------------------------------------------------------------------------------
+ MIT License
+ 
+ Copyright (c) 2016 Tom Linthwaite
+ 
+ Permission is hereby granted, free of charge, to any person obtaining a copy
+ of this software and associated documentation files (the "Software"), to deal
+ in the Software without restriction, including without limitation the rights
+ to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ copies of the Software, and to permit persons to whom the Software is
+ furnished to do so, subject to the following conditions:
+ 
+ The above copyright notice and this permission notice shall be included in all
+ copies or substantial portions of the Software.
+ 
+ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ SOFTWARE.
+ -----------------------------------------------------------------------------------------------------------------------
+ */
 
 import SpriteKit
 
@@ -12,17 +39,23 @@ import SpriteKit
 class GameScene: SKScene {
     
 // MARK: Properties
-    var tilemap: SKTilemap?
-    let worldNode: SKNode
-    var sceneCamera: Camera!
+    
+    /* Everything affected by the camera should be added to this node. This is the root node for all game related objects. */
+    let worldNode = SKNode()
+    
+    /* A camera to help pan/zoom around the scene. Custom bounds can be set that the worldNode will be constrained to.
+        by default these bounds are set to the size of the view. */
+    var sceneCamera: SKTilemapCamera!
+    
+    /* The tilemap object. */
+    var tilemap: SKTilemap!
     
 // MARK: Initialization
     override init(size: CGSize) {
         
-        worldNode = SKNode()
-        
         super.init(size: size)
         
+        /* Add the world node to the scene. */
         addChild(worldNode)
     }
     
@@ -32,123 +65,147 @@ class GameScene: SKScene {
     
     override func didMoveToView(view: SKView) {
         
-        /* Setup a basic Camera object to allow for panning/zooming. */
-        sceneCamera = Camera(scene: self, view: view, worldNode: worldNode)
+        /* Initial Setup */
+        /**************************************************************************************************************/
+ 
+        /* Create the camera and add it to the scene. */
+        sceneCamera = SKTilemapCamera(scene: self, view: view, worldNode: worldNode)
         addChild(sceneCamera)
         camera = sceneCamera
         
-        /* Load Tilemap from .tmx file and add it to the scene through the worldNode. */
-        if let tilemap = SKTilemap.loadTMX(name: "tilemap_orthogonal") {
-            
-            /* Print tilemap information to console, useful for debugging. */
-            self.worldNode.addChild(tilemap)
-            self.tilemap = tilemap
-            
-            /* Set the bounds for the tilemap. The bounds for the tilemap are different to those of the camera.
-               These bounds origin is from the top left corner. But we only need to specify the distance from that corner. */
-//             tilemap.displayBounds = CGRect(x: 64, y: 64, width: view.bounds.width - 128, height: view.bounds.height - 128)
-            
-            /* Note that if we did not set the above tilemap bounds, the tilemap itself will use the view bounds (view.bounds)
-             as default. You only need to set these bounds if you are planning on not using the whole of the screen for
-             to display your tilemap. You can change these bounds at any time, you are not required to set them before
-             enabling tile clipping. */
-            
-            /* Set this to enable tile clipping outside the size of the view. */
-            tilemap.enableTileClipping = true
-            
-            /* Set a custom alignment for the tilemap.
-                0 - The layers left/bottom most edge will rest at 0 in the scene
-                0.5 - The center of the layer will rest at 0 in the scene
-                1 - The layers right/top most edge will rest at 0 in the scene
-             
-                It is not required to set this. The default is 0.5,0.5.
-             */
-            tilemap.alignment = CGPoint(x: 0.5, y: 0.5)
+        /* These settings are at their default values and are only here as an example. */
+        sceneCamera.enabled = true
+        sceneCamera.allowZoom = true
+        sceneCamera.zoomRange.min = 0.1
+        sceneCamera.zoomRange.max = 2.0
+        
+        /* Load Tilemap from .tmx file. */
+        guard let tilemap = SKTilemap.loadTMX(name: "tilemap_example") else {
+            fatalError("Failed to load tilemap.")
         }
         
-        /* Set custom camera bounds to test tile clipping. */
-//        sceneCamera.bounds = CGRect(x: -(view.bounds.width / 2) + 64,
-//                                    y: -(view.bounds.height / 2) + 64,
-//                                    width: view.bounds.width - 128,
-//                                    height: view.bounds.height - 128)
+        /* Add the tilemap to the scene (through the worldNode). */
+        self.tilemap = tilemap
+        self.worldNode.addChild(tilemap)
         
-        /* Create a temporary shape to test the bounds so its easy to see where they are. */
-//        let boundsShape = SKShapeNode(rect: sceneCamera.bounds)
-//        boundsShape.antialiased = false
-//        boundsShape.lineWidth = 1
-//        boundsShape.strokeColor = SKColor.blueColor()
-//        boundsShape.zPosition = 1000
+        /* Add the tilemap as a delegate to the camera. The tilemap will now recieve events when the camera updates its
+            position/scale or bounds. */
+        sceneCamera.addDelegate(tilemap)
         
-        /* NOTE: Adding the shape as a child of the camera. This stops it moving/scaling when the camera does! */
-//        sceneCamera.addChild(boundsShape)
-        /* There is one more step to ensure tileClipping works... Scroll down to the touches moved method. */
+        /* Tilemap settings */
+        /**************************************************************************************************************/
         
+        /* Will hide tiles outside of the tilemaps.displayBounds. By default the display bounds are set to the size of the
+            view. How ever custom bounds can be set if you wish to not have the tilemap take up the whole view. 
+            If the tilemap is an SKTilemapCamera delegate, its display bounds will be updated when the camera changes its
+            bounds. */
+        tilemap.enableTileClipping = true
+        tilemap.displayBounds = sceneCamera.getBounds()
+        
+        /* Turn tile clipping off if the tilemap map is scaled below this threshold. Only relevant if you allow the camera
+            to scale and use tile clipping. Tile clipping does improve performance for large maps, but performance can
+            drop when there are a lot of tiles within the viewable area. Setting this prevents that performance drop. */
+        tilemap.minTileClippingScale = 0.6
+        
+        /* The tilemap itself defaults to 0,0 positon on the worldNode. Changing its alignment will determine where its
+            layers are drawn. The default alignment is 0.5,0.5. Layers will have there center at the center of the scene. */
+        tilemap.alignment = CGPoint(x: 0.5, y: 0.5)
+        
+        /* Loading custom objects */
+        /**************************************************************************************************************/
+        
+        /* If you haven't done so already, open the example map in Tiled to get a better understanding of how the map is
+            constructed. */
+        
+        /* Get an object group by name. In Tiled this is called an object layer. */
+        if let objectGroup = tilemap.getObjectGroup(name: "object group") {
+            
+            /* In the example map there are only 2 objects. Niether has a name, but they do have a type. To get all objects
+                that share a similar type use the function below. It will return an array of those objects. If no obects
+                are found the array will be empty. */
+            let objects = objectGroup.getObjects(type: "sign")
+            
+            /* For each of the objects with type sign, create a sprite node and add it to the worldNode. */
+            for object in objects {
+                
+                if let layer = tilemap.getLayer(name: "tile layer") {
+                    
+                    /* Get the position this object should be at using the tile layer.
+                     The position returned will be that of the tile at this location. This is important because tiles can
+                     have different anchorPoints, layers can have offsets and the map its self can be aligned differently. */
+                    let layerPosition = object.positionOnLayer(layer)
+                    
+                    /* We now have the position the object should be if it were placed on "tile layer". But in reality
+                        its probably a bad idea to add objects directly to the layer. It would be better if all your game
+                        objects shared the same coordinate space. This includes the player, enemies and anything else. 
+                        So instead we will add this object to the worldNode. */
+                    let worldPosition = worldNode.convertPoint(layerPosition, fromNode: layer)
+                    
+                    /* This new sprite will share a texture loaded from the tileset. It could easily be loaded from else
+                        where. For this example we know the tile with ID 46 represents a sign so we will use that. */
+                    let texture = tilemap.getTileData(id: 46)!.texture
+                    let sprite = SKSpriteNode(texture: texture)
+                    sprite.position = worldPosition
+                    sprite.zPosition = layer.zPosition + 1 /* Just to make sure its drawn above anything else. */
+                    worldNode.addChild(sprite)
+                }
+            }
+            
+            /* You should now see signs on the tilemap at their respective object locations within the .tmx file. */
+        }
     }
     
-// MARK: Input
+// MARK: Input iOS
     
-    #if os(iOS)
+#if os(iOS)
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
         
         for touch in touches {
             
-            //print("Touch Location: \(touch.locationInNode(self))")
-            if let layer = tilemap?.getLayer(name: "ground layer") {
+            /* Getting Tiles at Touch Position */
+            /**********************************************************************************************************/
+            if let tile = tilemap.getLayer(name: "tile layer")?.tileAtTouchPosition(touch) {
+                /* I have added a property to each tile called "description", lets print the tiles description to
+                    the console when it is touched. Note that I forcibly unwrapped the property. In practice its
+                    a bad idea to do this. */
+                print("Tile Description Proerty: \(tile.tileData.properties["description"]!)")
+            }
+            
+            /* Getting Objects at Touch Position */
+            /**********************************************************************************************************/
+            
+            /* Find out the coordinate of the tile that was touched. */
+            if let coord = tilemap.getLayer(name: "tile layer")?.coordAtTouchPosition(touch) {
                 
-                //print("Coord: \(layer.coordAtTouchPosition(touch))")
-                if let coord = layer.coordAtTouchPosition(touch) {
+                if let object = tilemap.getObjectGroup(name: "object group")?.getObjectAtCoord(coord) {
                     
-                    print("Tile Position: \(layer.tileAtCoord(coord)?.position)")
-                    if let object = tilemap?.getObjectGroup(name: "object group")?.getObjectAtCoord(coord) {
-                        //print("Object Position: \(object.coord)")
-                        
-                        let spr = SKSpriteNode(imageNamed: "grass")
-                        spr.position = worldNode.convertPoint(object.positionOnLayer(layer), fromNode: layer)
-                        spr.zPosition = 100
-                        worldNode.addChild(spr)
-                    }
+                    /* There are two objects on the map (remember we added them earlier). They don't have to be added to
+                        the map in order for this to work. They just have to be in the object group. 
+                     For each sign I added a "message" property. Lets print this to the console. Note that I forcibly 
+                     unwrapped the property. In practice its a bad idea to do this. */
+                    print("Object Message: \(object.properties["message"]!)")
                 }
             }
+            
+            /* Try running this in the simulator to see the results. Touching anywhere on the tilemap will print the tile
+                at the touch locations description to the console. Touching an object will print its message property. */
         }
     }
     
     override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
         
         for touch in touches {
-            
+            /* Update the position of the camera based on the movement of the touch. */
             sceneCamera.updatePosition(touch)
-            
-            /* Will only work if tilemap.enableTileClipping = true 
-               Increase the tileBufferSize to draw more tiles outside of the bounds. This can stop tiles that are part
-               way in/out of the bounds to get fully displayed. Not giving a tileBufferSize will default it to 2. */
-            tilemap?.clipTilesOutOfBounds(scale: sceneCamera.getZoomScale(), tileBufferSize: 0)
-            /* You must call this function every time the camera moves/zooms. At the moment this is the easiest way to
-               do it. But ideally the tilemap itself should know when it needs to update. Right now there is no way
-               for the tilemap to know when the camera is being zoomed. Its something I may look in to, but the camera
-               is not really part of thie project. */
         }
 
     }
-    #endif
+#endif
     
-    #if os(OSX)
+// MARK: Input OSX
+    
+#if os(OSX)
     override func mouseDown(theEvent: NSEvent) {
-        
-        print("Mouse Location: \(theEvent.locationInNode(self))")
-        if let layer = tilemap?.getLayer(name: "ground layer") {
-            
-            print("Coord: \(layer.coordAtMousePosition(theEvent))")
-            if let coord = layer.coordAtMousePosition(theEvent) {
-                
-                if let tile = layer.tileAtCoord(coord) {
-                    
-                    print("Tile Position: \(tile.position)")
-                    if let object = tilemap?.getObjectGroup(name: "object group")?.getObjectAtCoord(coord) {
-                        print("Object Position: \(object.position)")
-                    }
-                }
-            }
-        }
     }
     
     override func mouseUp(theEvent: NSEvent) {
@@ -156,26 +213,20 @@ class GameScene: SKScene {
     }
     
     override func mouseDragged(theEvent: NSEvent) {
-        
         sceneCamera.updatePosition(theEvent)
-        tilemap?.clipTilesOutOfBounds()
         
     }
     
     override func didChangeSize(oldSize: CGSize) {
+    
+        guard let view = scene?.view else { return }
         
-        if let scene = self.scene, let view = scene.view {
-            
-            /* Update the bounds for the tilemap and camera if the window size changes. */
-            tilemap?.displayBounds = CGRect(x: 0, y: 0, width: view.bounds.width, height: view.bounds.height)
-            
-            sceneCamera.bounds = CGRect(x: -(view.bounds.width / 2),
-                                        y: -(view.bounds.height / 2),
-                                        width: view.bounds.width,
-                                        height: view.bounds.height)
-            
-            tilemap?.clipTilesOutOfBounds()
-        }
+        let bounds = CGRect(x: -(view.bounds.width / 2),
+                            y: -(view.bounds.height / 2),
+                            width: view.bounds.width,
+                            height: view.bounds.height)
+        
+        sceneCamera.updateBounds(bounds)
     }
-    #endif
+#endif
 }

@@ -7,12 +7,19 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D836493F1CCEC77B00A1CEB3 /* SKTilemapCamera.swift in Sources */ = {isa = PBXBuildFile; fileRef = D836493D1CCEC77B00A1CEB3 /* SKTilemapCamera.swift */; };
+		D83649401CCEC77B00A1CEB3 /* SKTilemapCamera.swift in Sources */ = {isa = PBXBuildFile; fileRef = D836493D1CCEC77B00A1CEB3 /* SKTilemapCamera.swift */; };
+		D83649411CCEC77B00A1CEB3 /* SKTilemapCameraExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D836493E1CCEC77B00A1CEB3 /* SKTilemapCameraExtension.swift */; };
+		D83649421CCEC77B00A1CEB3 /* SKTilemapCameraExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D836493E1CCEC77B00A1CEB3 /* SKTilemapCameraExtension.swift */; };
+		D83649651CCF47C100A1CEB3 /* iso_tileset.atlas in Resources */ = {isa = PBXBuildFile; fileRef = D83649641CCF47C100A1CEB3 /* iso_tileset.atlas */; };
+		D83649661CCF47C100A1CEB3 /* iso_tileset.atlas in Resources */ = {isa = PBXBuildFile; fileRef = D83649641CCF47C100A1CEB3 /* iso_tileset.atlas */; };
+		D83649681CCF47FE00A1CEB3 /* tilemap_example.tmx in Resources */ = {isa = PBXBuildFile; fileRef = D83649671CCF47FE00A1CEB3 /* tilemap_example.tmx */; };
+		D83649691CCF47FE00A1CEB3 /* tilemap_example.tmx in Resources */ = {isa = PBXBuildFile; fileRef = D83649671CCF47FE00A1CEB3 /* tilemap_example.tmx */; };
 		D8BA4D881CC935F700E1D612 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8BA4D871CC935F700E1D612 /* AppDelegate.swift */; };
 		D8BA4D911CC935F700E1D612 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D8BA4D8F1CC935F700E1D612 /* Main.storyboard */; };
 		D8BA4D931CC935F700E1D612 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D8BA4D921CC935F700E1D612 /* Assets.xcassets */; };
 		D8BA4D961CC935F700E1D612 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D8BA4D941CC935F700E1D612 /* LaunchScreen.storyboard */; };
 		D8BA4DA01CC9364200E1D612 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8BA4D9D1CC9364200E1D612 /* GameViewController.swift */; };
-		D8BA4DA11CC9364200E1D612 /* Camera.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8BA4D9E1CC9364200E1D612 /* Camera.swift */; };
 		D8BA4DA21CC9364200E1D612 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8BA4D9F1CC9364200E1D612 /* GameScene.swift */; };
 		D8BA4DAC1CC9366100E1D612 /* SKTilemap.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8BA4DA41CC9366100E1D612 /* SKTilemap.swift */; };
 		D8BA4DAD1CC9366100E1D612 /* SKTilemapLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8BA4DA51CC9366100E1D612 /* SKTilemapLayer.swift */; };
@@ -34,19 +41,6 @@
 		D8BA4DE91CC9379D00E1D612 /* SKTilemapTileData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8BA4DAA1CC9366100E1D612 /* SKTilemapTileData.swift */; };
 		D8BA4DEA1CC9379D00E1D612 /* SKTilemapTileset.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8BA4DAB1CC9366100E1D612 /* SKTilemapTileset.swift */; };
 		D8BA4DEB1CC937CC00E1D612 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8BA4D9F1CC9364200E1D612 /* GameScene.swift */; };
-		D8BA4DEC1CC9392300E1D612 /* Camera.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8BA4D9E1CC9364200E1D612 /* Camera.swift */; };
-		D8BA4DF51CC93F8A00E1D612 /* tilemap_culling_test.tmx in Resources */ = {isa = PBXBuildFile; fileRef = D8BA4DEE1CC93F8A00E1D612 /* tilemap_culling_test.tmx */; };
-		D8BA4DF61CC93F8A00E1D612 /* tilemap_culling_test.tmx in Resources */ = {isa = PBXBuildFile; fileRef = D8BA4DEE1CC93F8A00E1D612 /* tilemap_culling_test.tmx */; };
-		D8BA4DF71CC93F8A00E1D612 /* tilemap_iso_csv.tmx in Resources */ = {isa = PBXBuildFile; fileRef = D8BA4DEF1CC93F8A00E1D612 /* tilemap_iso_csv.tmx */; };
-		D8BA4DF81CC93F8A00E1D612 /* tilemap_iso_csv.tmx in Resources */ = {isa = PBXBuildFile; fileRef = D8BA4DEF1CC93F8A00E1D612 /* tilemap_iso_csv.tmx */; };
-		D8BA4DF91CC93F8A00E1D612 /* tilemap_isometric.tmx in Resources */ = {isa = PBXBuildFile; fileRef = D8BA4DF01CC93F8A00E1D612 /* tilemap_isometric.tmx */; };
-		D8BA4DFA1CC93F8A00E1D612 /* tilemap_isometric.tmx in Resources */ = {isa = PBXBuildFile; fileRef = D8BA4DF01CC93F8A00E1D612 /* tilemap_isometric.tmx */; };
-		D8BA4DFB1CC93F8A00E1D612 /* tilemap_isometric_offset.tmx in Resources */ = {isa = PBXBuildFile; fileRef = D8BA4DF11CC93F8A00E1D612 /* tilemap_isometric_offset.tmx */; };
-		D8BA4DFC1CC93F8A00E1D612 /* tilemap_isometric_offset.tmx in Resources */ = {isa = PBXBuildFile; fileRef = D8BA4DF11CC93F8A00E1D612 /* tilemap_isometric_offset.tmx */; };
-		D8BA4DFD1CC93F8A00E1D612 /* tilemap_orthogonal.tmx in Resources */ = {isa = PBXBuildFile; fileRef = D8BA4DF21CC93F8A00E1D612 /* tilemap_orthogonal.tmx */; };
-		D8BA4DFE1CC93F8A00E1D612 /* tilemap_orthogonal.tmx in Resources */ = {isa = PBXBuildFile; fileRef = D8BA4DF21CC93F8A00E1D612 /* tilemap_orthogonal.tmx */; };
-		D8BA4DFF1CC93F8A00E1D612 /* tileset.atlas in Resources */ = {isa = PBXBuildFile; fileRef = D8BA4DF31CC93F8A00E1D612 /* tileset.atlas */; };
-		D8BA4E001CC93F8A00E1D612 /* tileset.atlas in Resources */ = {isa = PBXBuildFile; fileRef = D8BA4DF31CC93F8A00E1D612 /* tileset.atlas */; };
 		D8BA4E011CC93F8A00E1D612 /* tmw_desert_spacing.png in Resources */ = {isa = PBXBuildFile; fileRef = D8BA4DF41CC93F8A00E1D612 /* tmw_desert_spacing.png */; };
 		D8BA4E021CC93F8A00E1D612 /* tmw_desert_spacing.png in Resources */ = {isa = PBXBuildFile; fileRef = D8BA4DF41CC93F8A00E1D612 /* tmw_desert_spacing.png */; };
 /* End PBXBuildFile section */
@@ -55,6 +49,10 @@
 		D8051D351CCBCA1100465AC6 /* LICENSE.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE.txt; sourceTree = "<group>"; };
 		D8051D361CCBCA1100465AC6 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		D8051D371CCBCA4100465AC6 /* CHANGELOG.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = CHANGELOG.md; sourceTree = "<group>"; };
+		D836493D1CCEC77B00A1CEB3 /* SKTilemapCamera.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SKTilemapCamera.swift; sourceTree = "<group>"; };
+		D836493E1CCEC77B00A1CEB3 /* SKTilemapCameraExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SKTilemapCameraExtension.swift; sourceTree = "<group>"; };
+		D83649641CCF47C100A1CEB3 /* iso_tileset.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = iso_tileset.atlas; sourceTree = "<group>"; };
+		D83649671CCF47FE00A1CEB3 /* tilemap_example.tmx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = tilemap_example.tmx; sourceTree = "<group>"; };
 		D8BA4D841CC935F700E1D612 /* SKTilemap-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SKTilemap-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D8BA4D871CC935F700E1D612 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D8BA4D901CC935F700E1D612 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -62,7 +60,6 @@
 		D8BA4D951CC935F700E1D612 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D8BA4D971CC935F700E1D612 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D8BA4D9D1CC9364200E1D612 /* GameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
-		D8BA4D9E1CC9364200E1D612 /* Camera.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Camera.swift; path = "SKTilemap-iOS/Camera.swift"; sourceTree = "<group>"; };
 		D8BA4D9F1CC9364200E1D612 /* GameScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GameScene.swift; path = "SKTilemap-iOS/GameScene.swift"; sourceTree = "<group>"; };
 		D8BA4DA41CC9366100E1D612 /* SKTilemap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SKTilemap.swift; sourceTree = "<group>"; };
 		D8BA4DA51CC9366100E1D612 /* SKTilemapLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SKTilemapLayer.swift; sourceTree = "<group>"; };
@@ -77,12 +74,6 @@
 		D8BA4DD11CC9374C00E1D612 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D8BA4DD41CC9374C00E1D612 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		D8BA4DD61CC9374C00E1D612 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		D8BA4DEE1CC93F8A00E1D612 /* tilemap_culling_test.tmx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = tilemap_culling_test.tmx; sourceTree = "<group>"; };
-		D8BA4DEF1CC93F8A00E1D612 /* tilemap_iso_csv.tmx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = tilemap_iso_csv.tmx; sourceTree = "<group>"; };
-		D8BA4DF01CC93F8A00E1D612 /* tilemap_isometric.tmx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = tilemap_isometric.tmx; sourceTree = "<group>"; };
-		D8BA4DF11CC93F8A00E1D612 /* tilemap_isometric_offset.tmx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = tilemap_isometric_offset.tmx; sourceTree = "<group>"; };
-		D8BA4DF21CC93F8A00E1D612 /* tilemap_orthogonal.tmx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = tilemap_orthogonal.tmx; sourceTree = "<group>"; };
-		D8BA4DF31CC93F8A00E1D612 /* tileset.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = tileset.atlas; sourceTree = "<group>"; };
 		D8BA4DF41CC93F8A00E1D612 /* tmw_desert_spacing.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tmw_desert_spacing.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -112,7 +103,6 @@
 				D8051D371CCBCA4100465AC6 /* CHANGELOG.md */,
 				D8BA4DB41CC936C200E1D612 /* Shared */,
 				D8BA4D9F1CC9364200E1D612 /* GameScene.swift */,
-				D8BA4D9E1CC9364200E1D612 /* Camera.swift */,
 				D8BA4D861CC935F700E1D612 /* SKTilemap-iOS */,
 				D8BA4DCA1CC9374C00E1D612 /* SKTilemap-OSX */,
 				D8BA4D851CC935F700E1D612 /* Products */,
@@ -141,6 +131,8 @@
 		D8BA4DA31CC9365200E1D612 /* SKTilemap */ = {
 			isa = PBXGroup;
 			children = (
+				D836493D1CCEC77B00A1CEB3 /* SKTilemapCamera.swift */,
+				D836493E1CCEC77B00A1CEB3 /* SKTilemapCameraExtension.swift */,
 				D8BA4DA41CC9366100E1D612 /* SKTilemap.swift */,
 				D8BA4DA51CC9366100E1D612 /* SKTilemapLayer.swift */,
 				D8BA4DA61CC9366100E1D612 /* SKTilemapObject.swift */,
@@ -195,13 +187,9 @@
 		D8BA4DED1CC93F8A00E1D612 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				D8BA4DF31CC93F8A00E1D612 /* tileset.atlas */,
-				D8BA4DEE1CC93F8A00E1D612 /* tilemap_culling_test.tmx */,
-				D8BA4DEF1CC93F8A00E1D612 /* tilemap_iso_csv.tmx */,
-				D8BA4DF01CC93F8A00E1D612 /* tilemap_isometric.tmx */,
-				D8BA4DF11CC93F8A00E1D612 /* tilemap_isometric_offset.tmx */,
-				D8BA4DF21CC93F8A00E1D612 /* tilemap_orthogonal.tmx */,
+				D83649641CCF47C100A1CEB3 /* iso_tileset.atlas */,
 				D8BA4DF41CC93F8A00E1D612 /* tmw_desert_spacing.png */,
+				D83649671CCF47FE00A1CEB3 /* tilemap_example.tmx */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -287,15 +275,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				D8BA4D961CC935F700E1D612 /* LaunchScreen.storyboard in Resources */,
-				D8BA4DFB1CC93F8A00E1D612 /* tilemap_isometric_offset.tmx in Resources */,
-				D8BA4DFF1CC93F8A00E1D612 /* tileset.atlas in Resources */,
+				D83649651CCF47C100A1CEB3 /* iso_tileset.atlas in Resources */,
 				D8BA4E011CC93F8A00E1D612 /* tmw_desert_spacing.png in Resources */,
+				D83649681CCF47FE00A1CEB3 /* tilemap_example.tmx in Resources */,
 				D8BA4D931CC935F700E1D612 /* Assets.xcassets in Resources */,
-				D8BA4DF91CC93F8A00E1D612 /* tilemap_isometric.tmx in Resources */,
-				D8BA4DF71CC93F8A00E1D612 /* tilemap_iso_csv.tmx in Resources */,
-				D8BA4DFD1CC93F8A00E1D612 /* tilemap_orthogonal.tmx in Resources */,
 				D8BA4D911CC935F700E1D612 /* Main.storyboard in Resources */,
-				D8BA4DF51CC93F8A00E1D612 /* tilemap_culling_test.tmx in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -304,14 +288,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				D8BA4DD21CC9374C00E1D612 /* Assets.xcassets in Resources */,
-				D8BA4DFE1CC93F8A00E1D612 /* tilemap_orthogonal.tmx in Resources */,
-				D8BA4E001CC93F8A00E1D612 /* tileset.atlas in Resources */,
-				D8BA4DFA1CC93F8A00E1D612 /* tilemap_isometric.tmx in Resources */,
-				D8BA4DF61CC93F8A00E1D612 /* tilemap_culling_test.tmx in Resources */,
-				D8BA4DFC1CC93F8A00E1D612 /* tilemap_isometric_offset.tmx in Resources */,
+				D83649691CCF47FE00A1CEB3 /* tilemap_example.tmx in Resources */,
+				D83649661CCF47C100A1CEB3 /* iso_tileset.atlas in Resources */,
 				D8BA4E021CC93F8A00E1D612 /* tmw_desert_spacing.png in Resources */,
 				D8BA4DD51CC9374C00E1D612 /* MainMenu.xib in Resources */,
-				D8BA4DF81CC93F8A00E1D612 /* tilemap_iso_csv.tmx in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -326,14 +306,15 @@
 				D8BA4DA01CC9364200E1D612 /* GameViewController.swift in Sources */,
 				D8BA4D881CC935F700E1D612 /* AppDelegate.swift in Sources */,
 				D8BA4DB01CC9366100E1D612 /* SKTilemapParser.swift in Sources */,
+				D83649411CCEC77B00A1CEB3 /* SKTilemapCameraExtension.swift in Sources */,
 				D8BA4DB11CC9366100E1D612 /* SKTilemapTile.swift in Sources */,
 				D8BA4DB31CC9366100E1D612 /* SKTilemapTileset.swift in Sources */,
+				D836493F1CCEC77B00A1CEB3 /* SKTilemapCamera.swift in Sources */,
 				D8BA4DAF1CC9366100E1D612 /* SKTilemapObjectGroup.swift in Sources */,
 				D8BA4DB21CC9366100E1D612 /* SKTilemapTileData.swift in Sources */,
 				D8BA4DAE1CC9366100E1D612 /* SKTilemapObject.swift in Sources */,
 				D8BA4DA21CC9364200E1D612 /* GameScene.swift in Sources */,
 				D8BA4DAD1CC9366100E1D612 /* SKTilemapLayer.swift in Sources */,
-				D8BA4DA11CC9364200E1D612 /* Camera.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -341,9 +322,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D8BA4DEC1CC9392300E1D612 /* Camera.swift in Sources */,
+				D83649421CCEC77B00A1CEB3 /* SKTilemapCameraExtension.swift in Sources */,
 				D8BA4DE61CC9379D00E1D612 /* SKTilemapObjectGroup.swift in Sources */,
 				D8BA4DE81CC9379D00E1D612 /* SKTilemapTile.swift in Sources */,
+				D83649401CCEC77B00A1CEB3 /* SKTilemapCamera.swift in Sources */,
 				D8BA4DE31CC9379D00E1D612 /* SKTilemap.swift in Sources */,
 				D8BA4DEA1CC9379D00E1D612 /* SKTilemapTileset.swift in Sources */,
 				D8BA4DE51CC9379D00E1D612 /* SKTilemapObject.swift in Sources */,
