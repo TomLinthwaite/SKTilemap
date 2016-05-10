@@ -191,15 +191,6 @@ class GameScene: SKScene {
                 at the touch locations description to the console. Touching an object will print its message property. */
         }
     }
-    
-    override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        
-        for touch in touches {
-            /* Update the position of the camera based on the movement of the touch. */
-            sceneCamera.updatePosition(touch)
-        }
-
-    }
 #endif
     
 // MARK: Input OSX

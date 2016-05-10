@@ -43,12 +43,16 @@ class SKTilemapTile : SKSpriteNode {
     /** The tile data this tile represents. */
     var tileData: SKTilemapTileData
     
+    /** The layer this tile is on. */
+    let layer: SKTilemapLayer
+    
 // MARK: Initialization
     
     /* Initialize an SKTile using SKTileData. */
-    init(tileData: SKTilemapTileData) {
+    init(tileData: SKTilemapTileData, layer: SKTilemapLayer) {
         
         self.tileData = tileData
+        self.layer = layer
         
         super.init(texture: tileData.texture, color: SKColor.clearColor(), size: tileData.texture.size())
     }

@@ -1,6 +1,17 @@
 #SKTilemap Change Log
 
-###Latest - 26th April 2016
+###Latest - 10th May 2016
+
++ **New Property** - *SKTilemapTile* - `let layer: SKTilemapLayer`
+    + A tile now has a reference to the layer it belongs to. 
++ **New Property** - *SKTilemapCamera* - `private var longPressGestureRecognizer: UILongPressGestureRecognizer!`
++ **New Property** - *SKTilemapCamera* - `private var previousLocation: CGPoint!`
++ The camera no longer requires you to update the position outside of its own class. (For example in the scene touchesMoved method). Instead a UILongPressGestureRecognizer is created and added to the view on initialization. This change keeps the code cleaner and lets the class handle itself.
++ **New Function** - *SKTilemapCamera* - `func centerOnPosition(scenePosition: CGPoint, easingDuration: NSTimeInterval = 0)`
++ **New Function** - *SKTilemapCamera* - `func centerOnNode(node: SKNode?, easingDuration: NSTimeInterval = 0)`
+    + Two new functions for the camera useful for following/focusing on nodes in the scene. Moves the camera so it centers on a certain position within the scene. Easing can be applied by setting a timing value. Otherwise the camera position is updated instantly.
+
+**26th April 2016**
 
 + **New Class** - *SKTilemapCamera* - `class SKTilemapCamera : SKCameraNode`
     + After a lot of deliberating I've decided to bring the camera class in to the project. It's still not required by SKTilemap and is very much just an additional extra.

@@ -89,7 +89,8 @@ class SKTilemapLayer : SKNode {
                 return nil
         }
         
-        if let offsetX = attributes["offsetx"] where (Int(offsetX)) != nil,
+        if
+            let offsetX = attributes["offsetx"] where (Int(offsetX) != nil),
             let offsetY = attributes["offsety"] where (Int(offsetY) != nil) {
             offset = CGPoint(x: Int(offsetX)!, y: Int(offsetY)!)
         } else {
@@ -268,7 +269,7 @@ class SKTilemapLayer : SKNode {
     func setTileAtCoord(x: Int, _ y: Int, id: Int) -> (tileSet: SKTilemapTile?, tileRemoved: SKTilemapTile?) {
         
         if let tileData = tilemap.getTileData(id: id) {
-            return setTileAtCoord(x, y, tile: SKTilemapTile(tileData: tileData))
+            return setTileAtCoord(x, y, tile: SKTilemapTile(tileData: tileData, layer: self))
         }
         
         return (nil, nil)

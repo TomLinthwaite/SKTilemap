@@ -34,6 +34,7 @@
  */
 
 import SpriteKit
+import UIKit
 
 protocol SKTilemapCameraDelegate : class {
     
@@ -68,6 +69,9 @@ class SKTilemapCamera : SKCameraNode {
     /** Delegates are informed when the camera repositions or performs some other action. */
     private var delegates: [SKTilemapCameraDelegate] = []
     
+    /** Previous touch/mouse location the last time the position was updated. */
+    private var previousLocation: CGPoint!
+    
 // MARK: Initialization
     
     /** Initialize a basic camera. */
@@ -76,16 +80,22 @@ class SKTilemapCamera : SKCameraNode {
         self.worldNode = worldNode
         bounds = view.bounds
         self.zoomScale = 1.0
-        self.zoomRange = (0.05, 2.0)
+        self.zoomRange = (0.05, 4.0)
         allowZoom = true
         enabled = true
         
         super.init()
         
-        #if os(iOS)
+#if os(iOS)
         pinchGestureRecognizer = UIPinchGestureRecognizer(target: self, action: #selector(self.updateScale(_:)))
         view.addGestureRecognizer(pinchGestureRecognizer)
-        #endif
+        longPressGestureRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(self.updatePosition(_:)))
+        longPressGestureRecognizer.numberOfTouchesRequired = 1
+        longPressGestureRecognizer.numberOfTapsRequired = 0
+        longPressGestureRecognizer.allowableMovement = 0
+        longPressGestureRecognizer.minimumPressDuration = 0
+        view.addGestureRecognizer(longPressGestureRecognizer)
+#endif
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -112,20 +122,27 @@ class SKTilemapCamera : SKCameraNode {
 #if os(iOS)
     /** Used for zooming/scaling the camera. */
     private var pinchGestureRecognizer: UIPinchGestureRecognizer!
+    private var longPressGestureRecognizer: UILongPressGestureRecognizer!
     
     /** Used to determine the intial touch location when the user performs a pinch gesture. */
     private var initialTouchLocation = CGPointZero
     
-    /** Should be called from within a touches moved method. Will move the camera based on the direction of a touch.
+    /** Will move the camera based on the direction of a touch from the longPressGestureRecognizer.
         Any delegates of the camera will be informed that the camera moved. */
-    func updatePosition(touch: UITouch) {
+    func updatePosition(recognizer: UILongPressGestureRecognizer) {
         
         if scene == nil || !enabled { return }
-    
-        let location = touch.locationInNode(scene!)
-        let previousLocation = touch.previousLocationInNode(scene!)
-        let difference = CGPoint(x: location.x - previousLocation.x, y: location.y - previousLocation.y)
-        centerOnPosition(CGPoint(x: Int(position.x - difference.x), y: Int(position.y - difference.y)))
+        
+        if recognizer.state == .Began {
+            previousLocation = recognizer.locationInView(recognizer.view)
+        }
+        
+        if recognizer.state == .Changed {
+            let location = recognizer.locationInView(recognizer.view)
+            let difference = CGPoint(x: location.x - previousLocation.x, y: location.y - previousLocation.y)
+            centerOnPosition(CGPoint(x: Int(position.x - difference.x), y: Int(position.y - -difference.y)))
+            previousLocation = location
+        }
     }
     
     /** Scales the worldNode using input from a pinch gesture recogniser.
@@ -153,8 +170,6 @@ class SKTilemapCamera : SKCameraNode {
 // MARK: Input - OSX
     
 #if os(OSX)
-    /** Previous mouse location the last time the mouse was used to update position. */
-    private var previousLocation: CGPoint!
     
     /** Updates the camera position based on mouse movement.
         Any delegates of the camera will be informed that the camera moved. */
@@ -179,19 +194,36 @@ class SKTilemapCamera : SKCameraNode {
     
 // MARK: Positioning
     
-    /** Moves the camera so it centers on a certain position within the scene. */
-    func centerOnPosition(scenePosition: CGPoint) {
+    /** Moves the camera so it centers on a certain position within the scene. Easing can be applied by setting a timing 
+        interval. Otherwise the position is changed instantly. */
+    func centerOnPosition(scenePosition: CGPoint, easingDuration: NSTimeInterval = 0) {
         
-        position = scenePosition
-        clampWorldNode()
-        for delegate in delegates { delegate.didUpdatePosition(position: position, scale: zoomScale, bounds: self.bounds) }
+        if easingDuration == 0 {
+            
+            position = scenePosition
+            clampWorldNode()
+            for delegate in delegates { delegate.didUpdatePosition(position: position, scale: zoomScale, bounds: self.bounds) }
+            
+        } else {
+            
+            let moveAction = SKAction.moveTo(scenePosition, duration: easingDuration)
+            moveAction.timingMode = .EaseOut
+            
+            let blockAction = SKAction.runBlock({
+                self.clampWorldNode()
+                for delegate in self.delegates { delegate.didUpdatePosition(position: self.position, scale: self.zoomScale, bounds: self.bounds) }
+            })
+            
+            runAction(SKAction.group([moveAction, blockAction]))
+        }
     }
     
-    func centerOnNode(node: SKNode) {
+    func centerOnNode(node: SKNode?, easingDuration: NSTimeInterval = 0) {
         
-        var position = worldNode.convertPoint(node.position, fromNode: node.parent!)
-        position = scene!.convertPoint(position, fromNode: worldNode)
-        centerOnPosition(position)
+        guard let theNode = node where theNode.parent != nil else { return }
+        
+        let position = scene!.convertPoint(theNode.position, fromNode: theNode.parent!)
+        centerOnPosition(position, easingDuration: easingDuration)
     }
     
 // MARK: Scaling and Zoom
