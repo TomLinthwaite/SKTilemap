@@ -127,6 +127,7 @@ I haven't yet implemented all of the features you can use to create a tilemap in
 * Properties for all types (Map, Layer, Objects etc...)
 * Animated Tiles
 * Tile Clipping (Useful for large maps!)
+* Path Finding
 
 ### Not Supported
 * Orientation (Isometric Staggered, Hexagonal)
