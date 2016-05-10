@@ -15,6 +15,9 @@
 		D83649661CCF47C100A1CEB3 /* iso_tileset.atlas in Resources */ = {isa = PBXBuildFile; fileRef = D83649641CCF47C100A1CEB3 /* iso_tileset.atlas */; };
 		D83649681CCF47FE00A1CEB3 /* tilemap_example.tmx in Resources */ = {isa = PBXBuildFile; fileRef = D83649671CCF47FE00A1CEB3 /* tilemap_example.tmx */; };
 		D83649691CCF47FE00A1CEB3 /* tilemap_example.tmx in Resources */ = {isa = PBXBuildFile; fileRef = D83649671CCF47FE00A1CEB3 /* tilemap_example.tmx */; };
+		D8B06D111CE2763B00775566 /* SKTilemapPathFindingExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8B06D101CE2763B00775566 /* SKTilemapPathFindingExtension.swift */; };
+		D8B06D131CE27A5200775566 /* collision_tile.png in Resources */ = {isa = PBXBuildFile; fileRef = D8B06D121CE27A5200775566 /* collision_tile.png */; };
+		D8B06D141CE27A5200775566 /* collision_tile.png in Resources */ = {isa = PBXBuildFile; fileRef = D8B06D121CE27A5200775566 /* collision_tile.png */; };
 		D8BA4D881CC935F700E1D612 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8BA4D871CC935F700E1D612 /* AppDelegate.swift */; };
 		D8BA4D911CC935F700E1D612 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D8BA4D8F1CC935F700E1D612 /* Main.storyboard */; };
 		D8BA4D931CC935F700E1D612 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D8BA4D921CC935F700E1D612 /* Assets.xcassets */; };
@@ -53,6 +56,8 @@
 		D836493E1CCEC77B00A1CEB3 /* SKTilemapCameraExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SKTilemapCameraExtension.swift; sourceTree = "<group>"; };
 		D83649641CCF47C100A1CEB3 /* iso_tileset.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = iso_tileset.atlas; sourceTree = "<group>"; };
 		D83649671CCF47FE00A1CEB3 /* tilemap_example.tmx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = tilemap_example.tmx; sourceTree = "<group>"; };
+		D8B06D101CE2763B00775566 /* SKTilemapPathFindingExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SKTilemapPathFindingExtension.swift; sourceTree = "<group>"; };
+		D8B06D121CE27A5200775566 /* collision_tile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = collision_tile.png; sourceTree = "<group>"; };
 		D8BA4D841CC935F700E1D612 /* SKTilemap-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SKTilemap-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D8BA4D871CC935F700E1D612 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D8BA4D901CC935F700E1D612 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -131,13 +136,14 @@
 		D8BA4DA31CC9365200E1D612 /* SKTilemap */ = {
 			isa = PBXGroup;
 			children = (
+				D8BA4DA41CC9366100E1D612 /* SKTilemap.swift */,
 				D836493D1CCEC77B00A1CEB3 /* SKTilemapCamera.swift */,
 				D836493E1CCEC77B00A1CEB3 /* SKTilemapCameraExtension.swift */,
-				D8BA4DA41CC9366100E1D612 /* SKTilemap.swift */,
 				D8BA4DA51CC9366100E1D612 /* SKTilemapLayer.swift */,
 				D8BA4DA61CC9366100E1D612 /* SKTilemapObject.swift */,
 				D8BA4DA71CC9366100E1D612 /* SKTilemapObjectGroup.swift */,
 				D8BA4DA81CC9366100E1D612 /* SKTilemapParser.swift */,
+				D8B06D101CE2763B00775566 /* SKTilemapPathFindingExtension.swift */,
 				D8BA4DA91CC9366100E1D612 /* SKTilemapTile.swift */,
 				D8BA4DAA1CC9366100E1D612 /* SKTilemapTileData.swift */,
 				D8BA4DAB1CC9366100E1D612 /* SKTilemapTileset.swift */,
@@ -190,6 +196,7 @@
 				D83649641CCF47C100A1CEB3 /* iso_tileset.atlas */,
 				D8BA4DF41CC93F8A00E1D612 /* tmw_desert_spacing.png */,
 				D83649671CCF47FE00A1CEB3 /* tilemap_example.tmx */,
+				D8B06D121CE27A5200775566 /* collision_tile.png */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -277,6 +284,7 @@
 				D8BA4D961CC935F700E1D612 /* LaunchScreen.storyboard in Resources */,
 				D83649651CCF47C100A1CEB3 /* iso_tileset.atlas in Resources */,
 				D8BA4E011CC93F8A00E1D612 /* tmw_desert_spacing.png in Resources */,
+				D8B06D131CE27A5200775566 /* collision_tile.png in Resources */,
 				D83649681CCF47FE00A1CEB3 /* tilemap_example.tmx in Resources */,
 				D8BA4D931CC935F700E1D612 /* Assets.xcassets in Resources */,
 				D8BA4D911CC935F700E1D612 /* Main.storyboard in Resources */,
@@ -287,6 +295,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D8B06D141CE27A5200775566 /* collision_tile.png in Resources */,
 				D8BA4DD21CC9374C00E1D612 /* Assets.xcassets in Resources */,
 				D83649691CCF47FE00A1CEB3 /* tilemap_example.tmx in Resources */,
 				D83649661CCF47C100A1CEB3 /* iso_tileset.atlas in Resources */,
@@ -303,6 +312,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D8BA4DAC1CC9366100E1D612 /* SKTilemap.swift in Sources */,
+				D8B06D111CE2763B00775566 /* SKTilemapPathFindingExtension.swift in Sources */,
 				D8BA4DA01CC9364200E1D612 /* GameViewController.swift in Sources */,
 				D8BA4D881CC935F700E1D612 /* AppDelegate.swift in Sources */,
 				D8BA4DB01CC9366100E1D612 /* SKTilemapParser.swift in Sources */,

@@ -111,6 +111,22 @@ class GameScene: SKScene {
             layers are drawn. The default alignment is 0.5,0.5. Layers will have there center at the center of the scene. */
         tilemap.alignment = CGPoint(x: 0.5, y: 0.5)
         
+        /* Initialize Path Finding Graph. 
+            There are two ways to initialize a path finding graph for your tilemap. The first way (the way that has NOT
+            been commented out) checks a certain layer for tiles. If there is a tile at a certain position the tile is
+            assumed to be impassable/unwalkable/collidable and will not be used when finding paths. This is a common 
+            way to do things when using Tiled as you get a visual represtantion. This layer is usually set to "hidden"
+            and will not appear in the game. How ever for this example is has been left on. Check out the .tmx file
+            to see how it works. */
+        tilemap.initializeGraph(collisionLayerName: "collision layer", diagonalsAllowed: false)
+        
+        /* The second way is to have each tile have a certain property that you set either programatically or in Tiled.
+            The property can be called anything you want and does not need a value. 
+            When initializing a graph this way you can provide the names of the layers you wish to check for tiles with
+            that property. The parameter is not required though and if left out all layers will be checked. Any tile found
+            within any layer named here will be treated as collidable. */
+        //tilemap.initializeGraph(collisionProperty: "collidable", collisionLayerNames: ["tile layer"], diagonalsAllowed: true)
+        
         /* Loading custom objects */
         /**************************************************************************************************************/
         
@@ -148,6 +164,10 @@ class GameScene: SKScene {
                     sprite.position = worldPosition
                     sprite.zPosition = layer.zPosition + 1 /* Just to make sure its drawn above anything else. */
                     worldNode.addChild(sprite)
+                    
+                    /* We want the sign to be "collidable" so remove the node at its position within the path finding
+                        graph. */
+                    tilemap.removeGraphNodeAtPosition(object.coord)
                 }
             }
             
@@ -184,6 +204,20 @@ class GameScene: SKScene {
                      For each sign I added a "message" property. Lets print this to the console. Note that I forcibly 
                      unwrapped the property. In practice its a bad idea to do this. */
                     print("Object Message: \(object.properties["message"]!)")
+                }
+                
+                /* A cheap way to check if the path finding is working. Will find a path from the center of the map to
+                    where ever was touched. The path is shown by changing the alpha of the tiles along the path. */
+                guard let path = tilemap.findPathFrom(CGPoint(x: 16, y: 16), toPosition: coord, removeStartPosition: false) else { continue }
+                
+                for y in 0..<tilemap.height {
+                    for x in 0..<tilemap.width {
+                        tilemap.getLayer(name: "tile layer")?.tileAtCoord(x, y)?.alpha = 1.0
+                    }
+                }
+                
+                for point in path {
+                    tilemap.getLayer(name: "tile layer")?.tileAtCoord(point)?.alpha = 0.5
                 }
             }
             

@@ -1,6 +1,29 @@
 #SKTilemap Change Log
 
-###Latest - 10th May 2016
+###Latest - 11th May 2016
+
++ **New Extension** - *SKTilemapPathFindingExtension*
++ SKTilemap now supports Path Finding! The example project has also been updated to show how to use it. (which is very simple).
++ **New Function** - *SKTilemapPathFindingExtension* - `func initializeGraph(collisionProperty collisionProperty: String, collisionLayerNames: [String]? = nil, diagonalsAllowed: Bool) -> Bool`
+    + Initializes the path finding graph. Tiles on the layers named that have the collision property are treated as collidable (walls / non-walkable). Naming all of the collision layers isn't required. If no names are supplied all layer tiles are checked for the corresponding property.
++ **New Function** - *SKTilemapPathFindingExtension* - `func initializeGraph(collisionLayerName collisionLayerName: String, diagonalsAllowed: Bool) -> Bool`
+    + Initializes the path finding graph. All tiles on the given layer are treated as collidable tiles (walls / non-walkable).
++ **New Function** - *SKTilemapPathFindingExtension* - `func findPathFrom(x x: Int32, y: Int32, toX: Int32, toY: Int32, removeStartPosition: Bool = true) -> [CGPoint]?`
++ **New Function** - *SKTilemapPathFindingExtension* - `findPathFrom(position: CGPoint, toPosition: CGPoint, removeStartPosition: Bool = true) -> [CGPoint]?`
+    + Find a path from a start grid position to an end grid position. Will return nil if no path can be found. Optional parameter removes the starting position from the returned graph, which is usually desired. How ever it can be turned off. Returns an array of tilemap coordinates representing the path from start to finish.
++ **New Function** - *SKTilemapPathFindingExtension* - `func removeGraphNodeAtPosition(x x: Int32, y: Int32)`
++ **New Function** - *SKTilemapPathFindingExtension* - `func removeGraphNodeAtPosition(position: CGPoint)`
+    + Removes a node from the graph. This node can no longer be used when finding a path.
++ **New Function** - *SKTilemapPathFindingExtension* - `func addGraphNodeAtPosition(x x: Int32, y: Int32)`
++ **New Function** - *SKTilemapPathFindingExtension* - `func addGraphNodeAtPosition(position: CGPoint)`
+    + Adds a previously removed node to the grid. Does nothing if the grid already has a node at this position. Nodes that are added to the grid become valid path positions.
++ **New Function** - *SKTilemapPathFindingExtension* - `func resetGraph()`
+    + Re-adds all nodes that were removed from the graph. This resets the graph to the state it was in when it was first initialized.
++ **New Property** - * SKTilemap* - `var width: Int { return Int(size.width) }`
++ **New Property** - * SKTilemap* - `var height: Int { return Int(size.height) }`
+    + Added these to help clean up the code a bit instead of calling Int(n) all the time. Makes sense since these properties should never have a value thats not an Int.
+
+**10th May 2016**
 
 + **New Property** - *SKTilemapTile* - `let layer: SKTilemapLayer`
     + A tile now has a reference to the layer it belongs to. 

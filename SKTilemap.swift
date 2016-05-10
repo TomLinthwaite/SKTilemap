@@ -34,6 +34,7 @@
  */
 
 import SpriteKit
+import GameplayKit
 
 // MARK: SKTilemapOrientation
 enum SKTilemapOrientation : String {
@@ -67,7 +68,9 @@ class SKTilemap : SKNode {
     
     /** The dimensions of the tilemap in tiles. */
     let size: CGSize
-    private var sizeHalved: CGSize { get { return CGSize(width: size.width / 2, height: size.height / 2) } }
+    private var sizeHalved: CGSize { get { return CGSize(width: width / 2, height: height / 2) } }
+    var width: Int { return Int(size.width) }
+    var height: Int { return Int(size.height) }
     
     /** The size of the grid for the tilemap. Note that tilesets may have differently sized tiles. */
     let tileSize: CGSize
@@ -122,8 +125,8 @@ class SKTilemap : SKNode {
                 }
                 else if (scene != nil && scene?.view != nil) || displayBounds != nil {
                     
-                    for y in 0..<Int(size.height) {
-                        for x in 0..<Int(size.width) {
+                    for y in 0..<height {
+                        for x in 0..<width {
                             for layer in tileLayers {
                                 if let tile = layer.tileAtCoord(x, y) {
                                     tile.hidden = true
@@ -138,8 +141,8 @@ class SKTilemap : SKNode {
                 }
             } else {
                 
-                for y in 0..<Int(size.height) {
-                    for x in 0..<Int(size.width) {
+                for y in 0..<height {
+                    for x in 0..<width {
                         for layer in tileLayers {
                             if let tile = layer.tileAtCoord(x, y) {
                                 tile.hidden = false
@@ -160,6 +163,11 @@ class SKTilemap : SKNode {
         This is only needed if you plan on scaling the tilemap.*/
     var minTileClippingScale: CGFloat = 0.6
     private var disableTileClipping = false
+    
+    /** The graph used for path finding around the tilemap. To initialize it implement one of the SKTilemapPathFindingProtocol
+        functions. */
+    var pathFindingGraph: GKGridGraph?
+    var removedGraphNodes: [GKGridGraphNode] = []
     
 // MARK: Initialization
     
