@@ -194,6 +194,8 @@ class SKTilemap : SKNode {
         self.orientation = orientation
         
         super.init()
+        
+        self.name = name
     }
     
     /** Initialize a tilemap from tmx parser attributes. Should probably only be called by SKTilemapParser. */
