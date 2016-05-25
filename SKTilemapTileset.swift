@@ -182,7 +182,7 @@ class SKTilemapTileset : Equatable, Hashable {
             let tileData = SKTilemapTileData(id: id, texture: texture, source: imageName, tileset: self)
             self.tileData.insert(tileData)
             
-            print("\(id) - \(imageName) - \(atlasName)")
+            //print("\(id) - \(imageName) - \(atlasName)")
         }
     }
     
