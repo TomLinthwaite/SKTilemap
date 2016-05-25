@@ -125,6 +125,8 @@ class SKTilemapLayer : SKNode {
     
 // MARK: Tiles
     
+    /** Initialize the layer with in for the form of a 1 dimensional Int array. The array represents each a tile GID for
+        its respective location on the map. */
     func initializeTilesWithData(data: [Int]) -> Bool {
         
         if data.count != Int(size.width) * Int(size.height) {
@@ -147,6 +149,16 @@ class SKTilemapLayer : SKNode {
         }
         
         return true
+    }
+    
+    /** Initialize the layer with a single tile GID. (All tiles will be set to this GID. */
+    func initializeTilesWithID(id: Int) {
+        
+        for y in 0..<Int(size.height) {
+            for x in 0..<Int(size.width) {
+                setTileAtCoord(x, y, id: id)
+            }
+        }
     }
     
     /** Returns true if the x/y position passed into the function relates to a valid coordinate on the map. */

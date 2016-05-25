@@ -47,12 +47,25 @@ class SKTilemapTileset : Equatable, Hashable {
     /** The first GID of data within the tileset. */
     let firstGID: Int
     
+    /** Returns the highest ID value for this tileset. */
+    var lastGID: Int {
+        var id = firstGID
+        for data in tileData {
+            if data.id > id { id = data.id }
+        }
+        return id
+    }
+    
     /** The name of this tileset. This name should be unique per tileset added to the tilemap. */
     let name: String
     
     /** The filename of the source image used for this tileset. This will only be used if the tileset was created from
      a single image. */
     var source = ""
+    
+    /** The name of the .atlas file used when creating the tileset. */
+    var textureAtlasName = ""
+    var textureAtlas: SKTextureAtlas?
     
     /** Spacing in pixels between tiles within the source image. Only used when creating tiles from a single image
      (sprite sheet). */
@@ -104,6 +117,13 @@ class SKTilemapTileset : Equatable, Hashable {
         if let margin = attributes["margin"] where (Int(margin) != nil) { self.margin = Int(margin)! } else { margin = 0 }
     }
     
+    convenience init(name: String, atlasName: String, firstGID: Int, tileSize: CGSize, tileOffset: CGPoint = CGPointZero) {
+        
+        self.init(name: name, firstGID: firstGID, tileSize: tileSize, tileOffset: tileOffset)
+        
+        addTileData(atlasName: atlasName)
+    }
+    
 // MARK: Debug
     func printDebugDescription() {
         
@@ -147,30 +167,72 @@ class SKTilemapTileset : Equatable, Hashable {
         }
     }
     
+    /** Adds TileData with images taken from a .atlas file found inside the bundle. Note that when using this method GIDs
+        cannot be garunteed for each image and may change each time the game is loaded or atlas is changed. Instead use the image
+        names themselves when retrieving tiles from this tileset using this function: 'getTileData(name: String) -> SKTilemapTileData?' */
+    func addTileData(atlasName atlasName: String, atlas: SKTextureAtlas) {
+        
+        self.textureAtlasName = atlasName
+        self.textureAtlas = atlas
+        
+        for imageName in textureAtlas!.textureNames {
+            
+            let texture = textureAtlas!.textureNamed(imageName)
+            let id = self.tileData.count == 0 ? lastGID : lastGID + 1
+            let tileData = SKTilemapTileData(id: id, texture: texture, source: imageName, tileset: self)
+            self.tileData.insert(tileData)
+            
+            print("\(id) - \(imageName) - \(atlasName)")
+        }
+    }
+    
+    /** Adds TileData with images taken from a .atlas file found inside the main bundle. The atlas is created when this
+        function is called. If you would rather preload the atlas call 'addTileData(atlasName atlasName: String, atlas: SKTextureAtlas)' instead.*/
+    func addTileData(atlasName atlasName: String) {
+        
+        addTileData(atlasName: atlasName, atlas: SKTextureAtlas(named: atlasName))
+    }
+    
     /** Add a single SKTilemapTileData object to this tileset with texture. Will return the tile data object that was added on
         success or nil on failure. */
-    func addTileData(id id: Int, texture: SKTexture) -> SKTilemapTileData? {
+    func addTileData(id id: Int? = nil, texture: SKTexture) -> SKTilemapTileData? {
         
-        if self.tileData.contains({ $0.hashValue == id.hashValue }) {
+        var tileID: Int
+        
+        if id == nil {
+            tileID = lastGID + 1
+        } else {
+            tileID = id!
+        }
+        
+        if self.tileData.contains({ $0.hashValue == tileID.hashValue }) {
             print("SKTilemapTileset: Failed to add tile data. Tile data with the same id already exists.")
             return nil
         }
         
-        let tileData = SKTilemapTileData(id: id, texture: texture, tileset: self)
+        let tileData = SKTilemapTileData(id: tileID, texture: texture, tileset: self)
         self.tileData.insert(tileData)
         return tileData
     }
     
     /** Add a single SKTilemapTileData object to this tileset. It's texture is loaded from a file provided from the filename.
         Will return the tile data object that was added on success or nil on failure. */
-    func addTileData(id id: Int, imageNamed source: String) -> SKTilemapTileData? {
+    func addTileData(id id: Int? = nil, imageNamed source: String) -> SKTilemapTileData? {
         
-        if self.tileData.contains({ $0.hashValue == id.hashValue }) {
+        var tileID: Int
+        
+        if id == nil {
+            tileID = lastGID + 1
+        } else {
+            tileID = id!
+        }
+        
+        if self.tileData.contains({ $0.hashValue == tileID.hashValue }) {
             print("SKTilemapTileset: Failed to add tile data. Tile data with the same id already exists.")
             return nil
         }
         
-        let tileData = SKTilemapTileData(id: id, imageNamed: source, tileset: self)
+        let tileData = SKTilemapTileData(id: tileID, imageNamed: source, tileset: self)
         self.tileData.insert(tileData)
         return tileData
     }
@@ -184,6 +246,21 @@ class SKTilemapTileset : Equatable, Hashable {
         
         return nil
     }
+    
+    /** Returns a TileData object with a certain name. The name will be the same as the image name used to create it.
+        Note that only TileData objects created through an .atlas or added with an image name will can be retrieved.
+        If you loaded this tileset from a sprite sheet or added tile data with only a texture this function will not find
+        the tile. This is because there is no way of knowing what the source image is called.*/
+    func getTileData(name: String) -> SKTilemapTileData? {
+
+        if let index = tileData.indexOf({ ($0.source as NSString).stringByDeletingPathExtension == (name as NSString).stringByDeletingPathExtension }) {
+            return tileData[index]
+        }
+        
+        return nil
+    }
+        
+    
 }
 
 func ==(lhs: SKTilemapTileset, rhs: SKTilemapTileset) -> Bool {

@@ -89,13 +89,12 @@ class SKTilemap : SKNode {
     private var objectGroups: Set<SKTilemapObjectGroup> = []
     
     /** The display bounds the viewable area of this tilemap should be constrained to. Tiles positioned outside this 
-        rectangle will not be shown. This should speed up performance for large tilemaps. If this property is not set 
-        the SKView bounds will be used instead as default. */
+        rectangle will not be shown. This should speed up performance for large tilemaps when tile clipping is enabled. 
+        If this property is set to nil, the SKView bounds will be used instead as default. */
     var displayBounds: CGRect?
     
-    /** Stored property for the layer alignment. */
+    /** Internal property for the layer alignment. */
     private var layerAlignment = CGPoint(x: 0.5, y: 0.5)
-    
 
     /** Used to set how the layers are aligned within the map much like an anchorPoint on a sprite node.
     + 0 - The layers left/bottom most edge will rest at 0 in the scene
@@ -105,10 +104,11 @@ class SKTilemap : SKNode {
         get { return layerAlignment }
         set {
             self.layerAlignment = newValue
-            for layer in tileLayers { self.alignLayer(layer) }
+            tileLayers.forEach({ self.alignLayer($0) })
         }
     }
     
+    /** Internal var for whether tile clipping is enabled or disabled. */
     private var useTileClipping = false
     
     /** Enables tile clipping on this tilemap. */
@@ -119,7 +119,7 @@ class SKTilemap : SKNode {
             if newValue == true {
                 
                 if displayBounds == nil && scene == nil && scene?.view == nil {
-                    print("SKTiledMap: Failed to enable tile clipping. No bounds set.")
+                    print("SKTiledMap: Failed to enable tile clipping. Tilemap not added to Scene and no Display Bounds set.")
                     useTileClipping = false
                     return
                 }
@@ -168,6 +168,21 @@ class SKTilemap : SKNode {
         functions. */
     var pathFindingGraph: GKGridGraph?
     var removedGraphNodes: [GKGridGraphNode] = []
+    
+    /** Returns the next available global ID to use. Useful for adding new tiles to a tileset or working out a tilesets
+        first GID property. */
+    var nextGID: Int {
+        
+        var highestGID = 0
+        
+        for tileset in tilesets {
+            if tileset.lastGID > highestGID {
+                highestGID = tileset.lastGID
+            }
+        }
+        
+        return highestGID + 1
+    }
     
 // MARK: Initialization
     
@@ -353,6 +368,12 @@ class SKTilemap : SKNode {
         }
         
         return nil
+    }
+    
+    /** Returns "any" tilemap layer. Useful if you want access to functions within a layer and not bothered which layer
+        it is. In reality this just returns the first tilemap layer that was added. Can return nil if there are no layers. */
+    func anyLayer() -> SKTilemapLayer? {
+        return tileLayers.first
     }
     
     /** Removes a layer from the tilemap. The layer removed is returned or nil if the layer wasn't found. */

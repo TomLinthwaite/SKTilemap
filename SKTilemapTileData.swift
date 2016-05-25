@@ -64,11 +64,11 @@ class SKTilemapTileData : Equatable, Hashable {
     var animationFrames: [(id: Int, duration: CGFloat)] = []
     
 // MARK: Initialization
-    init(id: Int, texture: SKTexture, tileset: SKTilemapTileset) {
+    init(id: Int, texture: SKTexture, source: String = "", tileset: SKTilemapTileset) {
         
         self.id = id
         self.tileset = tileset
-        source = ""
+        self.source = source
         self.texture = texture
         texture.filteringMode = .Nearest
     }

@@ -111,6 +111,11 @@ class GameScene: SKScene {
             layers are drawn. The default alignment is 0.5,0.5. Layers will have there center at the center of the scene. */
         tilemap.alignment = CGPoint(x: 0.5, y: 0.5)
         
+        /* Qucik example usage of the new function inside a tileset. Tiles not used in example, but see the console to
+            check it worked. */
+        tilemap.getTileset(name: "tmw_desert_spacing")?.addTileData(atlasName: "iso_tileset")
+        //print("\(tilemap.getTileset(name: "tmw_desert_spacing")?.getTileData("dirt.png")?.tileset.textureAtlasName)")
+        
         /* Initialize Path Finding Graph. 
             There are two ways to initialize a path finding graph for your tilemap. The first way (the way that has NOT
             been commented out) checks a certain layer for tiles. If there is a tile at a certain position the tile is
@@ -208,7 +213,7 @@ class GameScene: SKScene {
                 
                 /* A cheap way to check if the path finding is working. Will find a path from the center of the map to
                     where ever was touched. The path is shown by changing the alpha of the tiles along the path. */
-                guard let path = tilemap.findPathFrom(CGPoint(x: 16, y: 16), toPosition: coord, removeStartPosition: false) else { continue }
+                guard let path = tilemap.findPathFrom(CGPoint(x: 16, y: 16), to: coord, removeStartPosition: false) else { continue }
                 
                 for y in 0..<tilemap.height {
                     for x in 0..<tilemap.width {

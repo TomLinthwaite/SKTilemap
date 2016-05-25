@@ -63,8 +63,23 @@ class SKTilemapCamera : SKCameraNode {
     /** Enable/Disable the ability to zoom the camera. */
     var allowZoom: Bool
     
+    private var isEnabled: Bool
+    
     /** Enable/Disable the camera. */
-    var enabled: Bool
+    var enabled: Bool {
+        get { return isEnabled }
+        set {
+            isEnabled = newValue
+            
+#if os(iOS)
+            longPressGestureRecognizer.enabled = newValue
+            pinchGestureRecognizer.enabled = newValue
+#endif
+        }
+    }
+    
+    /** Enable/Disable clamping of the worldNode */
+    var enableClamping: Bool
     
     /** Delegates are informed when the camera repositions or performs some other action. */
     private var delegates: [SKTilemapCameraDelegate] = []
@@ -79,16 +94,18 @@ class SKTilemapCamera : SKCameraNode {
         
         self.worldNode = worldNode
         bounds = view.bounds
-        self.zoomScale = 1.0
-        self.zoomRange = (0.05, 4.0)
+        zoomScale = 1.0
+        zoomRange = (0.05, 4.0)
         allowZoom = true
-        enabled = true
+        isEnabled = true
+        enableClamping = true
         
         super.init()
         
 #if os(iOS)
         pinchGestureRecognizer = UIPinchGestureRecognizer(target: self, action: #selector(self.updateScale(_:)))
         view.addGestureRecognizer(pinchGestureRecognizer)
+    
         longPressGestureRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(self.updatePosition(_:)))
         longPressGestureRecognizer.numberOfTouchesRequired = 1
         longPressGestureRecognizer.numberOfTapsRequired = 0
@@ -121,8 +138,8 @@ class SKTilemapCamera : SKCameraNode {
     
 #if os(iOS)
     /** Used for zooming/scaling the camera. */
-    private var pinchGestureRecognizer: UIPinchGestureRecognizer!
-    private var longPressGestureRecognizer: UILongPressGestureRecognizer!
+    var pinchGestureRecognizer: UIPinchGestureRecognizer!
+    var longPressGestureRecognizer: UILongPressGestureRecognizer!
     
     /** Used to determine the intial touch location when the user performs a pinch gesture. */
     private var initialTouchLocation = CGPointZero
@@ -131,13 +148,14 @@ class SKTilemapCamera : SKCameraNode {
         Any delegates of the camera will be informed that the camera moved. */
     func updatePosition(recognizer: UILongPressGestureRecognizer) {
         
-        if scene == nil || !enabled { return }
-        
         if recognizer.state == .Began {
             previousLocation = recognizer.locationInView(recognizer.view)
         }
         
         if recognizer.state == .Changed {
+            
+            if previousLocation == nil { return }
+            
             let location = recognizer.locationInView(recognizer.view)
             let difference = CGPoint(x: location.x - previousLocation.x, y: location.y - previousLocation.y)
             centerOnPosition(CGPoint(x: Int(position.x - difference.x), y: Int(position.y - -difference.y)))
@@ -264,6 +282,8 @@ class SKTilemapCamera : SKCameraNode {
     /** Keeps the worldNode clamped between a specific bounds. If the worldNode is smaller than these bounds it will
      stop it from moving outside of those bounds. */
     private func clampWorldNode() {
+        
+        if !enableClamping { return }
         
         let frame = worldNode.calculateAccumulatedFrame()
         var minX = frame.minX + (bounds.size.width / 2)

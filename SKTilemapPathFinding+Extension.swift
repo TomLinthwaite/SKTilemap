@@ -77,7 +77,7 @@ extension SKTilemap {
                 
                 for layer in layers {
                     
-                    if layer.tileAtCoord(x, y)?.tileData.properties[collisionProperty] != nil {
+                    if let tile = layer.tileAtCoord(x, y) where tile.tileData.properties[collisionProperty] != nil {
                         nodesToRemove.append(pathFindingGraph!.nodeAtGridPosition(vector2(Int32(x), Int32(y)))!)
                         break
                     }
@@ -132,29 +132,29 @@ extension SKTilemap {
     func findPathFrom(x x: Int32, y: Int32, toX: Int32, toY: Int32, removeStartPosition: Bool = true) -> [CGPoint]? {
         
         if x == toX && y == toY {
-            print("SKTilemap: Failed to find path. Start and End points are the same.")
+            //print("SKTilemap: Failed to find path. Start and End points are the same.")
             return nil
         }
         
         guard let graph = pathFindingGraph else {
-            print("SKTilemap: Failed to find path. Graph not initialized.")
+            //print("SKTilemap: Failed to find path. Graph not initialized.")
             return nil
         }
         
         guard let fromNode = graph.nodeAtGridPosition(vector2(x, y)) else {
-            print("SKTilemap. Failed to find path. Invalid start position.")
+            //print("SKTilemap. Failed to find path. Invalid start position.")
             return nil
         }
         
         guard let toNode = graph.nodeAtGridPosition(vector2(toX, toY)) else {
-            print("SKTilemap. Failed to find path. Invalid end position.")
+            //print("SKTilemap. Failed to find path. Invalid end position.")
             return nil
         }
         
         var path = graph.findPathFromNode(fromNode, toNode: toNode)
         
         if (removeStartPosition && path.count <= 1) || path.count == 0 {
-            print("SKTilemap: Failed to find path.")
+            //print("SKTilemap: Failed to find path.")
             return nil
         }
         
@@ -163,15 +163,39 @@ extension SKTilemap {
         return path.map({ CGPoint(x: Int(($0 as! GKGridGraphNode).gridPosition.x), y: Int(($0 as! GKGridGraphNode).gridPosition.y)) })
     }
     
-    /** Find a path from a start grid position to an end grid position. Will return nil if no path can be found.
-        Optional parameter removes the starting position from the returned graph, which is usually desired. How ever it
-        can be turned off. */
-    func findPathFrom(position: CGPoint, toPosition: CGPoint, removeStartPosition: Bool = true) -> [CGPoint]? {
-        return findPathFrom(x: Int32(position.x),
-                            y: Int32(position.y),
-                            toX: Int32(toPosition.x),
-                            toY: Int32(toPosition.y),
-                            removeStartPosition: removeStartPosition)
+    func findPathFrom(position: CGPoint, to: CGPoint, removeStartPosition: Bool = true) -> [CGPoint]? {
+        return findPathFrom(x: Int32(position.x), y: Int32(position.y), toX: Int32(to.x), toY: Int32(to.y), removeStartPosition: removeStartPosition)
+    }
+    
+    func findPathFrom(position: vector_int2, to: vector_int2, removeStartPosition: Bool = true) -> [CGPoint]? {
+        return findPathFrom(x: position.x, y: position.y, toX: to.x, toY: to.y, removeStartPosition: removeStartPosition)
+    }
+    
+    /** Returns the next position excluding starting position on a given path from point A to B. The return value is a tuple
+        that, as well as return the next position also returns the total distance of the path. */
+    func nextPositionOnPathFrom(x: Int32, y: Int32, toX: Int32, toY: Int32) -> (x: Int32, y: Int32, distance: Int)? {
+        
+        if let path = findPathFrom(x: x, y: y, toX: toX, toY: toY, removeStartPosition: true) {
+            return (Int32(path.first!.x), Int32(path.first!.y), path.count)
+        }
+        
+        return nil
+    }
+    
+    func nextPositionOnPathFrom(position: CGPoint, to: CGPoint) -> (position: CGPoint, distance: Int)? {
+        if let result = nextPositionOnPathFrom(Int32(position.x), y: Int32(position.y), toX: Int32(to.x), toY: Int32(to.y)) {
+            return (CGPoint(x: Int(result.x), y: Int(result.y)), result.distance)
+        }
+        
+        return nil
+    }
+    
+    func nextPositionOnPathFrom(position: vector_int2, to: vector_int2) -> (position: vector_int2, distance: Int)? {
+        if let result = nextPositionOnPathFrom(position.x, y: position.y, toX: to.x, toY: to.y) {
+            return (vector_int2(result.x, result.y), result.distance)
+        }
+        
+        return nil
     }
     
     /** Removes a node from the graph. This node can no longer be used when finding a path. */
@@ -214,6 +238,8 @@ extension SKTilemap {
                 break
             }
         }
+        
+        if nodeToAdd == nil { return }
         
         graph.addNodes([nodeToAdd!])
         graph.connectNodeToAdjacentNodes(nodeToAdd!)

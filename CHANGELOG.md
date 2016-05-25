@@ -1,6 +1,33 @@
 #SKTilemap Change Log
 
-###Latest - 11th May 2016
+###Latest - 25th May 2016
+
++ **New Property** - * SKTilemap* - `var nextGID: Int`
++ Provides the next avaible GID ready to be used inside this tilemap. Useful for when you're adding tilesets at run time and want to avoid conflicting GIDs.
++ **New Property** - * SKTilemap* - `func anyLayer() -> SKTilemapLayer?`
++ I wasn't sold on this idea when I first implemented it but it's grown on me while working in my own project so its staying. This is useful for when you want quick access to layer functions, such as finding a coord at touch position and it doesn't matter which layer it is. Be warned though, if you have layers with different offsets results may vary from what you expect. Only use this function if you expect your layers to be uniform in position.
++ **Updated Property** - * SKTilemapCamera* - `var enabled: Bool`
+    + Is now a computed property and enables/disables the Gesture Recognizers when running on iOS.
++ **New Function** - *SKTilemapLayer* - `func initializeTilesWithID(id: Int)`
+    + Initialize the layer with a single tile GID. (All tiles will be set to this GID.
++ **New Function** - *SKTilemapPathFindingExtension* - `func nextPositionOnPathFrom(x: Int32, y: Int32, toX: Int32, toY: Int32) -> (x: Int32, y: Int32, distance: Int)?`
++ **New Function** - *SKTilemapPathFindingExtension* - `func nextPositionOnPathFrom(position: CGPoint, to: CGPoint) -> (position: CGPoint, distance: Int)?`
++ **New Function** - *SKTilemapPathFindingExtension* - `func nextPositionOnPathFrom(position: vector_int2, to: vector_int2) -> (position: vector_int2, distance: Int)?`
++   Three new helper functions when working with path finding. These functions in essence all return the same thing. The next point along a path from one point to another. The function return type is a tuple and also returns the total distance of the path. I added this in because I found it useful when developing my game. The AI could determine whether to bother following the path based on its distance.
++ **New Property** - *SKTilemapTileset* - `var lastGID: Int`
+    + Returns the last GID inside this tileset. Useful if you want to add to it. lastGID + 1 will be your next GID.
++ **New Initializer** - *SKTilemapTileset* - `convenience init(name: String, atlasName: String, firstGID: Int, tileSize: CGSize, tileOffset: CGPoint = CGPointZero)`
+    + Tilesets now support loading tile data from an atlas file. All images within the atlas will be added as individual TileData objects to the tileset. How ever, GIDs cannot be garunteed when adding tile data this way. Therefore you must use the new function *'func getTileData(name: String) -> SKTilemapTileData?'* to get at your tile data stored within the tileset. The name you will use will be the images source name (with or without the .extension). 
++ **New Function** - *SKTilemapTileset* - `func addTileData(atlasName atlasName: String, atlas: SKTextureAtlas)`
++ **New Function** - *SKTilemapTileset* - `func addTileData(atlasName atlasName: String)`
+    + You can now add tile data to a tileset using images found inside a SKTextureAtlas. Both functions do essentially the same thing, except the latter will load the texture atlas on the spot. The other function (which takes an SKTextureAtlas as an argument) is primarily to be used when you have already loaded the texture atlas - maybe you loaded all your resources when the app/level started etc...
++ **New Function** - *SKTilemapTileset* - `func getTileData(name: String) -> SKTilemapTileData?`
+    + Returns a TileData object with a certain name. The name will be the same as the image name used to create it (with or without the .extension). Note that only TileData objects created through an .atlas or added with an image name will can be retrieved. If you loaded this tileset from a sprite sheet or added tile data with only a texture this function will not find the tile. This is because there is no way of knowing what the source image is called.
+**Note**
+Just a quick note on why you have to provide a name for you atlas if you are already providing the SKTextureAtlas object when adding to a tileset. The reason is because eventually I will get round to writing features that will Save/Load your current tilemap state. The name will be required because the tileset will need to know how it get its tiles.
+
+
+**11th May 2016**
 
 + **New Extension** - *SKTilemapPathFindingExtension*
 + SKTilemap now supports Path Finding! The example project has also been updated to show how to use it. (which is very simple).
