@@ -211,6 +211,10 @@ extension SKTilemap {
         removeGraphNodeAtPosition(x: Int32(position.x), y: Int32(position.y))
     }
     
+    func removeGraphNodeAtGridPosition(position: vector_int2) {
+        removeGraphNodeAtPosition(x: position.x, y: position.y)
+    }
+    
     /** Re-adds all nodes that were removed from the graph. This resets the graph to the state it was in when it was 
         first initialized. */
     func resetGraph() {
@@ -247,5 +251,9 @@ extension SKTilemap {
     
     func addGraphNodeAtPosition(position: CGPoint) {
         addGraphNodeAtPosition(x: Int32(position.x), y: Int32(position.y))
+    }
+    
+    func addGraphNodeAtGridPosition(position: vector_int2) {
+        return addGraphNodeAtPosition(x: position.x, y: position.y)
     }
 }
