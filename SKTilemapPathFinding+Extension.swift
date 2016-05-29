@@ -256,4 +256,18 @@ extension SKTilemap {
     func addGraphNodeAtGridPosition(position: vector_int2) {
         return addGraphNodeAtPosition(x: position.x, y: position.y)
     }
+    
+    func adjacentNodesAtGridPosition(position: vector_int2) -> [vector_int2] {
+        
+        if pathFindingGraph != nil && pathFindingGraph!.nodeAtGridPosition(position) == nil { return [] }
+        
+        var adjacentNodes: [vector_int2] = []
+        
+        for connectedNode in pathFindingGraph!.nodeAtGridPosition(position)!.connectedNodes {
+            
+            adjacentNodes.append((connectedNode as! GKGridGraphNode).gridPosition)
+        }
+        
+        return adjacentNodes
+    }
 }

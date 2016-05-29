@@ -236,7 +236,7 @@ class SKTilemapCamera : SKCameraNode {
         }
     }
     
-    func centerOnNode(node: SKNode?, easingDuration: NSTimeInterval = 0) {
+    override func centerOnNode(node: SKNode?, easingDuration: NSTimeInterval = 0) {
         
         guard let theNode = node where theNode.parent != nil else { return }
         
