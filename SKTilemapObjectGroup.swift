@@ -4,6 +4,7 @@
  
  Created by Thomas Linthwaite on 07/04/2016.
  GitHub: https://github.com/TomLinthwaite/SKTilemap
+ Website (Guide): http://tomlinthwaite.com/
  Wiki: https://github.com/TomLinthwaite/SKTilemap/wiki
  YouTube: https://www.youtube.com/channel/UCAlJgYx9-Ub_dKD48wz6vMw
  Twitter: https://twitter.com/Mr_Tomoso
