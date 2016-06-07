@@ -1,5 +1,7 @@
 # SKTilemap
 
+**I'm currently in the process of writing a more in depth guide for using SKTilemap, you can find it on my [website](http://tomlinthwaite.com).**
+
 ## Table of Contents
 + [Change Log](https://github.com/TomLinthwaite/SKTilemap/blob/master/CHANGELOG.md)
 + [Website](http://tomlinthwaite.com)
