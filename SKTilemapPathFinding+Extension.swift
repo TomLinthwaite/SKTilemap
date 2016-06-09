@@ -200,20 +200,23 @@ extension SKTilemap {
     }
     
     /** Removes a node from the graph. This node can no longer be used when finding a path. */
-    func removeGraphNodeAtPosition(x x: Int32, y: Int32) {
+    func removeGraphNodeAtPosition(x x: Int32, y: Int32) -> Bool  {
         
         if let node = pathFindingGraph?.nodeAtGridPosition(vector2(x, y)) {
             pathFindingGraph?.removeNodes([node])
             removedGraphNodes.append(node)
+            return true
         }
+        
+        return false
     }
     
-    func removeGraphNodeAtPosition(position: CGPoint) {
-        removeGraphNodeAtPosition(x: Int32(position.x), y: Int32(position.y))
+    func removeGraphNodeAtPosition(position: CGPoint) -> Bool  {
+        return removeGraphNodeAtPosition(x: Int32(position.x), y: Int32(position.y))
     }
     
-    func removeGraphNodeAtGridPosition(position: vector_int2) {
-        removeGraphNodeAtPosition(x: position.x, y: position.y)
+    func removeGraphNodeAtGridPosition(position: vector_int2) -> Bool  {
+        return removeGraphNodeAtPosition(x: position.x, y: position.y)
     }
     
     /** Re-adds all nodes that were removed from the graph. This resets the graph to the state it was in when it was 
@@ -226,48 +229,55 @@ extension SKTilemap {
     }
     
     /** Adds a previously removed node to the grid. Does nothing if the grid already has a node at this position.
-        Nodes that are added to the grid become valid path positions. */
-    func addGraphNodeAtPosition(x x: Int32, y: Int32) {
+        Nodes that are added to the grid become valid path positions.
+        Returns true if a node was succesfully added at the position. */
+    func addGraphNodeAtPosition(x x: Int32, y: Int32) -> Bool {
         
-        guard let graph = pathFindingGraph else { return }
+        guard let graph = pathFindingGraph else { return false }
         
-        if x < 0 || x >= Int32(graph.gridWidth) || y < 0 || y >= Int32(graph.gridHeight) { return }
+        if x < 0 || x >= Int32(graph.gridWidth) || y < 0 || y >= Int32(graph.gridHeight) { return false }
         
-        if graph.nodeAtGridPosition(vector2(x, y)) != nil { return }
+        if graph.nodeAtGridPosition(vector2(x, y)) != nil { return false }
         
         var nodeToAdd: GKGridGraphNode?
         
-        for node in removedGraphNodes {
-            if node.gridPosition.x == x && node.gridPosition.y == y {
-                nodeToAdd = node
-                break
-            }
+        for node in removedGraphNodes where node.gridPosition.x == x && node.gridPosition.y == y {
+            nodeToAdd = node
+            break
         }
         
-        if nodeToAdd == nil { return }
+        if nodeToAdd == nil { return false }
         
         graph.addNodes([nodeToAdd!])
         graph.connectNodeToAdjacentNodes(nodeToAdd!)
+        return true
     }
     
-    func addGraphNodeAtPosition(position: CGPoint) {
-        addGraphNodeAtPosition(x: Int32(position.x), y: Int32(position.y))
+    func addGraphNodeAtPosition(position: CGPoint) -> Bool {
+        return addGraphNodeAtPosition(x: Int32(position.x), y: Int32(position.y))
     }
     
-    func addGraphNodeAtGridPosition(position: vector_int2) {
+    func addGraphNodeAtGridPosition(position: vector_int2) -> Bool {
         return addGraphNodeAtPosition(x: position.x, y: position.y)
     }
     
     func adjacentNodesAtGridPosition(position: vector_int2) -> [vector_int2] {
         
-        if pathFindingGraph != nil && pathFindingGraph!.nodeAtGridPosition(position) == nil { return [] }
+        guard let pathFindingGraph = self.pathFindingGraph else { return [] }
         
         var adjacentNodes: [vector_int2] = []
         
-        for connectedNode in pathFindingGraph!.nodeAtGridPosition(position)!.connectedNodes {
+        let nodeAddedAtPosition = addGraphNodeAtGridPosition(position)
+        
+        if pathFindingGraph.nodeAtGridPosition(position) != nil {
             
-            adjacentNodes.append((connectedNode as! GKGridGraphNode).gridPosition)
+            for connectedNode in pathFindingGraph.nodeAtGridPosition(position)!.connectedNodes {
+                
+                adjacentNodes.append((connectedNode as! GKGridGraphNode).gridPosition)
+            }
         }
+        
+        if nodeAddedAtPosition { removeGraphNodeAtGridPosition(position) }
         
         return adjacentNodes
     }
