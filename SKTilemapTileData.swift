@@ -71,7 +71,7 @@ class SKTilemapTileData : Equatable, Hashable {
         self.tileset = tileset
         self.source = source
         self.texture = texture
-        texture.filteringMode = .Nearest
+        texture.filteringMode = .nearest
     }
     
     init(id: Int, imageNamed source: String, tileset: SKTilemapTileset) {
@@ -80,7 +80,7 @@ class SKTilemapTileData : Equatable, Hashable {
         self.tileset = tileset
         self.source = source
         texture = SKTexture(imageNamed: source)
-        texture.filteringMode = .Nearest
+        texture.filteringMode = .nearest
     }
     
 // MARK: Debug
@@ -91,7 +91,7 @@ class SKTilemapTileData : Equatable, Hashable {
 // MARK: Animation
     
     /** Returns the animation for this tileData if it has one. The animation is created from the animationFrames property. */
-    func getAnimation(tilemap: SKTilemap) -> SKAction? {
+    func getAnimation(_ tilemap: SKTilemap) -> SKAction? {
         
         if animationFrames.isEmpty {
             return nil
@@ -104,7 +104,7 @@ class SKTilemapTileData : Equatable, Hashable {
             if let texture = tilemap.getTileData(id: frameData.id)?.texture {
                 
                 let textureAction = SKAction.setTexture(texture)
-                let delayAction = SKAction.waitForDuration(NSTimeInterval(frameData.duration / 1000))
+                let delayAction = SKAction.wait(forDuration: TimeInterval(frameData.duration / 1000))
                 frames.append(SKAction.group([textureAction, delayAction]))
             }
         }

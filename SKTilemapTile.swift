@@ -55,7 +55,7 @@ class SKTilemapTile : SKSpriteNode {
         self.tileData = tileData
         self.layer = layer
         
-        super.init(texture: tileData.texture, color: SKColor.clearColor(), size: tileData.texture.size())
+        super.init(texture: tileData.texture, color: SKColor.clear(), size: tileData.texture.size())
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -65,20 +65,20 @@ class SKTilemapTile : SKSpriteNode {
 // MARK: Animation
     
     /** Will start the animation from this tiles tileData if it has one. */
-    func playAnimation(tilemap: SKTilemap, loopForever: Bool = true) {
+    func playAnimation(_ tilemap: SKTilemap, loopForever: Bool = true) {
         
         if let animation = tileData.getAnimation(tilemap) {
             
             if loopForever {
-                runAction(SKAction.repeatActionForever(animation), withKey: "tile animation")
+                run(SKAction.repeatForever(animation), withKey: "tile animation")
             } else {
-                runAction(animation, withKey: "tile animation")
+                run(animation, withKey: "tile animation")
             }
         }
     }
     
     /** Stops the tile animating. */
     func stopAnimation() {
-        removeActionForKey("tile animation")
+        removeAction(forKey: "tile animation")
     }
 }

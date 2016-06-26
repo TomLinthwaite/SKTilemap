@@ -38,17 +38,17 @@ import SpriteKit
 
 extension SKTilemap : SKTilemapCameraDelegate {
     
-    func didUpdateZoomScale(position position: CGPoint, scale: CGFloat, bounds: CGRect) {
+    func didUpdateZoomScale(position: CGPoint, scale: CGFloat, bounds: CGRect) {
         
         clipTilesOutOfBounds(scale: scale)
     }
     
-    func didUpdatePosition(position position: CGPoint, scale: CGFloat, bounds: CGRect) {
+    func didUpdatePosition(position: CGPoint, scale: CGFloat, bounds: CGRect) {
         
         clipTilesOutOfBounds(scale: scale)
     }
     
-    func didUpdateBounds(position position: CGPoint, scale: CGFloat, bounds: CGRect) {
+    func didUpdateBounds(position: CGPoint, scale: CGFloat, bounds: CGRect) {
         
         displayBounds = bounds
         clipTilesOutOfBounds(scale: scale)

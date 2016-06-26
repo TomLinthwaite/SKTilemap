@@ -74,7 +74,7 @@ class SKTilemapObjectGroup : Equatable, Hashable {
             let offsetY = attributes["offsety"] where (Int(offsetY) != nil) {
             offset = CGPoint(x: Int(offsetX)!, y: Int(offsetY)!)
         } else {
-            offset = CGPointZero
+            offset = CGPoint.zero
         }
     }
     
@@ -90,7 +90,7 @@ class SKTilemapObjectGroup : Equatable, Hashable {
     
     /** Adds an object to the group. Will return the object on success or nil on failure. (It will fail if an object
         with the same ID has already been added to the group. */
-    func addObject(object: SKTilemapObject) -> SKTilemapObject? {
+    func addObject(_ object: SKTilemapObject) -> SKTilemapObject? {
         
         if objects.contains({ $0.hashValue == object.hashValue }) {
             print("SKTilemapObjectGroup: Failed to add object. An object with the same id already exists.")
@@ -102,9 +102,9 @@ class SKTilemapObjectGroup : Equatable, Hashable {
     }
     
     /** Returns an object with a specific ID or nil on failure. */
-    func getObject(id id: Int) -> SKTilemapObject? {
+    func getObject(id: Int) -> SKTilemapObject? {
         
-        if let index = objects.indexOf( { $0.id == id } ) {
+        if let index = objects.index( where: { $0.id == id } ) {
             return objects[index]
         }
         
@@ -117,9 +117,9 @@ class SKTilemapObjectGroup : Equatable, Hashable {
     }
     
     /** Returns an object at coord x and y, or nil on failure. */
-    func getObjectAtCoord(x: Int, _ y: Int) -> SKTilemapObject? {
+    func getObjectAtCoord(_ x: Int, _ y: Int) -> SKTilemapObject? {
         
-        if let index = objects.indexOf( { Int($0.coord.x) == x && Int($0.coord.y) == y } ) {
+        if let index = objects.index( where: { Int($0.coord.x) == x && Int($0.coord.y) == y } ) {
             return objects[index]
         }
         
@@ -127,12 +127,12 @@ class SKTilemapObjectGroup : Equatable, Hashable {
     }
     
     /** Returns an object at coord x and y, or nil on failure. */
-    func getObjectAtCoord(coord: CGPoint) -> SKTilemapObject? {
+    func getObjectAtCoord(_ coord: CGPoint) -> SKTilemapObject? {
         return getObjectAtCoord(Int(coord.x), Int(coord.y))
     }
     
     /** Returns an array of objects that have a matching name. */
-    func getObjects(name name: String) -> [SKTilemapObject] {
+    func getObjects(name: String) -> [SKTilemapObject] {
         
         var objects = [SKTilemapObject]()
         
@@ -146,7 +146,7 @@ class SKTilemapObjectGroup : Equatable, Hashable {
     }
     
     /** Returns an array of objects that have a matching type. */
-    func getObjects(type type: String) -> [SKTilemapObject] {
+    func getObjects(type: String) -> [SKTilemapObject] {
         
         var objects = [SKTilemapObject]()
         

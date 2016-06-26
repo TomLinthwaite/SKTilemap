@@ -64,7 +64,7 @@ class GameScene: SKScene {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func didMoveToView(view: SKView) {
+    override func didMove(to view: SKView) {
         
         /* Initial Setup */
         /**************************************************************************************************************/
@@ -161,7 +161,7 @@ class GameScene: SKScene {
                         its probably a bad idea to add objects directly to the layer. It would be better if all your game
                         objects shared the same coordinate space. This includes the player, enemies and anything else. 
                         So instead we will add this object to the worldNode. */
-                    let worldPosition = worldNode.convertPoint(layerPosition, fromNode: layer)
+                    let worldPosition = worldNode.convert(layerPosition, from: layer)
                     
                     /* This new sprite will share a texture loaded from the tileset. It could easily be loaded from else
                         where. For this example we know the tile with ID 46 represents a sign so we will use that. */
@@ -184,7 +184,7 @@ class GameScene: SKScene {
 // MARK: Input iOS
     
 #if os(iOS)
-    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         
         for touch in touches {
             

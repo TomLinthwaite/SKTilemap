@@ -37,7 +37,7 @@
 import SpriteKit
 
 // MARK: SKTilemapParser
-class SKTilemapParser : NSObject, NSXMLParserDelegate {
+class SKTilemapParser : NSObject, XMLParserDelegate {
     
 // MARK: Properties
     private var errorMessage = ""
@@ -54,17 +54,17 @@ class SKTilemapParser : NSObject, NSXMLParserDelegate {
 // MARK: Functions
     
     /** Load an SKTilemap from a .tmx tilemap file. */
-    func loadTilemap(filename filename: String) -> SKTilemap? {
+    func loadTilemap(filename: String) -> SKTilemap? {
         
         guard
-            let path = NSBundle.mainBundle().pathForResource(filename, ofType: ".tmx"),
-            let data = NSData(contentsOfFile: path) else {
+            let path = Bundle.main().pathForResource(filename, ofType: ".tmx"),
+            let data = try? Data(contentsOf: URL(fileURLWithPath: path)) else {
                 print("SKTilemapParser: Failed to load tilemap '\(filename)'.")
                 return nil
         }
         
         self.filename = filename
-        let parser = NSXMLParser(data: data)
+        let parser = XMLParser(data: data)
         parser.delegate = self
         errorMessage = "SKTilemapParser: Couldn't load file \(filename)"
         
@@ -77,7 +77,7 @@ class SKTilemapParser : NSObject, NSXMLParserDelegate {
     }
     
 // MARK: NSXMLParser Delegate Functions
-    func parser(parser: NSXMLParser, didStartElement elementName: String, namespaceURI: String?,
+    func parser(_ parser: XMLParser, didStartElement elementName: String, namespaceURI: String?,
                 qualifiedName qName: String?, attributes attributeDict: [String : String]) {
         
         if elementName == "map" {
@@ -233,7 +233,7 @@ class SKTilemapParser : NSObject, NSXMLParserDelegate {
         }
     }
     
-    func parser(parser: NSXMLParser, didEndElement elementName: String, namespaceURI: String?,
+    func parser(_ parser: XMLParser, didEndElement elementName: String, namespaceURI: String?,
                 qualifiedName qName: String?) {
         
         if elementName == "tile" {
@@ -282,10 +282,10 @@ class SKTilemapParser : NSObject, NSXMLParserDelegate {
             }
             
             if encoding == "csv" {
-                characters = characters.stringByReplacingOccurrencesOfString("\n", withString: "")
-                characters = characters.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
-                characters = characters.stringByReplacingOccurrencesOfString(" ", withString: "")
-                let stringData = characters.componentsSeparatedByString(",")
+                characters = characters.replacingOccurrences(of: "\n", with: "")
+                characters = characters.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+                characters = characters.replacingOccurrences(of: " ", with: "")
+                let stringData = characters.components(separatedBy: ",")
                 
                 for stringID in stringData {
                     
@@ -299,11 +299,16 @@ class SKTilemapParser : NSObject, NSXMLParserDelegate {
             
             if encoding == "base64" {
                 
-                if let base64Data = NSData(base64EncodedString: characters, options: .IgnoreUnknownCharacters) {
+                let options = Data.Base64DecodingOptions.ignoreUnknownCharacters
+                
+                characters = characters.replacingOccurrences(of: "\n", with: "")
+                characters = characters.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+                characters = characters.replacingOccurrences(of: " ", with: "")
+                if let base64Data = Data(base64Encoded: characters) {
                     
-                    let count = base64Data.length / sizeof(Int32)
-                    var arr = [Int32](count: count, repeatedValue: 0)
-                    base64Data.getBytes(&arr, length: count * sizeof(Int32))
+                    let count = base64Data.count / sizeof(Int32)
+                    var arr = [Int32](repeating: 0, count: count)
+                    (base64Data as NSData).getBytes(&arr, length: count * sizeof(Int32))
                     
                     for id in arr {
                         data.append(Int(id))
@@ -327,7 +332,7 @@ class SKTilemapParser : NSObject, NSXMLParserDelegate {
         characters = ""
     }
     
-    func parser(parser: NSXMLParser, foundCharacters string: String) {
+    func parser(_ parser: XMLParser, foundCharacters string: String) {
         characters += string
     }
 }

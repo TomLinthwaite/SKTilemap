@@ -100,7 +100,7 @@ class SKTilemapObject : Equatable, Hashable {
             
             size = CGSize(width: Int(width)!, height: Int(height)!)
         } else {
-            size = CGSizeZero
+            size = CGSize.zero
         }
         
         if let name = attributes["name"] { self.name = name } else { name = "" }
@@ -116,13 +116,13 @@ class SKTilemapObject : Equatable, Hashable {
     
     /* Returns the position of this object on a certain tilemap layer. This position will share the same position as 
         the tile at this position. */
-    func positionOnLayer(layer: SKTilemapLayer) -> CGPoint {
+    func positionOnLayer(_ layer: SKTilemapLayer) -> CGPoint {
         return layer.tilePositionAtCoord(Int(coord.x), Int(coord.y), offset: objectGroup.offset)
     }
     
     /* Returns the position of this object on a certain tilemap layer. This position will share the same position as
      the tile at this position. Can return nil if a layer cannot be found with that name. */
-    func positionOnLayerNamed(name: String) -> CGPoint? {
+    func positionOnLayerNamed(_ name: String) -> CGPoint? {
         if let layer = objectGroup.tilemap.getLayer(name: name) {
             return positionOnLayer(layer)
         }

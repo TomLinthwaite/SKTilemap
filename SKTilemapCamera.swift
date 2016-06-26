@@ -41,9 +41,9 @@ import SpriteKit
 
 protocol SKTilemapCameraDelegate : class {
     
-    func didUpdatePosition(position position: CGPoint, scale: CGFloat, bounds: CGRect)
-    func didUpdateZoomScale(position position: CGPoint, scale: CGFloat, bounds: CGRect)
-    func didUpdateBounds(position position: CGPoint, scale: CGFloat, bounds: CGRect)
+    func didUpdatePosition(position: CGPoint, scale: CGFloat, bounds: CGRect)
+    func didUpdateZoomScale(position: CGPoint, scale: CGFloat, bounds: CGRect)
+    func didUpdateBounds(position: CGPoint, scale: CGFloat, bounds: CGRect)
 }
 
 // MARK: Camera
@@ -75,8 +75,8 @@ class SKTilemapCamera : SKCameraNode {
             isEnabled = newValue
             
 #if os(iOS)
-            longPressGestureRecognizer.enabled = newValue
-            pinchGestureRecognizer.enabled = newValue
+            longPressGestureRecognizer.isEnabled = newValue
+            pinchGestureRecognizer.isEnabled = newValue
 #endif
         }
     }
@@ -124,16 +124,16 @@ class SKTilemapCamera : SKCameraNode {
     }
     
     /** Adds a delegate to camera. Will not allow duplicate delegates to be added. */
-    func addDelegate(delegate: SKTilemapCameraDelegate) {
+    func addDelegate(_ delegate: SKTilemapCameraDelegate) {
         
-        if let _ = delegates.indexOf({ $0 === delegate }) { return }
+        if let _ = delegates.index(where: { $0 === delegate }) { return }
         delegates.append(delegate)
     }
     
     /** Removes a delegate from the camera. */
-    func removeDelegate(delegate: SKTilemapCameraDelegate) {
-        if let index = delegates.indexOf( { $0 === delegate } ) {
-            delegates.removeAtIndex(index)
+    func removeDelegate(_ delegate: SKTilemapCameraDelegate) {
+        if let index = delegates.index( where: { $0 === delegate } ) {
+            delegates.remove(at: index)
         }
     }
     
@@ -145,21 +145,21 @@ class SKTilemapCamera : SKCameraNode {
     var longPressGestureRecognizer: UILongPressGestureRecognizer!
     
     /** Used to determine the intial touch location when the user performs a pinch gesture. */
-    private var initialTouchLocation = CGPointZero
+    private var initialTouchLocation = CGPoint.zero
     
     /** Will move the camera based on the direction of a touch from the longPressGestureRecognizer.
         Any delegates of the camera will be informed that the camera moved. */
-    func updatePosition(recognizer: UILongPressGestureRecognizer) {
+    func updatePosition(_ recognizer: UILongPressGestureRecognizer) {
         
-        if recognizer.state == .Began {
-            previousLocation = recognizer.locationInView(recognizer.view)
+        if recognizer.state == .began {
+            previousLocation = recognizer.location(in: recognizer.view)
         }
         
-        if recognizer.state == .Changed {
+        if recognizer.state == .changed {
             
             if previousLocation == nil { return }
             
-            let location = recognizer.locationInView(recognizer.view)
+            let location = recognizer.location(in: recognizer.view)
             let difference = CGPoint(x: location.x - previousLocation.x, y: location.y - previousLocation.y)
             centerOnPosition(CGPoint(x: Int(position.x - difference.x), y: Int(position.y - -difference.y)))
             previousLocation = location
@@ -168,15 +168,15 @@ class SKTilemapCamera : SKCameraNode {
     
     /** Scales the worldNode using input from a pinch gesture recogniser.
         Any delegates of the camera will be informed that the camera changed scale. */
-    func updateScale(recognizer: UIPinchGestureRecognizer) {
+    func updateScale(_ recognizer: UIPinchGestureRecognizer) {
         
         guard let scene = self.scene else { return }
         
-        if recognizer.state == .Began {
-            initialTouchLocation = scene.convertPointFromView(recognizer.locationInView(recognizer.view))
+        if recognizer.state == .began {
+            initialTouchLocation = scene.convertPoint(fromView: recognizer.location(in: recognizer.view))
         }
         
-        if recognizer.state == .Changed && enabled && allowZoom {
+        if recognizer.state == .changed && enabled && allowZoom {
             
             zoomScale *= recognizer.scale
             applyZoomScale(zoomScale)
@@ -184,7 +184,7 @@ class SKTilemapCamera : SKCameraNode {
             centerOnPosition(CGPoint(x: initialTouchLocation.x * zoomScale, y: initialTouchLocation.y * zoomScale))
         }
         
-        if recognizer.state == .Ended { }
+        if recognizer.state == .ended { }
     }
 #endif
     
@@ -217,7 +217,7 @@ class SKTilemapCamera : SKCameraNode {
     
     /** Moves the camera so it centers on a certain position within the scene. Easing can be applied by setting a timing 
         interval. Otherwise the position is changed instantly. */
-    func centerOnPosition(scenePosition: CGPoint, easingDuration: NSTimeInterval = 0) {
+    func centerOnPosition(_ scenePosition: CGPoint, easingDuration: TimeInterval = 0) {
         
         if easingDuration == 0 {
             
@@ -227,23 +227,23 @@ class SKTilemapCamera : SKCameraNode {
             
         } else {
             
-            let moveAction = SKAction.moveTo(scenePosition, duration: easingDuration)
-            moveAction.timingMode = .EaseOut
+            let moveAction = SKAction.move(to: scenePosition, duration: easingDuration)
+            moveAction.timingMode = .easeOut
             
-            let blockAction = SKAction.runBlock({
+            let blockAction = SKAction.run({
                 self.clampWorldNode()
                 for delegate in self.delegates { delegate.didUpdatePosition(position: self.position, scale: self.zoomScale, bounds: self.bounds) }
             })
             
-            runAction(SKAction.group([moveAction, blockAction]))
+            run(SKAction.group([moveAction, blockAction]))
         }
     }
     
-    override func centerOnNode(node: SKNode?, easingDuration: NSTimeInterval = 0) {
+    func centerOnNode(_ node: SKNode?, easingDuration: TimeInterval = 0) {
         
         guard let theNode = node where theNode.parent != nil else { return }
         
-        let position = scene!.convertPoint(theNode.position, fromNode: theNode.parent!)
+        let position = scene!.convert(theNode.position, from: theNode.parent!)
         centerOnPosition(position, easingDuration: easingDuration)
     }
     
@@ -251,7 +251,7 @@ class SKTilemapCamera : SKCameraNode {
     
     /** Applies a scale to the worldNode. Ensures that the scale stays within its range and that the worldNode is 
         clamped within its bounds. */
-    func applyZoomScale(scale: CGFloat) {
+    func applyZoomScale(_ scale: CGFloat) {
         
         var zoomScale = scale
         
@@ -273,7 +273,7 @@ class SKTilemapCamera : SKCameraNode {
         
         let frame = worldNode.calculateAccumulatedFrame()
         
-        if bounds == CGRectZero || frame == CGRectZero { return 0 }
+        if bounds == CGRect.zero || frame == CGRect.zero { return 0 }
         
         let xScale = (bounds.width * zoomScale) / frame.width
         let yScale = (bounds.height * zoomScale) / frame.height
@@ -321,7 +321,7 @@ class SKTilemapCamera : SKCameraNode {
     }
     
     /** Updates the bounds for the worldNode to be constrained to. Will inform all delegates this change occured. */
-    func updateBounds(bounds: CGRect) {
+    func updateBounds(_ bounds: CGRect) {
         
         self.bounds = bounds
         for delegate in delegates { delegate.didUpdateBounds(position: position, scale: zoomScale, bounds: self.bounds) }

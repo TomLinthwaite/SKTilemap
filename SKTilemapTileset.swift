@@ -80,7 +80,7 @@ class SKTilemapTileset : Equatable, Hashable {
     let tileSize: CGSize
     
     /** Offset from tile position when drawing tiles. */
-    var tileOffset = CGPointZero
+    var tileOffset = CGPoint.zero
     
     /** A set containing all of the tile data for this tileset. */
     private var tileData: Set<SKTilemapTileData> = []
@@ -88,7 +88,7 @@ class SKTilemapTileset : Equatable, Hashable {
 // MARK: Initialization
     
     /** Initialize an empty tileset. */
-    init(name: String, firstGID: Int, tileSize: CGSize, tileOffset: CGPoint = CGPointZero) {
+    init(name: String, firstGID: Int, tileSize: CGSize, tileOffset: CGPoint = CGPoint.zero) {
         
         self.name = name
         self.firstGID = firstGID
@@ -118,7 +118,7 @@ class SKTilemapTileset : Equatable, Hashable {
         if let margin = attributes["margin"] where (Int(margin) != nil) { self.margin = Int(margin)! } else { margin = 0 }
     }
     
-    convenience init(name: String, atlasName: String, firstGID: Int, tileSize: CGSize, tileOffset: CGPoint = CGPointZero) {
+    convenience init(name: String, atlasName: String, firstGID: Int, tileSize: CGSize, tileOffset: CGPoint = CGPoint.zero) {
         
         self.init(name: name, firstGID: firstGID, tileSize: tileSize, tileOffset: tileOffset)
         
@@ -157,7 +157,7 @@ class SKTilemapTileset : Equatable, Hashable {
             let rH = tileSize.height / CGFloat(height)
             let rect = CGRect(x: rX, y: rY, width: rW, height: rH)
             
-            let texture = SKTexture(rect: rect, inTexture: texture)
+            let texture = SKTexture(rect: rect, in: texture)
             addTileData(id: id, texture: texture)
             
             x += Int(tileSize.width) + spacing
@@ -171,7 +171,7 @@ class SKTilemapTileset : Equatable, Hashable {
     /** Adds TileData with images taken from a .atlas file found inside the bundle. Note that when using this method GIDs
         cannot be garunteed for each image and may change each time the game is loaded or atlas is changed. Instead use the image
         names themselves when retrieving tiles from this tileset using this function: 'getTileData(name: String) -> SKTilemapTileData?' */
-    func addTileData(atlasName atlasName: String, atlas: SKTextureAtlas) {
+    func addTileData(atlasName: String, atlas: SKTextureAtlas) {
         
         self.textureAtlasName = atlasName
         self.textureAtlas = atlas
@@ -189,14 +189,14 @@ class SKTilemapTileset : Equatable, Hashable {
     
     /** Adds TileData with images taken from a .atlas file found inside the main bundle. The atlas is created when this
         function is called. If you would rather preload the atlas call 'addTileData(atlasName atlasName: String, atlas: SKTextureAtlas)' instead.*/
-    func addTileData(atlasName atlasName: String) {
+    func addTileData(atlasName: String) {
         
         addTileData(atlasName: atlasName, atlas: SKTextureAtlas(named: atlasName))
     }
     
     /** Add a single SKTilemapTileData object to this tileset with texture. Will return the tile data object that was added on
         success or nil on failure. */
-    func addTileData(id id: Int? = nil, texture: SKTexture) -> SKTilemapTileData? {
+    func addTileData(id: Int? = nil, texture: SKTexture) -> SKTilemapTileData? {
         
         var tileID: Int
         
@@ -218,7 +218,7 @@ class SKTilemapTileset : Equatable, Hashable {
     
     /** Add a single SKTilemapTileData object to this tileset. It's texture is loaded from a file provided from the filename.
         Will return the tile data object that was added on success or nil on failure. */
-    func addTileData(id id: Int? = nil, imageNamed source: String) -> SKTilemapTileData? {
+    func addTileData(id: Int? = nil, imageNamed source: String) -> SKTilemapTileData? {
         
         var tileID: Int
         
@@ -239,9 +239,9 @@ class SKTilemapTileset : Equatable, Hashable {
     }
     
     /** Returns a SKTilemapTileData object contained within this tileset matching the ID. Returns nil on failure. */
-    func getTileData(id id: Int) -> SKTilemapTileData? {
+    func getTileData(id: Int) -> SKTilemapTileData? {
         
-        if let index = tileData.indexOf( { $0.id == id } ) {
+        if let index = tileData.index( where: { $0.id == id } ) {
             return tileData[index]
         }
         
@@ -252,9 +252,9 @@ class SKTilemapTileset : Equatable, Hashable {
         Note that only TileData objects created through an .atlas or added with an image name will can be retrieved.
         If you loaded this tileset from a sprite sheet or added tile data with only a texture this function will not find
         the tile. This is because there is no way of knowing what the source image is called.*/
-    func getTileData(name: String) -> SKTilemapTileData? {
+    func getTileData(_ name: String) -> SKTilemapTileData? {
 
-        if let index = tileData.indexOf({ ($0.source as NSString).stringByDeletingPathExtension == (name as NSString).stringByDeletingPathExtension }) {
+        if let index = tileData.index(where: { ($0.source as NSString).deletingPathExtension == (name as NSString).deletingPathExtension }) {
             return tileData[index]
         }
         
