@@ -1,6 +1,11 @@
 #SKTilemap Change Log
 
-###Latest - 25th May 2016
+###Latest - 26th June
+
++ **iOS 10**
+    + Beta release for anyone wishing to use this library with Apples beta release of iOS10. I have literally just gone through the trouble of converting the project and not much else. :P
+
+**25th May 2016**
 
 + **New Property** - * SKTilemap* - `var nextGID: Int`
     + Provides the next avaible GID ready to be used inside this tilemap. Useful for when you're adding tilesets at run time and want to avoid conflicting GIDs.
