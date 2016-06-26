@@ -1,5 +1,7 @@
 # SKTilemap
 
+**iOS10 Beta Branch Released** If you have always dreamed of using SKTilemap with iOS10 then I have good news. Now you can!
+
 **I'm currently in the process of writing a more in depth guide for using SKTilemap, you can find it on my [website](http://tomlinthwaite.com).**
 
 ## Table of Contents
